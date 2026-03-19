@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌺 Kajukenbo — Hawaiian Boxing</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: #0a0a0f;
+      color: #e8e0d5;
+      line-height: 1.75;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(200,80,0,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(200,80,0,0.10) 0%, transparent 60%),
+        #0a0a0f;
+    }
+
+    .hero::before {
+      content: '🌺';
+      position: absolute;
+      font-size: clamp(14rem, 40vw, 32rem);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.04;
+      white-space: nowrap;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(200,80,0,0.15);
+      border: 1px solid rgba(200,80,0,0.4);
+      color: #e08040;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 .accent { color: #e08040; }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: #9a8870;
+      margin-bottom: 2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-acronym {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .hero-acronym span {
+      background: rgba(200,80,0,0.12);
+      border: 1px solid rgba(200,80,0,0.3);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      color: #e8d0b8;
+    }
+
+    .hero-acronym span strong { color: #e08040; font-size: 1.1rem; }
+
+    .hero-quote {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #b8a888;
+      border-left: 3px solid #e08040;
+      padding-left: 1.2rem;
+      margin-top: 2rem;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #5a5040;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, #5a5040, transparent);
+    }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,15,0.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,80,0,0.12);
+      padding: 0 2rem;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      overflow-x: auto;
+      max-width: 1100px;
+      margin: 0 auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    nav ul::-webkit-scrollbar { display: none; }
+
+    nav ul li a {
+      display: block;
+      padding: 1rem 1.1rem;
+      color: #8a7868;
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    nav ul li a:hover { color: #e08040; }
+
+    /* ─── LAYOUT ────────────────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .section { margin-bottom: 5rem; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(200,80,0,0.12);
+    }
+
+    .section-number {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: #e08040;
+      text-transform: uppercase;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .section-header h2 .ico { margin-right: 0.4rem; }
+
+    /* ─── ALERT BOX ─────────────────────────────────────────── */
+    .alert {
+      background: rgba(200,80,0,0.07);
+      border: 1px solid rgba(200,80,0,0.3);
+      border-radius: 8px;
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 2rem;
+      color: #d8c8b8;
+    }
+    .alert strong { color: #e08040; }
+
+    /* ─── TABLES ─────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+
+    thead tr { background: rgba(200,80,0,0.12); }
+    thead th {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      color: #e08040;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody td { padding: 0.7rem 1rem; color: #c8bfb5; vertical-align: top; }
+    tbody td:first-child { color: #f0e8e0; font-weight: 600; }
+
+    /* ─── CARDS ─────────────────────────────────────────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: rgba(200,80,0,0.4); transform: translateY(-2px); }
+
+    .card-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+
+    .card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .card p, .card ul { font-size: 0.88rem; color: #9a8870; line-height: 1.6; }
+    .card ul { padding-left: 1.1rem; }
+    .card ul li { margin-bottom: 0.2rem; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(200,80,0,0.12);
+      color: #e08040;
+      border: 1px solid rgba(200,80,0,0.3);
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    /* ─── FOUNDER PROFILE ───────────────────────────────────── */
+    .founder-profile {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      background: rgba(200,80,0,0.06);
+      border: 1px solid rgba(200,80,0,0.2);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      align-items: start;
+    }
+
+    .founder-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(200,80,0,0.2);
+      border: 2px solid rgba(200,80,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+
+    .founder-name { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 0.2rem; }
+    .founder-title { font-size: 0.82rem; color: #e08040; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .badge {
+      background: rgba(200,80,0,0.1);
+      border: 1px solid rgba(200,80,0,0.25);
+      color: #c8a888;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+    }
+
+    /* ─── TIMELINE ───────────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 2rem; margin: 1.5rem 0; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.5rem; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, #e08040, transparent);
+    }
+
+    .timeline-item { position: relative; margin-bottom: 2rem; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem; top: 0.55rem;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #e08040;
+      box-shadow: 0 0 8px rgba(200,80,0,0.5);
+    }
+
+    .timeline-date { font-size: 0.75rem; color: #e08040; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .timeline-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+    .timeline-desc { font-size: 0.88rem; color: #9a8870; }
+
+    /* ─── VERDICT ────────────────────────────────────────────── */
+    .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 1.5rem 0; }
+    @media (max-width: 600px) {
+      .verdict-grid { grid-template-columns: 1fr; }
+      .founder-profile { grid-template-columns: 1fr; }
+    }
+
+    .verdict-box { border-radius: 10px; padding: 1.5rem; }
+    .verdict-box.pro { background: rgba(30,120,60,0.1); border: 1px solid rgba(30,120,60,0.3); }
+    .verdict-box.con { background: rgba(180,80,20,0.1); border: 1px solid rgba(180,80,20,0.3); }
+    .verdict-box h3 { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; font-weight: 700; }
+    .verdict-box.pro h3 { color: #4caf70; }
+    .verdict-box.con h3 { color: #e08040; }
+    .verdict-box ul { list-style: none; font-size: 0.88rem; color: #c0b0a0; }
+    .verdict-box ul li { padding: 0.4rem 0; padding-left: 1.4rem; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .verdict-box ul li:last-child { border-bottom: none; }
+    .verdict-box.pro ul li::before { content: '✓'; position: absolute; left: 0; color: #4caf70; font-weight: 700; }
+    .verdict-box.con ul li::before { content: '△'; position: absolute; left: 0; color: #e08040; }
+
+    .verdict-final {
+      background: linear-gradient(135deg, rgba(200,80,0,0.12), rgba(200,80,0,0.04));
+      border: 1px solid rgba(200,80,0,0.35);
+      border-radius: 10px;
+      padding: 1.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .verdict-final h3 { font-size: 1rem; font-weight: 800; color: #e08040; margin-bottom: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .verdict-final p { color: #c8bfb5; font-size: 0.95rem; line-height: 1.7; }
+
+    /* ─── PROFIL SPECIAL ────────────────────────────────────── */
+    .profil-box {
+      background: linear-gradient(135deg, rgba(200,80,0,0.1), rgba(200,80,0,0.03));
+      border: 2px solid rgba(200,80,0,0.4);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 2rem 0;
+    }
+
+    .profil-box h2 {
+      font-size: 1.4rem;
+      color: #e08040;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ─── CHRISTIAN BOX ─────────────────────────────────────── */
+    .christian-box {
+      background: linear-gradient(135deg, rgba(100,60,20,0.18), rgba(60,40,10,0.1));
+      border: 1px solid rgba(200,160,60,0.45);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .christian-box h3 { color: #d4a050; margin-top: 0; font-size: 1.15rem; }
+
+    blockquote {
+      border-left: 3px solid #e08040;
+      padding-left: 1.2rem;
+      font-style: italic;
+      color: #b8a880;
+      margin: 1.2rem 0;
+    }
+
+    /* ─── UTILITY ────────────────────────────────────────────── */
+    p { margin-bottom: 1rem; color: #c8bfb5; }
+    strong { color: #f0e0d8; }
+    em { color: #b8a898; }
+    a { color: #e08040; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    h3 { color: #f0e8e0; font-size: 1.1rem; margin: 1.5rem 0 0.7rem; }
+    h4 { color: #e08040; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin: 1.2rem 0 0.4rem; }
+
+    ul.standard { padding-left: 1.4rem; color: #c0b8b0; font-size: 0.93rem; }
+    ul.standard li { margin-bottom: 0.35rem; }
+
+    .divider { border: none; border-top: 1px solid rgba(200,80,0,0.1); margin: 3rem 0; }
+
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #3a3020;
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(200,80,0,0.08);
+      letter-spacing: 0.05em;
+    }
+
+    footer .footer-icon { display: block; font-size: 2.5rem; margin-bottom: 0.5rem; opacity: 0.2; }
+
+    /* ─── HIGHLIGHT STRIP ───────────────────────────────────── */
+    .highlight-strip {
+      background: rgba(200,80,0,0.08);
+      border-left: 4px solid #e08040;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      color: #d0c0a8;
+      font-size: 0.95rem;
+    }
+
+    .highlight-strip strong { color: #e08040; }
+
+    /* ─── FIVE FOUNDERS ─────────────────────────────────────── */
+    .founders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .founder-card {
+      background: rgba(200,80,0,0.06);
+      border: 1px solid rgba(200,80,0,0.2);
+      border-radius: 10px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .founder-card .f-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .founder-card .f-name { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+    .founder-card .f-art { font-size: 0.75rem; color: #e08040; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .founder-card .f-desc { font-size: 0.78rem; color: #7a7060; }
+
+    /* ─── LINK BUTTON ───────────────────────────────────────── */
+    .btn-link {
+      display: inline-block;
+      background: rgba(200,80,0,0.15);
+      border: 1px solid rgba(200,80,0,0.4);
+      color: #e08040;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      margin-top: 1rem;
+      transition: background 0.2s;
+    }
+    .btn-link:hover { background: rgba(200,80,0,0.28); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ════════════════════════════════════════ -->
+<section class="hero">
+  <span class="hero-badge">Art Martial — Hawaï &bull; 1947 &bull; Monde</span>
+  <h1><span class="accent">Kaju</span>kenbo</h1>
+  <p class="hero-sub">Hawaiian Boxing — L'Art des Rues de Honolulu</p>
+
+  <div class="hero-acronym">
+    <span><strong>KA</strong>raté</span>
+    <span><strong>JU</strong>do / Jujutsu</span>
+    <span><strong>KEN</strong>po</span>
+    <span><strong>BO</strong>xe Chinoise</span>
+  </div>
+
+  <blockquote class="hero-quote">
+    « Si ça marche dans la rue, ça reste. Sinon, on le vire. »<br>
+    <small>— Philosophie fondatrice du Kajukenbo</small>
+  </blockquote>
+
+  <div class="scroll-hint">Découvrir</div>
+</section>
+
+<!-- ─── NAVIGATION ───────────────────────────────────────────── -->
+<nav>
+  <ul>
+    <li><a href="#essence">Essence</a></li>
+    <li><a href="#histoire">Histoire</a></li>
+    <li><a href="#fondateurs">Fondateurs</a></li>
+    <li><a href="#systeme">Système</a></li>
+    <li><a href="#methode-diaz">Méthode Diaz</a></li>
+    <li><a href="#technique">Technique</a></li>
+    <li><a href="#christian">Foi ✝️</a></li>
+    <li><a href="#france">France</a></li>
+    <li><a href="#efficacite">Efficacité</a></li>
+    <li><a href="#pour-toi">Pourquoi Toi</a></li>
+    <li><a href="#plan">Plan d'Action</a></li>
+  </ul>
+</nav>
+
+<!-- ─── MAIN ─────────────────────────────────────────────────── -->
+<main>
+
+  <!-- ══ 00 : ESSENCE ══════════════════════════════════════════ -->
+  <section id="essence" class="section">
+    <div class="section-header">
+      <span class="section-number">00</span>
+      <h2><span class="ico">🌺</span>Ce qu'est le Kajukenbo</h2>
+    </div>
+
+    <div class="alert">
+      Le <strong>Kajukenbo</strong> est le premier art martial <strong>américain synthétique</strong> — né à Hawaï en 1947 dans un contexte de violence urbaine réelle. Ce n'est pas un art de démonstration, de performance ou de méditation. C'est un système conçu pour <strong>survivre à une agression de rue</strong>, développé par cinq maîtres de disciplines différentes qui s'entraînaient ensemble dans les quartiers pauvres de Honolulu.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Paramètre</th><th>Valeur</th></tr></thead>
+        <tbody>
+          <tr><td>Nom complet</td><td>Kajukenbo — de KAraté + JUdo/Jujutsu + KENpo + BOxe chinoise</td></tr>
+          <tr><td>Fondation</td><td>1947 — Palama Settlement, Honolulu, Hawaï (USA)</td></tr>
+          <tr><td>Fondateurs</td><td>5 co-fondateurs (voir section dédiée)</td></tr>
+          <tr><td>Sijo (Fondateur)</td><td>Adriano Emperado (1926–2009)</td></tr>
+          <tr><td>Philosophie</td><td>Pragmatisme total — efficacité de rue — évolution permanente</td></tr>
+          <tr><td>Devise</td><td>"Train Strong to Remain Strong"</td></tr>
+          <tr><td>Reconnaissance</td><td>Premier MMA américain documenté — précurseur du JKD de Bruce Lee</td></tr>
+          <tr><td>Présence mondiale</td><td>USA, Philippines, Europe, Moyen-Orient, Océanie</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ 01 : HISTOIRE ══════════════════════════════════════════ -->
+  <section id="histoire" class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2><span class="ico">📜</span>Histoire</h2>
+    </div>
+
+    <p>Le Kajukenbo est né d'une nécessité absolue — pas d'une théorie. Hawaï en 1947 est un bouillon de cultures : ouvriers portuaires philippins, chinois, japonais, coréens et blancs cohabitent dans des quartiers pauvres où la violence de rue est quotidienne. Le <strong>Palama Settlement</strong> — centre communautaire de Honolulu — est le berceau de ce qui va devenir le premier art martial synthétique moderne.</p>
+
+    <div class="timeline mt-2">
+      <div class="timeline-item">
+        <div class="timeline-date">1947</div>
+        <div class="timeline-title">La naissance — "The Black Belt Society"</div>
+        <div class="timeline-desc">Cinq maîtres (tous ceintures noires dans leurs disciplines respectives) forment le "Black Belt Society" au Palama Settlement d'Honolulu. Leur objectif : créer un système qui fonctionne vraiment dans la rue. Ils s'entraînent ensemble, se challengent mutuellement, éliminent ce qui ne fonctionne pas.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1947–1949</div>
+        <div class="timeline-title">2 ans de recherche intensive</div>
+        <div class="timeline-desc">Les 5 fondateurs testent systématiquement leurs techniques contre des opposants non-coopératifs. Chaque technique est validée ou éliminée selon un critère unique : est-ce que ça marche face à quelqu'un qui veut vraiment te faire du mal ? C'est le premier "MMA tournament" de l'histoire.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1949</div>
+        <div class="timeline-title">Formalisation du système</div>
+        <div class="timeline-desc">Le nom "Kajukenbo" est forgé comme un acronyme des arts fondateurs. Le curriculum est formalisé par Adriano Emperado. Le premier dojo officiel ouvre à Honolulu.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1950s–1960s</div>
+        <div class="timeline-title">Expansion aux États-Unis continentaux</div>
+        <div class="timeline-desc">Les élèves d'Emperado diffusent l'art en Californie, puis dans tout le pays. Le Kajukenbo entre en contact avec le mouvement des droits civiques — plusieurs clubs enseignent dans les communautés noires et latinos des villes américaines.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1959</div>
+        <div class="timeline-title">Bruce Lee — Le catalyseur</div>
+        <div class="timeline-desc">Bruce Lee arrive aux USA, rencontre des praticiens de Kajukenbo et est profondément influencé par leur approche pragmatique. Son concept de Jeet Kune Do partage la même philosophie fondatrice : garder ce qui fonctionne, éliminer ce qui ne fonctionne pas. Dan Inosanto, futur héritier du JKD de Lee, a des racines dans le Kajukenbo.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1960s–1980s</div>
+        <div class="timeline-title">Diversification des sous-systèmes</div>
+        <div class="timeline-desc">Le Kajukenbo se divise en plusieurs branches selon les instructeurs : Emperado Method, Tum Pai, Chu'an Fa, Wun Hop Kuen Do (Al Dacascos), et plus tard la Méthode Diaz. Chaque branche reflète la personnalité et les influences de son maître — c'est la richesse du système ouvert.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1990s–2000s</div>
+        <div class="timeline-title">La révolution MMA — Validation</div>
+        <div class="timeline-desc">L'émergence de l'UFC valide rétrospectivement l'approche du Kajukenbo. Chuck Liddell (ancien champion UFC des mi-lourds) est un pratiquant de Kajukenbo. Ce que le Kajukenbo enseignait depuis 1947 — frapper + projeter + contrôler — devient le standard mondial du combat.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2009</div>
+        <div class="timeline-title">La mort de Sijo Emperado</div>
+        <div class="timeline-desc">Adriano Emperado décède à 82 ans. Son héritage continue à travers des centaines d'instructeurs dans le monde. La devise qu'il a forgée — "Train Strong to Remain Strong" — résonne toujours comme le principe fondateur.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Aujourd'hui</div>
+        <div class="timeline-title">Le Kajukenbo dans le monde</div>
+        <div class="timeline-desc">Présent sur tous les continents. En France depuis 2000 (Rungis, 94) via Luis &amp; Joe Diaz et leur méthode "Hawaiian Boxing". Environ 10 clubs en France + Suisse + Koweït.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 02 : FONDATEURS ════════════════════════════════════════ -->
+  <section id="fondateurs" class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2><span class="ico">👥</span>Les Cinq Fondateurs</h2>
+    </div>
+
+    <p>Le Kajukenbo est unique dans l'histoire des arts martiaux : il a été créé collectivement, par un groupe de pairs, non par un maître unique. Chacun a apporté sa discipline, et le résultat est supérieur à la somme des parties.</p>
+
+    <div class="founders-grid">
+      <div class="founder-card">
+        <div class="f-icon">👑</div>
+        <div class="f-name">Adriano EMPERADO</div>
+        <div class="f-art">Kenpo Karaté + Escrima Kali</div>
+        <div class="f-desc">Sijo (fondateur) — Philippine-American. L'architecte du système. Apportera également le Kali philippin dans le curriculum.</div>
+      </div>
+      <div class="founder-card">
+        <div class="f-icon">🥋</div>
+        <div class="f-name">Joe HOLCK</div>
+        <div class="f-art">Judo</div>
+        <div class="f-desc">Les projections, le travail au sol, la gestion de la distance. La dimension "grappling" du Kajukenbo.</div>
+      </div>
+      <div class="founder-card">
+        <div class="f-icon">👊</div>
+        <div class="f-name">Frank ORDONEZ</div>
+        <div class="f-art">Jujutsu</div>
+        <div class="f-desc">Les clefs articulaires, les soumissions, la neutralisation de l'agresseur. Le Jujutsu dans sa version la plus utilitaire.</div>
+      </div>
+      <div class="founder-card">
+        <div class="f-icon">🐉</div>
+        <div class="f-name">Clarence CHANG</div>
+        <div class="f-art">Kung Fu (Boxe chinoise)</div>
+        <div class="f-desc">La fluidité, les mouvements circulaires, les frappes ouvertes. L'influence des arts martiaux chinois sur la mobilité du Kajukenbo.</div>
+      </div>
+      <div class="founder-card">
+        <div class="f-icon">🦶</div>
+        <div class="f-name">Peter CHOO</div>
+        <div class="f-art">Tang Soo Do (Karaté coréen)</div>
+        <div class="f-desc">Les techniques de jambes, les frappes à distance, la puissance linéaire. Le Karaté comme fondation de frappe.</div>
+      </div>
+    </div>
+
+    <div class="highlight-strip mt-2">
+      <strong>Pourquoi 5 maîtres et non 1 ?</strong> Parce qu'aucun d'entre eux ne croyait que sa discipline seule était suffisante. Cette humilité collective est la marque de naissance du Kajukenbo — et sa force permanente.
+    </div>
+
+    <!-- Sijo Emperado ── -->
+    <h3 class="mt-2">🌺 Sijo Adriano EMPERADO — Portrait approfondi</h3>
+
+    <div class="founder-profile">
+      <div class="founder-avatar">🌺</div>
+      <div>
+        <div class="founder-name">Adriano D. EMPERADO</div>
+        <div class="founder-title">Sijo — Fondateur du Kajukenbo</div>
+        <p style="font-size:0.9rem; color:#9a8870; margin-bottom:0.8rem;">
+          Né en 1926 à Honolulu de parents philippins, Emperado grandit dans les rues difficiles du quartier de Palama. Il pratique le Kenpo Karaté sous William K.S. Chow (lui-même élève de James Mitose) ET l'Escrima Kali philippin — art des armes de ses ancêtres. Cette double culture — Amérique de rue + traditions philippines — imprègne tout le Kajukenbo.
+        </p>
+        <div class="badges">
+          <span class="badge">Kenpo Karaté — William K.S. Chow</span>
+          <span class="badge">Escrima Kali — tradition philippine</span>
+          <span class="badge">Palama Settlement, Honolulu</span>
+          <span class="badge">Sijo — Chef fondateur</span>
+          <span class="badge">1926 – 2009</span>
+        </div>
+      </div>
+    </div>
+
+    <blockquote>
+      « J'ai créé le Kajukenbo pour les rues — pour les pauvres, pour ceux qui n'ont pas les moyens de payer des cours pendant 10 ans avant de pouvoir se défendre. »<br>
+      <small>— Sijo Adriano Emperado</small>
+    </blockquote>
+  </section>
+
+  <!-- ══ 03 : SYSTÈME ══════════════════════════════════════════ -->
+  <section id="systeme" class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2><span class="ico">⚙️</span>Le Système</h2>
+    </div>
+
+    <p>Le Kajukenbo est un système <strong>ouvert et évolutif</strong>. Cette caractéristique le distingue fondamentalement des arts martiaux traditionnels fermés (koryu). Il n'y a pas de technique sacrée — il y a des principes permanents et des techniques qui s'adaptent.</p>
+
+    <h3>Les 4 piliers permanents</h3>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🤜</div>
+        <h3>Striking — Frapper</h3>
+        <p>Poings, pieds, coudes, genoux, têtes. Frappes aux points vitaux. Combinaisons enchaînées. La percussion est le premier outil — arrêter l'agression avant qu'elle ne s'emballe.</p>
+        <span class="tag">Boxe + Karaté + Kenpo</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌀</div>
+        <h3>Throwing — Projeter</h3>
+        <p>Déséquilibres, balayages, projections. Emmener l'adversaire au sol ou le projeter contre une surface. Héritage direct du Judo d'Holck et du Jujutsu d'Ordonez.</p>
+        <span class="tag">Judo + Jujutsu</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <h3>Locking &amp; Choking — Contrôler</h3>
+        <p>Clefs articulaires (bras, poignet, cou), étranglements. Neutraliser sans détruire si possible. Le continuum de force est explicite dans le Kajukenbo — de la clef au KO en passant par la projection.</p>
+        <span class="tag">Jujutsu + Kenpo</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🪃</div>
+        <h3>Weapons — Armes</h3>
+        <p>Bâton, couteau, armes improvisées (bouteille, ceinture, clés). Héritage direct de l'Escrima Kali d'Emperado. La méthode Diaz intègre le travail aux sticks kali de façon centrale.</p>
+        <span class="tag">Escrima Kali + Improvisation</span>
+      </div>
+    </div>
+
+    <h3 class="mt-2">Le principe du système ouvert</h3>
+    <div class="alert">
+      En Kajukenbo, <strong>les élèves sont activement encouragés à développer leur propre expression</strong> du système. Chaque instructeur enrichit l'art de sa personnalité, de ses influences, de ses expériences. C'est pour cela que le Kajukenbo a autant de "branches" — Emperado Method, Wun Hop Kuen Do, Méthode Diaz, etc. — sans que l'une soit "la vraie" et les autres des déviations.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Aspect</th><th>Kajukenbo</th><th>Arts traditionnels (Koryu)</th></tr></thead>
+        <tbody>
+          <tr><td>Curriculum</td><td>Évolutif — s'adapte à l'époque</td><td>Fixé depuis des siècles</td></tr>
+          <tr><td>Techniques</td><td>Valides si elles fonctionnent</td><td>Valides parce qu'ancestrales</td></tr>
+          <tr><td>L'élève</td><td>Encouragé à innover</td><td>Reproduit la tradition</td></tr>
+          <tr><td>Branches</td><td>Multiples et légitimes</td><td>Une seule ligne orthodoxe</td></tr>
+          <tr><td>Test de vérité</td><td>Sparring résistant, rue</td><td>Kata, compétition codifiée</td></tr>
+          <tr><td>Philosophie</td><td>Pragmatisme utilitaire</td><td>Voie spirituelle / culturelle</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ 04 : MÉTHODE DIAZ ═════════════════════════════════════ -->
+  <section id="methode-diaz" class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2><span class="ico">🌊</span>La Méthode Diaz — Hawaiian Boxing</h2>
+    </div>
+
+    <p>La <strong>Méthode Diaz</strong> est la branche du Kajukenbo présente en France. Elle est développée par <strong>Luis et Joe Diaz</strong>, deux frères détenteurs du 8ème Dan KSDI (Kajukenbo Self Defense Institute), représentants officiels de Sijo Emperado pour l'Europe et le Moyen-Orient. Leur marque commerciale : <em>"Hawaiian Boxing"</em>.</p>
+
+    <div class="founder-profile">
+      <div class="founder-avatar">🌊</div>
+      <div>
+        <div class="founder-name">Luis &amp; Joe DIAZ</div>
+        <div class="founder-title">Méthode Diaz — Hawaiian Boxing — 8ème Dan KSDI</div>
+        <p style="font-size:0.9rem; color:#9a8870; margin-bottom:0.8rem;">
+          Luis et Joe Diaz ont grandi dans la tradition du Kajukenbo KSDI (Kajukenbo Self Defense Institute, l'organisation fondée par Sijo Emperado). Ils ont développé leur propre expression — la Méthode Diaz — en intégrant fortement la boxe anglaise moderne, le Kali philippin et une pédagogie adaptée aux adultes européens. Premier club en France : Rungis (94), ouvert en 2000.
+        </p>
+        <div class="badges">
+          <span class="badge">8ème Dan KSDI</span>
+          <span class="badge">Représentants officiels Sijo Emperado</span>
+          <span class="badge">France + Suisse + Koweït</span>
+          <span class="badge">Depuis 2000 en France</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Ce qui caractérise la Méthode Diaz</h3>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🥊</div>
+        <h3>Hawaiian Boxing — La base</h3>
+        <p>La Méthode Diaz s'appuie fortement sur la <strong>boxe anglaise</strong> comme fondation de frappe — gardes, feintes, jeu de jambes, enchaînements. Ce n'est pas du Karaté de compétition. C'est une boxe pensée pour la rue avec les outils du ring.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎋</div>
+        <h3>Kali intégré</h3>
+        <p>La méthode Diaz intègre le <strong>travail aux sticks Kali philippins</strong> de façon centrale — pas comme un ajout optionnel. Les 12 angles du Kali enrichissent les déviations à mains nues. Le couteau est aussi enseigné (défense et maniement).</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧩</div>
+        <h3>Système ouvert assumé</h3>
+        <p>Les élèves sont encouragés à <strong>développer leur propre style</strong>. L'instructeur montre le cadre — chacun y met son contenu. Cette liberté est déconcertante pour les habitués des arts codifiés, mais fondamentalement libératrice.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <h3>Pédagogie moderne</h3>
+        <p>Coaching en ligne disponible sur le site officiel. Stages nationaux réguliers. Les instructeurs ont des diplômes d'État ou certifications KSDI reconnues. Organisation professionnelle et structurée.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📍</div>
+        <h3>Clubs en Essonne (91)</h3>
+        <p>Deux clubs accessibles depuis Sainte-Geneviève-des-Bois :<br>
+        <strong>Massy (91)</strong> — ~15 min<br>
+        <strong>Saulx-les-Chartreux (91)</strong> — ~10 min<br>
+        Rungis (94) — club historique fondé 2000</p>
+        <a href="https://www.kajukenbo.fr/" target="_blank" class="btn-link">kajukenbo.fr →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 05 : TECHNIQUE ════════════════════════════════════════ -->
+  <section id="technique" class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2><span class="ico">⚡</span>Contenu Technique</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Domaine</th><th>Techniques</th><th>Origine dans le Kajukenbo</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Frappes debout</td>
+            <td>Jabs, crochets, uppercuts, coudes, genoux, kicks frontaux, balayages</td>
+            <td>Boxe anglaise + Tang Soo Do + Kenpo</td>
+          </tr>
+          <tr>
+            <td>Défenses / Déviations</td>
+            <td>Parades, esquives internes/externes, couvertures, "pass &amp; check"</td>
+            <td>Boxe + Kali (check &amp; flow)</td>
+          </tr>
+          <tr>
+            <td>Projections</td>
+            <td>Balayages, hanchi nage, sacrifice, emmanche</td>
+            <td>Judo (Holck)</td>
+          </tr>
+          <tr>
+            <td>Sol (ground)</td>
+            <td>Contrôle, étranglements, clef de bras, position de dominance</td>
+            <td>Jujutsu (Ordonez)</td>
+          </tr>
+          <tr>
+            <td>Multi-attaquants</td>
+            <td>Gestion de l'espace, projection vers l'attaquant B, utilisation des adversaires</td>
+            <td>Spécificité Kajukenbo</td>
+          </tr>
+          <tr>
+            <td>Armes (offense)</td>
+            <td>Sticks rattan (Kali), couteau, armes improvisées</td>
+            <td>Escrima Kali (Emperado)</td>
+          </tr>
+          <tr>
+            <td>Armes (défense)</td>
+            <td>Désarmement couteau, défense bâton, défense pistolet (Krav)</td>
+            <td>Kenpo + Kali</td>
+          </tr>
+          <tr>
+            <td>Situation</td>
+            <td>Debout, clinch, sol, voiture, couloir, escalier</td>
+            <td>Spécificité — contexte de rue</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-2">Les Kata du Kajukenbo — Pinans</h3>
+    <p>Le Kajukenbo possède ses propres formes — les <strong>Pinans</strong> (adaptés du Karaté coréen). Mais contrairement aux katas traditionnels figés, les Pinans Kajukenbo sont des <em>bibliothèques de techniques</em> que l'élève est encouragé à explorer, décomposer et réappliquer dans des contextes libres. La forme est un point de départ, pas une fin.</p>
+
+    <div class="highlight-strip">
+      <strong>Le sparring en Kajukenbo</strong> — L'entraînement sous résistance est central. Pas du sparring technique coopératif : un sparring avec protections mais avec une résistance réelle. L'adversaire essaie de toucher, de projeter, de soumettre. Tu apprends à gérer la pression, l'adrénaline, la fatigue — ce que les arts sans sparring ne permettent pas.
+    </div>
+  </section>
+
+  <!-- ══ 06 : FOI CHRÉTIENNE ════════════════════════════════════ -->
+  <section id="christian" class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2><span class="ico">✝️</span>Foi Chrétienne &amp; Arts Martiaux Philippins</h2>
+    </div>
+
+    <p>Le Kajukenbo est né d'Adriano Emperado — Philippine-American catholique. Cette dimension spirituelle est souvent ignorée par les présentations occidentales du système. Elle est pourtant centrale, et elle résonne avec une tradition martiale chrétienne bien plus profonde que l'on ne pense.</p>
+
+    <div class="christian-box">
+      <h3>🌺 Adriano Emperado — Le Catholique de Palama</h3>
+      <p>Emperado n'a jamais dissocié sa pratique martiale de sa foi. Pour lui, le Kajukenbo était un outil de <strong>protection des faibles</strong> — les pauvres, les immigrants, les communautés marginalisées de Honolulu. Enseigner le Kajukenbo dans le quartier de Palama, c'était un acte de charité concrète.</p>
+      <p>Sa devise — <em>"Train Strong to Remain Strong"</em> — n'est pas une phrase de coach sportif. C'est une conviction profonde que la force physique, moralement orientée, est un bien.</p>
+    </div>
+
+    <h3>Le Kali — L'Art du Guerrier Catholique Philippine</h3>
+
+    <div class="cards">
+      <div class="card" style="border-color:rgba(200,160,60,0.3); background:rgba(60,40,10,0.1);">
+        <div class="card-icon">⚔️</div>
+        <h3 style="color:#d4a050;">Le San Miguel Strike</h3>
+        <p>La frappe fondatrice de l'Arnis/Kali — la première enseignée, la plus importante — s'appelle <strong>San Miguel</strong> (Saint Michel Archange). Elle descend de l'épaule droite vers la hanche gauche, exactement le geste de l'épée de l'archange dans toute l'iconographie catholique.</p>
+        <p style="color:#b8a060; font-style:italic; font-size:0.85rem; margin-top:0.5rem;">Ce n'est pas anecdotique. C'est un acte de dévotion.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.3); background:rgba(60,40,10,0.1);">
+        <div class="card-icon">🙏</div>
+        <h3 style="color:#d4a050;">Prières et Anting-Anting</h3>
+        <p>Les anciens maîtres de Cebu récitaient des <strong>oraisons avant les duels</strong>. Les anting-anting (objets de protection) portaient des versets bibliques. La grâce de Dieu était invoquée — pas pour la victoire, mais pour la <strong>juste protection</strong>.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.3); background:rgba(60,40,10,0.1);">
+        <div class="card-icon">🛡️</div>
+        <h3 style="color:#d4a050;">Le Miles Christi</h3>
+        <p>Dans la tradition philippine comme dans la tradition chevaleresque médiévale, le guerrier ne combat pas pour sa gloire — il combat pour <strong>protéger</strong>. C'est exactement le concept du <em>Miles Christi</em> (Guerrier du Christ) — l'épée mise au service du bien.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.3); background:rgba(60,40,10,0.1);">
+        <div class="card-icon">✝️</div>
+        <h3 style="color:#d4a050;">1521 — Lapulapu &amp; la Providence</h3>
+        <p>La bataille de Mactan (1521) : Lapulapu, guerrier philippin, tient tête à Magellan (envoyé chrétien). Ironie de l'histoire — cet affrontement est à l'origine du Kali moderne, et les Philippines deviendront le pays catholique d'Asie. Le Kali a survécu <em>avec</em> le christianisme philippin, pas contre lui.</p>
+      </div>
+    </div>
+
+    <blockquote style="margin-top:1.5rem;">
+      « Je ne vous donne pas la paix comme le monde la donne. » — Jean 14:27<br>
+      <small style="color:#8a7040;">Le guerrier de paix ne fuit pas le conflit. Il le résout avec justice, précision et miséricorde.</small>
+    </blockquote>
+
+    <div class="christian-box" style="margin-top:1.5rem;">
+      <h3>🇵🇭 Les Philippines — Seul pays catholique d'Asie</h3>
+      <p>80%+ de catholiques. L'art martial national — l'Arnis — a été déclaré <strong>sport et art martial national des Philippines</strong> par le Congrès philippin en 2009 (Republic Act 9850). Un art martial d'État dans un pays catholique à 80%.</p>
+      <p>La fusion Kali-Kajukenbo chez Emperado n'est donc pas un accident — c'est la rencontre naturelle de deux cultures philippines, l'une guerrière, l'autre spirituelle, qui ont toujours coexisté.</p>
+    </div>
+  </section>
+
+  <!-- ══ 07 : FRANCE ════════════════════════════════════════════ -->
+  <section id="france" class="section">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2><span class="ico">🇫🇷</span>Le Kajukenbo en France</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Club</th><th>Ville</th><th>Proximité SGB (91)</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Kajukenbo KSDEF</td><td>Massy (91)</td><td>★★★★★ ~15 min</td><td>Club recommandé — en Essonne</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Saulx-les-Chartreux (91)</td><td>★★★★★ ~10 min</td><td>Club recommandé — très proche</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Rungis (94)</td><td>★★★★ ~20 min</td><td>Club historique — ouvert en 2000</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Choisy-le-Roi (94)</td><td>★★★ ~25 min</td><td>—</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Ivry-sur-Seine (94)</td><td>★★★ ~25 min</td><td>—</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Lyon (69)</td><td>—</td><td>Si déplacement professionnel</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Bordeaux (33)</td><td>—</td><td>Si déplacement professionnel</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Alsace (68)</td><td>—</td><td>—</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Genève (Suisse)</td><td>—</td><td>International</td></tr>
+          <tr><td>Kajukenbo KSDEF</td><td>Koweït</td><td>—</td><td>International</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert" style="margin-top:1.5rem;">
+      <strong>Contact :</strong> <a href="https://www.kajukenbo.fr/" target="_blank">www.kajukenbo.fr</a> — Site officiel Kajukenbo France (Méthode Diaz / KSDEF). Les clubs de <strong>Massy</strong> et <strong>Saulx-les-Chartreux</strong> sont les options idéales depuis Sainte-Geneviève-des-Bois (91).
+    </div>
+
+    <h3>Budget prévisionnel</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Poste</th><th>Coût estimé</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Cotisation annuelle</td><td>100 – 150 €</td><td>Variable selon le club</td></tr>
+          <tr><td>Gants de boxe (10–12 oz)</td><td>40 – 80 €</td><td>Venum, RDX — une fois pour toutes</td></tr>
+          <tr><td>Protège-dents</td><td>15 – 30 €</td><td>Indispensable dès le 1er mois</td></tr>
+          <tr><td>Protège-tibias</td><td>25 – 50 €</td><td>Pour le sparring</td></tr>
+          <tr><td>Sticks rattan (Kali)</td><td>20 – 40 €</td><td>2 sticks de 60cm — souvent fournis au début</td></tr>
+          <tr><td>Tenue</td><td>0 €</td><td>Short + t-shirt — pas de kimono obligatoire</td></tr>
+          <tr><td><strong>Total an 1</strong></td><td><strong>~200 – 350 €</strong></td><td>Dans ton budget de 400€/an ✅</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ 08 : EFFICACITÉ ════════════════════════════════════════ -->
+  <section id="efficacite" class="section">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <h2><span class="ico">🎯</span>Analyse d'efficacité</h2>
+    </div>
+
+    <div class="verdict-grid">
+      <div class="verdict-box pro">
+        <h3>✅ Points forts</h3>
+        <ul>
+          <li>Testé en résistance réelle dès la fondation (1947)</li>
+          <li>Chuck Liddell (UFC champion) — validation MMA</li>
+          <li>Complet : frappe + projection + sol + armes</li>
+          <li>Sparring régulier et structuré</li>
+          <li>Pragmatisme total — rien n'est sacré</li>
+          <li>Multi-attaquants intégré dès le début</li>
+          <li>Armes (Kali) intégrées — non optionnelles</li>
+          <li>Budget accessible — pas de kimono requis</li>
+          <li>Système ouvert — chacun développe son style</li>
+        </ul>
+      </div>
+      <div class="verdict-box con">
+        <h3>△ Points de vigilance</h3>
+        <ul>
+          <li>Qualité variable selon l'instructeur (système ouvert)</li>
+          <li>Pas de certification fédérale française reconnue (FFKDA)</li>
+          <li>Le nom "Hawaiian Boxing" peut prêter à confusion</li>
+          <li>La légitimité de certains grades KSDI discutée (rare)</li>
+          <li>Peu de compétitions officielles standardisées</li>
+          <li>Faible notoriété publique en France (vs Judo/Karaté)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="verdict-final">
+      <h3>🎯 Verdict général</h3>
+      <p>
+        Le Kajukenbo est l'un des systèmes de self-défense les plus honnêtes intellectuellement au monde. Il ne prétend pas à une tradition ancestrale qu'il n'a pas. Il affirme clairement : <em>"Nous avons cherché ce qui fonctionne, nous l'avons testé, nous l'enseignons."</em> Soixante-dix ans après sa création, le MMA a prouvé que cette approche était la bonne.
+      </p>
+      <p style="margin-top:0.8rem; color:#e08040; font-weight:600;">
+        Bilan : Système de rue éprouvé, complet, évolutif, accessible — le meilleur rapport qualité/efficacité/budget du marché pour un adulte cherchant une self-défense réelle.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ 09 : POURQUOI TOI ══════════════════════════════════════ -->
+  <section id="pour-toi" class="section">
+    <div class="section-header">
+      <span class="section-number">09</span>
+      <h2><span class="ico">🧭</span>Pourquoi le Kajukenbo est fait pour TOI</h2>
+    </div>
+
+    <div class="profil-box">
+      <h2>🧍 Ton profil — Rappel</h2>
+      <p style="color:#c8b8a0; margin-bottom:1rem;">
+        45 ans — 1m75/79kg — Essonne (91) — 4 ans d'Aïkido (4e Kyu) — Vo Vietnam (Nguyen Duc Moc) — Biceps guéri, dos fragile — Self-défense + Développement personnel + Plaisir = priorité absolue — Budget ~400€/an — 2 séances/semaine
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="border-color:rgba(200,80,0,0.4);">
+        <div class="card-icon">🤜</div>
+        <h3>Les frappes — ce qui manquait</h3>
+        <p>Tu as été frustré en Aïkido par l'absence de frappes réelles. Le Kajukenbo commence et finit par la frappe. Dès la première séance, tu travailles des combinaisons avec des gants. La frustration accumulée en Aïkido se transforme en compétence.</p>
+        <span class="tag">Frappe dès le 1er cours</span>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.4);">
+        <div class="card-icon">🌊</div>
+        <h3>Ton Aïkido — enfin compris</h3>
+        <p>Le Kajukenbo intègre le Jujutsu d'Ordonez. Tes projections Aïkido, tes chutes, ta conscience spatiale — tout ça devient une fondation solide. Tu ne perds rien. Tu comprends pourquoi les techniques fonctionnent (ou pas) sous résistance.</p>
+        <span class="tag">4 ans d'Aïkido valorisés</span>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.4);">
+        <div class="card-icon">🧠</div>
+        <h3>Le sparring — le manque comblé</h3>
+        <p>Tu aurais "mieux vécu" la blessure si ça avait été en sparring. Le Kajukenbo <em>commence</em> par poser le sparring comme principe. Le risque de contact est réel — mais il est consenti, structuré, avec protections. La blessure possible fait partie du pacte. Et c'est exactement ce que tu cherches.</p>
+        <span class="tag">Vérité de combat</span>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.4);">
+        <div class="card-icon">🦴</div>
+        <h3>Ton biceps — protégé</h3>
+        <p>Le Kajukenbo (méthode Diaz) est un art debout en priorité. Moins de clefs de bras que l'Aïkido. Les étranglements et soumissions au sol existent mais ne sont pas centraux. Signale ton biceps au professeur — les instructeurs sérieux adaptent systématiquement.</p>
+        <span class="tag">Compatible blessure</span>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.4);">
+        <div class="card-icon">🎋</div>
+        <h3>Ton fond Vo Vietnam</h3>
+        <p>École Nguyen Duc Moc / Xavier Philippe à Nanterre — une lignée sérieuse. Cette pratique t'a donné des reflexes d'angles d'attaque, de travail de jambes, de réactivité. Le Kajukenbo va immédiatement activer cette mémoire dormante. Tu auras 2 ans d'avance.</p>
+        <span class="tag">Vo Vietnam + Kajukenbo = synergique</span>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.4);">
+        <div class="card-icon">✝️</div>
+        <h3>Ta foi — alignée</h3>
+        <p>Le Kajukenbo est né d'un Philippin catholique, dans une tradition qui nomme sa première frappe "San Miguel" et qui prie avant les duels. L'art du guerrier protecteur est ici culturellement et spirituellement cohérent avec la foi chrétienne.</p>
+        <span class="tag">Miles Christi</span>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.4);">
+        <div class="card-icon">📍</div>
+        <h3>À 10 minutes de chez toi</h3>
+        <p>Saulx-les-Chartreux est à environ 10 minutes de Sainte-Geneviève-des-Bois. Massy à 15 min. Pas d'excuse logistique. 2 séances/semaine, budget ~200-250€ an 1 — largement dans tes 400€.</p>
+        <span class="tag">Logistique parfaite</span>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.4);">
+        <div class="card-icon">🌺</div>
+        <h3>Système ouvert = ta liberté</h3>
+        <p>Tu aimais la beauté du kata en Aïkido. Le Kajukenbo ne t'enlève pas ça — il t'invite à trouver ta propre beauté technique. Les Pinans ont leur esthétique. Et le fait de développer ton propre style est un acte créatif que beaucoup d'arts ne permettent pas.</p>
+        <span class="tag">Liberté créative</span>
+      </div>
+    </div>
+
+    <div class="verdict-final" style="margin-top:2rem; background: linear-gradient(135deg, rgba(200,80,0,0.15), rgba(200,80,0,0.04));">
+      <h3>🎯 Pourquoi le Kajukenbo — En une phrase</h3>
+      <p>
+        Le Kajukenbo est l'art que tu aurais dû pratiquer après le Vo Vietnam — celui qui prenait tout ce que tu avais appris, le testait contre la résistance réelle, et t'apprenait à protéger ceux que tu aimes. L'Aïkido a été une étape nécessaire (la paix intérieure, la culture, la gestuelle). Le Kajukenbo est l'étape suivante — celle que la blessure t'a annoncée.
+      </p>
+      <p style="margin-top:0.8rem; color:#e08040; font-weight:700; font-size:1.05rem;">
+        « Train Strong to Remain Strong. » — Sijo Adriano Emperado &nbsp;✝️
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ 10 : PLAN D'ACTION ══════════════════════════════════════ -->
+  <section id="plan" class="section">
+    <div class="section-header">
+      <span class="section-number">10</span>
+      <h2><span class="ico">🗺️</span>Ton Plan d'Action — Pas à Pas</h2>
+    </div>
+
+    <div class="timeline mt-2">
+      <div class="timeline-item">
+        <div class="timeline-date">Cette semaine</div>
+        <div class="timeline-title">Étape 0 — Contacter</div>
+        <div class="timeline-desc">Va sur kajukenbo.fr → section "Clubs" → contacter Massy (91) ou Saulx-les-Chartreux (91). Demande un cours d'essai gratuit (la plupart des clubs le proposent). Mentionne dès le premier échange ta blessure au biceps — c'est un signe de maturité martiale, pas une faiblesse.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Cours 1</div>
+        <div class="timeline-title">Premier cours — Observer et sentir</div>
+        <div class="timeline-desc">N'essaie pas de briller. Observe l'ambiance, l'attitude de l'instructeur, la façon dont les élèves se traitent. Un bon club Kajukenbo : instructeur humble, sparring gradué (pas d'ego), sécurité gérée avec des protections. Si l'ambiance est "machiste et brutale" — ce n'est pas le bon club.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mois 1–3</div>
+        <div class="timeline-title">Phase 1 — Retrouver le plaisir</div>
+        <div class="timeline-desc">Objectif unique : prendre du plaisir à frapper pour de vrai. Pas de pression de grade. Le corps se souvient du Vo Vietnam — laisse-le parler. Les chutes Aïkido te permettent de gérer les projections sans appréhension. Tu vas être surpris par ta rapidité d'adaptation.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mois 3–6</div>
+        <div class="timeline-title">Phase 2 — Le sparring</div>
+        <div class="timeline-desc">Premier sparring légèrement résistant avec protections complètes. C'est ce moment que tu attendais depuis des années — quand le contact est réel, consenti, et fait sens. Les insomnies post-Aïkido ne reviendront pas : ton système nerveux aura eu sa décharge d'adrénaline. Tu rentreras fatigué mais apaisé.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mois 6–12</div>
+        <div class="timeline-title">Phase 3 — Le Kali s'invite</div>
+        <div class="timeline-desc">La méthode Diaz intègre le Kali. Les sticks rattan vont immédiatement te parler — ta mémoire Vo Vietnam se réveille. Les 12 angles du Kali, les transitions arme/main nue, la logique de la "live hand" : tout ça est familiar. Les stages nationaux peuvent commencer.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">An 1+</div>
+        <div class="timeline-title">Phase 4 — Le guerrier complet</div>
+        <div class="timeline-desc">Tu peux envisager d'ajouter un club Kali dédié en parallèle (Fleury-Mérogis, 91, ou communauté EAK France). Kajukenbo + Kali = le même univers technique, la même philosophie du guerrier protecteur, la même âme chrétienne philippine. Tu es complet.</div>
+      </div>
+    </div>
+
+    <div class="alert" style="border-color:rgba(80,160,80,0.4); background:rgba(20,60,30,0.12); margin-top:2rem;">
+      <strong style="color:#4caf70;">💡 Un dernier conseil</strong><br><br>
+      Parle de ton Aïkido à l'instructeur Kajukenbo. Ne l'efface pas — il sera curieux et respectueux. L'Aïkido t'a donné quelque chose que beaucoup de pratiquants n'ont pas : la conscience de l'espace, l'anticipation des déséquilibres, l'absence de peur des chutes. Ce sont des atouts immenses en Kajukenbo. Tu n'es pas un débutant — tu es un pratiquant qui change de chemin. C'est différent.
+    </div>
+
+    <!-- ── LA TENUE ── -->
+    <div style="background: linear-gradient(135deg, rgba(20,20,30,0.8), rgba(30,30,40,0.6)); border: 1px solid rgba(200,80,0,0.25); border-radius: 12px; padding: 2rem; margin-top:2.5rem;">
+      <h3 style="color:#e08040; margin-top:0;">🥋 La Tenue — Une Philosophie en Tissu</h3>
+
+      <p>En Kajukenbo, le gi est noir. Ce n'est pas un détail esthétique — c'est un symbole.</p>
+
+      <div class="cards" style="margin-top:1rem;">
+        <div class="card" style="border-color:rgba(200,80,0,0.3);">
+          <div class="card-icon">⬛</div>
+          <h3>Le Gi Noir</h3>
+          <p>Le karatégi noir du Kajukenbo dit une chose simple : <strong>ici, on travaille</strong>. Pas de grade visible sur la tenue au premier coup d'œil. Pas de signe extérieur de hiérarchie dans le tissu lui-même. La compétence parle — pas le costume.</p>
+          <p style="color:#e08040; font-style:italic; font-size:0.85rem; margin-top:0.5rem;">Stylé sans être ostentatoire. C'est rare.</p>
+        </div>
+        <div class="card" style="border-color:rgba(200,80,0,0.3);">
+          <div class="card-icon">🇫🇷</div>
+          <h3>Les Logos — L'Appartenance</h3>
+          <p>Le drapeau français sur le gi, le logo KSDI, l'emblème du club — c'est de l'appartenance collective, pas du narcissisme individuel. Tu portes quelque chose qui te dépasse : une communauté, une lignée, un pays. <strong>L'ego passe en arrière-plan.</strong></p>
+        </div>
+        <div class="card" style="border-color:rgba(200,80,0,0.3);">
+          <div class="card-icon">👘</div>
+          <h3>L'Hakama — Une Leçon</h3>
+          <p>L'hakama en Aïkido est réservé aux gradés. C'est magnifique — mais il peut devenir un objectif en lui-même plutôt qu'une conséquence. En Kajukenbo, <strong>on ne court pas après un vêtement</strong>. On court après la compétence. La tenue suit — jamais l'inverse.</p>
+          <p style="color:#9a8870; font-style:italic; font-size:0.82rem; margin-top:0.5rem;">Cette prise de conscience sur l'hakama est une vraie maturité martiale.</p>
+        </div>
+        <div class="card" style="border-color:rgba(200,80,0,0.3);">
+          <div class="card-icon">🪞</div>
+          <h3>Pratique solitaire — La liberté que l'Aïkido ne donne pas</h3>
+          <p>En Aïkido, <strong>chaque technique exige un partenaire</strong> — impossible de travailler seul. Pas de kata, pas de formes individuelles, pas de shadow work. Tu ne peux pas "réviser" chez toi. C'est l'une des grandes frustrations que tu n'avais peut-être pas nommée.</p>
+          <p style="color:#e08040; font-style:italic; font-size:0.85rem; margin-top:0.5rem;">En Kajukenbo : shadow boxing, Pinans, travail au sac — tu peux t'entraîner seul tous les jours.<br>En Kali : les Anyos (formes à l'arme) sont conçus pour la pratique solo. Sticks, couteau, main nue.</p>
+        </div>
+      </div>
+
+      <blockquote style="margin-top:1.5rem; border-left-color:#e08040;">
+        « Le grade ne fait pas le guerrier. Le guerrier fait le grade. »<br>
+        <small style="color:#7a6840;">— Principe Kajukenbo</small>
+      </blockquote>
+    </div>
+
+    <div style="text-align:center; margin-top:3rem;">
+      <a href="https://www.kajukenbo.fr/" target="_blank" class="btn-link" style="font-size:1rem; padding:0.8rem 2rem;">
+        🌺 Commencer — kajukenbo.fr
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <span class="footer-icon">🌺</span>
+  Document rédigé le 18 mars 2026 — Recherche et analyse personnalisée.<br>
+  Kajukenbo — Fondé par Sijo Adriano Emperado — Honolulu, Hawaï, 1947<br>
+  <span style="color:#3a3020; font-size:0.75rem; margin-top:0.5rem; display:block;">
+    « Train Strong to Remain Strong » ✝️
+  </span>
+</footer>
+
+</body>
+</html>

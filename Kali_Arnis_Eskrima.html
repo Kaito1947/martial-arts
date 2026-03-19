@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🇵🇭 Kali / Arnis / Eskrima — Filipino Martial Arts</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #080c10; color: #e8e0d5; line-height: 1.75; }
+
+    .hero {
+      position: relative; min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; overflow: hidden;
+      background: radial-gradient(ellipse at 20% 50%, rgba(0,100,180,0.18) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(200,20,40,0.12) 0%, transparent 60%), #080c10;
+    }
+    .hero::before {
+      content: '🇵🇭'; position: absolute; font-size: clamp(12rem,35vw,28rem); line-height:1;
+      pointer-events:none; user-select:none; top:50%; left:50%; transform:translate(-50%,-50%);
+      opacity:0.05; white-space:nowrap;
+    }
+    .hero-badge {
+      display:inline-block; background:rgba(0,100,180,0.15); border:1px solid rgba(0,150,220,0.4);
+      color:#40a0e0; font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase;
+      padding:0.35rem 1rem; border-radius:999px; margin-bottom:1.5rem;
+    }
+    .hero h1 { font-size:clamp(2.4rem,7vw,5rem); font-weight:900; letter-spacing:-0.02em; line-height:1.05; color:#fff; margin-bottom:0.5rem; }
+    .hero h1 .acc1 { color:#40a0e0; }
+    .hero h1 .acc2 { color:#e04060; }
+    .hero-sub { font-size:clamp(1rem,2vw,1.3rem); color:#8a9070; margin-bottom:2rem; letter-spacing:0.08em; text-transform:uppercase; }
+    .hero-names { display:flex; gap:0.4rem; flex-wrap:wrap; justify-content:center; margin:1.5rem 0; }
+    .hero-names span { background:rgba(0,100,180,0.12); border:1px solid rgba(0,100,180,0.3); border-radius:8px; padding:0.5rem 1rem; font-size:0.85rem; color:#c0d8f0; }
+    .hero-names span strong { color:#40a0e0; font-size:1.05rem; }
+    .hero-quote { font-style:italic; font-size:1.05rem; color:#b0c0d8; border-left:3px solid #40a0e0; padding-left:1.2rem; margin-top:2rem; max-width:500px; text-align:left; }
+    .scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); color:#404858; font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:0.4rem; }
+    .scroll-hint::after { content:''; width:1px; height:40px; background:linear-gradient(to bottom,#404858,transparent); }
+
+    nav { position:sticky; top:0; z-index:100; background:rgba(8,12,16,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(0,100,180,0.12); padding:0 2rem; }
+    nav ul { display:flex; gap:0; list-style:none; overflow-x:auto; max-width:1100px; margin:0 auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    nav ul::-webkit-scrollbar { display:none; }
+    nav ul li a { display:block; padding:1rem 1.1rem; color:#6a8098; text-decoration:none; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap; transition:color 0.2s; }
+    nav ul li a:hover { color:#40a0e0; }
+
+    main { max-width:1100px; margin:0 auto; padding:4rem 2rem 6rem; }
+    .section { margin-bottom:5rem; }
+    .section-header { display:flex; align-items:center; gap:1rem; margin-bottom:2.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(0,100,180,0.12); }
+    .section-number { font-size:0.7rem; letter-spacing:0.2em; color:#40a0e0; text-transform:uppercase; font-weight:700; white-space:nowrap; }
+    .section-header h2 { font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; }
+
+    .alert { background:rgba(0,100,180,0.07); border:1px solid rgba(0,100,180,0.3); border-radius:8px; padding:1.5rem 1.8rem; margin-bottom:2rem; color:#d8e0e8; }
+    .alert strong { color:#40a0e0; }
+
+    .table-wrap { overflow-x:auto; margin:1.5rem 0; }
+    table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+    thead tr { background:rgba(0,100,180,0.12); }
+    thead th { padding:0.75rem 1rem; text-align:left; color:#40a0e0; font-weight:700; letter-spacing:0.05em; font-size:0.8rem; text-transform:uppercase; white-space:nowrap; }
+    tbody tr { border-bottom:1px solid rgba(255,255,255,0.05); transition:background 0.15s; }
+    tbody tr:hover { background:rgba(255,255,255,0.03); }
+    tbody td { padding:0.7rem 1rem; color:#c8bfb5; vertical-align:top; }
+    tbody td:first-child { color:#f0e8e0; font-weight:600; }
+
+    .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.2rem; margin:1.5rem 0; }
+    .card { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:1.5rem; transition:border-color 0.2s,transform 0.2s; }
+    .card:hover { border-color:rgba(0,100,180,0.4); transform:translateY(-2px); }
+    .card-icon { font-size:1.8rem; margin-bottom:0.7rem; }
+    .card h3 { font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.5rem; }
+    .card p, .card ul { font-size:0.88rem; color:#8a9878; line-height:1.6; }
+    .card ul { padding-left:1.1rem; }
+    .card ul li { margin-bottom:0.2rem; }
+    .tag { display:inline-block; font-size:0.7rem; background:rgba(0,100,180,0.12); color:#40a0e0; border:1px solid rgba(0,100,180,0.3); border-radius:999px; padding:0.15rem 0.6rem; margin-top:0.8rem; }
+
+    .profile-box { display:grid; grid-template-columns:auto 1fr; gap:2rem; background:rgba(0,100,180,0.06); border:1px solid rgba(0,100,180,0.2); border-radius:12px; padding:2rem; margin-bottom:2rem; align-items:start; }
+    .profile-avatar { width:80px; height:80px; border-radius:50%; background:rgba(0,100,180,0.2); border:2px solid rgba(0,150,220,0.5); display:flex; align-items:center; justify-content:center; font-size:2.2rem; flex-shrink:0; }
+    .profile-name { font-size:1.3rem; font-weight:800; color:#fff; margin-bottom:0.2rem; }
+    .profile-title { font-size:0.82rem; color:#40a0e0; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.8rem; }
+    .badges { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.5rem; }
+    .badge { background:rgba(0,100,180,0.1); border:1px solid rgba(0,100,180,0.25); color:#a0c8e8; font-size:0.75rem; padding:0.25rem 0.7rem; border-radius:999px; }
+
+    .timeline { position:relative; padding-left:2rem; margin:1.5rem 0; }
+    .timeline::before { content:''; position:absolute; left:0; top:0.5rem; bottom:0; width:1px; background:linear-gradient(to bottom,#40a0e0,transparent); }
+    .timeline-item { position:relative; margin-bottom:2rem; }
+    .timeline-item::before { content:''; position:absolute; left:-2rem; top:0.55rem; width:8px; height:8px; border-radius:50%; background:#40a0e0; box-shadow:0 0 8px rgba(0,150,220,0.5); }
+    .timeline-date { font-size:0.75rem; color:#40a0e0; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.3rem; }
+    .timeline-title { font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.3rem; }
+    .timeline-desc { font-size:0.88rem; color:#8a9878; }
+
+    .verdict-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin:1.5rem 0; }
+    @media (max-width:600px) { .verdict-grid { grid-template-columns:1fr; } .profile-box { grid-template-columns:1fr; } }
+    .verdict-box { border-radius:10px; padding:1.5rem; }
+    .verdict-box.pro { background:rgba(30,120,60,0.1); border:1px solid rgba(30,120,60,0.3); }
+    .verdict-box.con { background:rgba(80,100,20,0.1); border:1px solid rgba(80,100,20,0.3); }
+    .verdict-box h3 { font-size:0.85rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:1rem; font-weight:700; }
+    .verdict-box.pro h3 { color:#4caf70; }
+    .verdict-box.con h3 { color:#a0c040; }
+    .verdict-box ul { list-style:none; font-size:0.88rem; color:#c0b0a0; }
+    .verdict-box ul li { padding:0.4rem 0; padding-left:1.4rem; position:relative; border-bottom:1px solid rgba(255,255,255,0.04); }
+    .verdict-box ul li:last-child { border-bottom:none; }
+    .verdict-box.pro ul li::before { content:'✓'; position:absolute; left:0; color:#4caf70; font-weight:700; }
+    .verdict-box.con ul li::before { content:'△'; position:absolute; left:0; color:#a0c040; }
+
+    .verdict-final { background:linear-gradient(135deg,rgba(0,100,180,0.12),rgba(0,100,180,0.04)); border:1px solid rgba(0,100,180,0.35); border-radius:10px; padding:1.8rem; margin-top:1.5rem; }
+    .verdict-final h3 { font-size:1rem; font-weight:800; color:#40a0e0; margin-bottom:0.8rem; letter-spacing:0.05em; text-transform:uppercase; }
+    .verdict-final p { color:#c8bfb5; font-size:0.95rem; line-height:1.7; }
+
+    .christian-box { background:linear-gradient(135deg,rgba(100,60,20,0.18),rgba(60,40,10,0.1)); border:1px solid rgba(200,160,60,0.45); border-radius:12px; padding:2rem; margin:1.5rem 0; }
+    .christian-box h3 { color:#d4a050; margin-top:0; font-size:1.15rem; }
+
+    .profil-box { background:linear-gradient(135deg,rgba(0,100,180,0.1),rgba(0,100,180,0.03)); border:2px solid rgba(0,100,180,0.4); border-radius:16px; padding:2.5rem; margin:2rem 0; }
+    .profil-box h2 { font-size:1.4rem; color:#40a0e0; margin-bottom:1.5rem; }
+
+    .highlight-strip { background:rgba(0,100,180,0.08); border-left:4px solid #40a0e0; border-radius:0 8px 8px 0; padding:1rem 1.5rem; margin:1rem 0; color:#c0d0e0; font-size:0.95rem; }
+    .highlight-strip strong { color:#40a0e0; }
+
+    .angles-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:0.8rem; margin:1.5rem 0; }
+    .angle-card { background:rgba(0,100,180,0.06); border:1px solid rgba(0,100,180,0.2); border-radius:8px; padding:1rem; text-align:center; }
+    .angle-card .a-num { font-size:1.4rem; font-weight:900; color:#40a0e0; }
+    .angle-card .a-name { font-size:0.8rem; font-weight:700; color:#fff; margin:0.3rem 0 0.2rem; }
+    .angle-card .a-desc { font-size:0.72rem; color:#6a8098; }
+
+    blockquote { border-left:3px solid #40a0e0; padding-left:1.2rem; font-style:italic; color:#b0c8e0; margin:1.2rem 0; }
+    p { margin-bottom:1rem; color:#c8bfb5; }
+    strong { color:#f0e0d8; }
+    em { color:#b0c8d8; }
+    a { color:#40a0e0; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h3 { color:#f0e8e0; font-size:1.1rem; margin:1.5rem 0 0.7rem; }
+    ul.standard { padding-left:1.4rem; color:#c0b8b0; font-size:0.93rem; }
+    ul.standard li { margin-bottom:0.35rem; }
+    .divider { border:none; border-top:1px solid rgba(0,100,180,0.1); margin:3rem 0; }
+    .mt-2 { margin-top:2rem; }
+
+    .btn-link { display:inline-block; background:rgba(0,100,180,0.15); border:1px solid rgba(0,100,180,0.4); color:#40a0e0; padding:0.6rem 1.4rem; border-radius:999px; font-size:0.85rem; letter-spacing:0.05em; margin-top:1rem; transition:background 0.2s; }
+    .btn-link:hover { background:rgba(0,100,180,0.28); text-decoration:none; }
+
+    footer { text-align:center; padding:3rem 2rem; color:#304050; font-size:0.8rem; border-top:1px solid rgba(0,100,180,0.08); letter-spacing:0.05em; }
+    footer .footer-icon { display:block; font-size:2.5rem; margin-bottom:0.5rem; opacity:0.2; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ════════════════════════════════════════════════════ -->
+<section class="hero">
+  <span class="hero-badge">Art Martial National — Philippines &bull; Art Martial du Monde</span>
+  <h1><span class="acc1">Kali</span> · <span class="acc2">Arnis</span> · Eskrima</h1>
+  <p class="hero-sub">Filipino Martial Arts — L'Art des Guerriers de Dieu</p>
+
+  <div class="hero-names">
+    <span><strong>Kali</strong> — terme global</span>
+    <span><strong>Arnis</strong> — Luzon (Nord)</span>
+    <span><strong>Eskrima</strong> — Visayas (Centre)</span>
+    <span><strong>FMA</strong> — Filipino Martial Arts</span>
+  </div>
+
+  <blockquote class="hero-quote">
+    « L'arme est une extension du corps. Le corps est une arme sans lame. »<br>
+    <small>— Principe fondateur des Arts Martiaux Philippins</small>
+  </blockquote>
+
+  <div class="scroll-hint">Découvrir</div>
+</section>
+
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <ul>
+    <li><a href="#essence">Essence</a></li>
+    <li><a href="#histoire">Histoire</a></li>
+    <li><a href="#ecoles">Écoles</a></li>
+    <li><a href="#systeme">Système</a></li>
+    <li><a href="#angles">12 Angles</a></li>
+    <li><a href="#technique">Technique</a></li>
+    <li><a href="#christian">Foi ✝️</a></li>
+    <li><a href="#france">France</a></li>
+    <li><a href="#efficacite">Efficacité</a></li>
+    <li><a href="#pour-toi">Pourquoi Toi</a></li>
+    <li><a href="#solo">Pratique Solo</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ══ 00 : ESSENCE ══════════════════════════════════════════ -->
+  <section id="essence" class="section">
+    <div class="section-header">
+      <span class="section-number">00</span>
+      <h2>🇵🇭 Ce qu'est le Kali / Arnis / Eskrima</h2>
+    </div>
+
+    <div class="alert">
+      Le <strong>Kali (Arnis / Eskrima)</strong> est l'<strong>art martial national des Philippines</strong> — déclaré tel par le Congrès philippin en 2009 (Republic Act 9850). C'est l'un des rares systèmes au monde où <strong>l'arme est enseignée avant la main nue</strong>. La logique est radicalement différente des arts orientaux classiques : maîtriser l'arme d'abord, et laisser cette maîtrise irriguer tout le reste.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Paramètre</th><th>Valeur</th></tr></thead>
+        <tbody>
+          <tr><td>Noms</td><td>Kali (global) / Arnis (Luzon) / Eskrima — Escrima (Visayas)</td></tr>
+          <tr><td>Origine</td><td>Philippines — arts guerriers indigènes pré-hispaniques</td></tr>
+          <tr><td>Statut officiel</td><td>Art Martial National des Philippines — Loi 9850 (2009)</td></tr>
+          <tr><td>Principe central</td><td>Arme en priorité → main nue par déduction logique</td></tr>
+          <tr><td>Armes principales</td><td>Bâton rattan, couteau (baraw), machette (bolo), lame longue</td></tr>
+          <tr><td>Concept clé</td><td>"Live Hand" — la main libre est toujours une arme</td></tr>
+          <tr><td>Ancienneté</td><td>Documenté depuis au moins le XIVe siècle</td></tr>
+          <tr><td>Validation historique</td><td>Utilisé au combat réel — Bataille de Mactan 1521</td></tr>
+          <tr><td>Reconnaissance mondiale</td><td>Dan Inosanto / Bruce Lee / JKD — diffusion mondiale</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ 01 : HISTOIRE ══════════════════════════════════════════ -->
+  <section id="histoire" class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2>📜 Histoire — Du Guerrier au Monde</h2>
+    </div>
+
+    <p>Le Kali est né dans l'archipel philippin, façonné par des siècles de conflits inter-tribaux, de contacts avec les cultures malaises, chinoises, et arabes — puis la résistance à la colonisation espagnole. C'est un art qui a survécu à tout : colonisation, évangélisation, occupation japonaise, et l'oubli moderne. Il en est sorti renforcé.</p>
+
+    <div class="timeline mt-2">
+      <div class="timeline-item">
+        <div class="timeline-date">XIVe siècle et avant</div>
+        <div class="timeline-title">Arts guerriers indigènes</div>
+        <div class="timeline-desc">Les peuples des îles Visayas et de Luzon développent des systèmes de combat avec bâton, lame et main nue. Influences malaises (Silat), chinoises, et traditions indigènes Austronésiennes. Le bolo (machette) est l'outil quotidien et l'arme de guerre.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1521 — Bataille de Mactan</div>
+        <div class="timeline-title">La première grande validation</div>
+        <div class="timeline-desc">Le guerrier <strong>Lapulapu</strong> et ses hommes repoussent et tuent Ferdinand Magellan, commandant d'une troupe armée et blindée. Les guerriers philippins, armés de lames et de bâtons, triomphent. C'est la première fois que des explorateurs européens sont défaits sur le terrain. Le Kali est validé au combat réel.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1521–1898</div>
+        <div class="timeline-title">Survie sous la colonisation espagnole</div>
+        <div class="timeline-desc">L'Espagne interdit officiellement la pratique du Kali à plusieurs reprises — mais sans succès total. L'art se cache dans les danses folkloriques (Sayaw sa Kalis), les jeux de village, les pratiques religieuses. Les missions catholiques coexistent avec les maîtres de kali — parfois les mêmes hommes.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1898–1946</div>
+        <div class="timeline-title">Occupation américaine puis japonaise</div>
+        <div class="timeline-desc">Les guerilleros philippins utilisent le Kali (lames, bâtons, improvisation) dans la résistance à l'occupation japonaise (1941-1945). L'art prouve encore sa valeur au combat. Les Américains documentent et parfois apprennent l'art — les bases militaires de Mindanao exposent des soldats US aux FMA.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1964</div>
+        <div class="timeline-title">Angel Cabales fonde le Serrada Escrima Club — USA</div>
+        <div class="timeline-desc">Premier club FMA officiel en Californie. Début de la diffusion aux États-Unis. La diaspora philippine commence à enseigner son art martial national ouvertement.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1970s — Dan Inosanto</div>
+        <div class="timeline-title">Le catalyseur — Bruce Lee et le JKD</div>
+        <div class="timeline-desc"><strong>Dan Inosanto</strong>, partenaire de Bruce Lee et héritier du Jeet Kune Do, est philippino-américain. Il étudie le Kali auprès des grands maîtres (Cabales, Canete, Ilustrisimo) et l'intègre dans l'enseignement du JKD. Le Kali entre dans la conscience martiale mondiale. Des milliers de pratiquants de JKD dans le monde apprennent le Kali.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1980s–2000s</div>
+        <div class="timeline-title">Explosion mondiale</div>
+        <div class="timeline-desc">Le Kali s'exporte massivement : USA, Europe, Australie, Japon. Des styles distincts s'organisent en fédérations : Pekiti-Tirsia Kali, Doce Pares, Sayoc Kali, Inosanto/LaCoste, Modern Arnis (Remy Presas)... Chaque style a sa philosophie, sa spécialité, ses forces.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2009</div>
+        <div class="timeline-title">Reconnaissance nationale officielle</div>
+        <div class="timeline-desc">Le Congrès philippin vote la <strong>Republic Act 9850</strong> — l'Arnis est déclaré art martial et sport national des Philippines. Enseignement obligatoire dans les écoles publiques. Un peuple catholique place son art martial guerrier au cœur de son identité nationale.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Aujourd'hui</div>
+        <div class="timeline-title">Incontournable en cross-training mondial</div>
+        <div class="timeline-desc">Le Kali est la référence mondiale pour le travail aux armes courtes. Adopté par des armées (US Army, USMC, forces spéciales), des services de police, et des pratiquants de MMA du monde entier. Dan Inosanto continue d'enseigner. La communauté FMA France est vivante et croissante.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 02 : ÉCOLES ════════════════════════════════════════════ -->
+  <section id="ecoles" class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>🏫 Les Grandes Écoles / Styles</h2>
+    </div>
+
+    <p>Le Kali n'est pas un système unifié — il est un archipel de styles, comme les Philippines elles-mêmes. Chaque île, chaque famille, chaque maître a sa tradition. Voici les principales.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🎋</div>
+        <h3>Pekiti-Tirsia Kali</h3>
+        <p>Style de Cebu/Visayas — Grand Tuhon Leo Gaje. Orienté combat : lame longue, couteau, bâton. Adopté par des unités de forces spéciales (US, Philippines). Connu pour son système d'attaque à 3 niveaux et ses contre-attaques dévastatrices.</p>
+        <span class="tag">Forces spéciales — Lame longue</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Inosanto/LaCoste</h3>
+        <p>Système synthétique de <strong>Dan Inosanto</strong> — combinaison de plusieurs styles philippins + Jeet Kune Do. Le plus diffusé en Occident. Base de l'enseignement FMA mondial via les Inosanto Academies.</p>
+        <span class="tag">Dan Inosanto — JKD — Mondial</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🐓</div>
+        <h3>Doce Pares</h3>
+        <p>Fondé à Cebu en 1932 — "Les Douze Pairs". Un des styles les plus anciens organisés. Fort en compétition (WEKAF). Travail intensif bâton seul, bâton double (sinawali), lame.</p>
+        <span class="tag">Cebu 1932 — Compétition WEKAF</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌊</div>
+        <h3>Modern Arnis — Remy Presas</h3>
+        <p>Fondé par Remy Presas (1936–2001). Intègre des éléments de Judo et d'Aïkido dans les FMA. Plus accessible pour les débutants. Forte emphase sur les "tapi-tapi" (jeu de mains en contact).</p>
+        <span class="tag">Aïkido + Judo + Kali</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🦅</div>
+        <h3>Sayoc Kali</h3>
+        <p>Spécialité absolue : le couteau. Famille Sayoc — considérée comme la plus avancée au monde sur le travail de la lame courte. Adopté par des unités militaires d'élite.</p>
+        <span class="tag">Couteau — Elite militaire</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗡️</div>
+        <h3>Ilustrisimo / Kalis Ilustrisimo</h3>
+        <p>Lignée d'Antonio "Tatang" Ilustrisimo (1904–1997) — considéré comme le plus grand escrimeur de l'histoire moderne. Combat réel, économie de mouvement, efficacité absolue. Héritage transmis par Romeo Macapagal.</p>
+        <span class="tag">Tatang Ilustrisimo — Légendaire</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 03 : SYSTÈME ══════════════════════════════════════════ -->
+  <section id="systeme" class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>⚙️ Le Système — Arme d'abord, Corps ensuite</h2>
+    </div>
+
+    <div class="alert">
+      Le principe inversé du Kali : <strong>on apprend à manier un bâton de 60cm AVANT d'apprendre à frapper à mains nues</strong>. Pourquoi ? Parce que la logique des angles, des lignes d'attaque, des déviations et des contre-attaques est la même avec ou sans arme. En maîtrisant l'arme, tu maîtrises la main nue — l'inverse n'est pas toujours vrai.
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🪃</div>
+        <h3>Single Stick (Olisi)</h3>
+        <p>Un bâton rattan (~60-65cm). La base absolue. C'est par là que commence tout pratiquant. Les 12 angles d'attaque, les parades, les contre-attaques, le flow.</p>
+        <span class="tag">Fondation du système</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🥢</div>
+        <h3>Double Stick (Sinawali)</h3>
+        <p>Deux bâtons simultanément. Le "tissage" (sinawali = tisser). Travail de coordination bilatérale extraordinaire. Améliore la dextérité des deux mains et le timing défensif.</p>
+        <span class="tag">Coordination bilatérale</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔪</div>
+        <h3>Daga (Couteau)</h3>
+        <p>La lame courte. Maniement offensif et défensif. Désarmement. La logique est la même que le bâton — angles, lignes, transitions. Sayoc Kali en est la spécialité absolue.</p>
+        <span class="tag">Lame courte — Désarmement</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗡️</div>
+        <h3>Espada y Daga</h3>
+        <p>Épée (ou bâton long) + couteau simultanément. La combinaison lame longue / lame courte. Combat à deux armes. Exige une maîtrise avancée des deux mains.</p>
+        <span class="tag">Niveau avancé</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤜</div>
+        <h3>Mano Mano (Main Nue)</h3>
+        <p>La main nue en Kali — ce n'est pas un point de départ, c'est une <em>déduction</em> du système armé. Les angles d'attaque sont les mêmes. Le corps entier devient l'arme.</p>
+        <span class="tag">Par déduction du système armé</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌿</div>
+        <h3>Armes Improvisées</h3>
+        <p>Parapluie, stylo, bouteille, clés, ceinture. La philosophie du Kali : tout objet tenu en main devient une extension du corps. L'improvisation est une compétence enseignée explicitement.</p>
+        <span class="tag">Self-défense réelle — Quotidienne</span>
+      </div>
+    </div>
+
+    <div class="highlight-strip mt-2">
+      <strong>La "Live Hand"</strong> — Dans le Kali, la main qui ne tient pas l'arme n'est jamais passive. Elle dévie, frappe, saisit, contrôle. Cette concept de "main vivante" change radicalement la façon de combattre à deux mains — et s'applique immédiatement à mains nues.
+    </div>
+  </section>
+
+  <!-- ══ 04 : 12 ANGLES ════════════════════════════════════════ -->
+  <section id="angles" class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2>🎯 Les 12 Angles d'Attaque</h2>
+    </div>
+
+    <p>Le cœur du Kali est son système d'<strong>angles d'attaque</strong>. Plutôt que d'enseigner des techniques isolées, le Kali enseigne des <em>lignes</em>. Une fois que tu comprends qu'une attaque peut venir de 12 angles différents — et que chaque angle a sa réponse optimale — tu comprends n'importe quel assaillant avec n'importe quelle arme.</p>
+
+    <div class="angles-grid">
+      <div class="angle-card"><div class="a-num">1</div><div class="a-name">Temple droit</div><div class="a-desc">Diagonal haut-droit → bas-gauche</div></div>
+      <div class="angle-card"><div class="a-num">2</div><div class="a-name">Temple gauche</div><div class="a-desc">Diagonal haut-gauche → bas-droit</div></div>
+      <div class="angle-card"><div class="a-num">3</div><div class="a-name">Flanc droit</div><div class="a-desc">Horizontal → côté droit, taille</div></div>
+      <div class="angle-card"><div class="a-num">4</div><div class="a-name">Flanc gauche</div><div class="a-desc">Horizontal → côté gauche, taille</div></div>
+      <div class="angle-card"><div class="a-num">5</div><div class="a-name">Ventre droit</div><div class="a-desc">Diagonal bas-droit → haut-gauche</div></div>
+      <div class="angle-card"><div class="a-num">6</div><div class="a-name">Ventre gauche</div><div class="a-desc">Diagonal bas-gauche → haut-droit</div></div>
+      <div class="angle-card"><div class="a-num">7</div><div class="a-name">Genou droit</div><div class="a-desc">Attaque basse droite</div></div>
+      <div class="angle-card"><div class="a-num">8</div><div class="a-name">Genou gauche</div><div class="a-desc">Attaque basse gauche</div></div>
+      <div class="angle-card"><div class="a-num">9</div><div class="a-name">Estoc droit</div><div class="a-desc">Thrust droit — pointe</div></div>
+      <div class="angle-card"><div class="a-num">10</div><div class="a-name">Estoc gauche</div><div class="a-desc">Thrust gauche — pointe</div></div>
+      <div class="angle-card"><div class="a-num">11</div><div class="a-name">Estoc bas</div><div class="a-desc">Thrust central vers le bas</div></div>
+      <div class="angle-card"><div class="a-num">12</div><div class="a-name">Crâne / Sommet</div><div class="a-desc">Frappe verticale descendante</div></div>
+    </div>
+
+    <div class="highlight-strip">
+      <strong>⚠️ Note importante :</strong> Les 12 angles varient selon les styles (Doce Pares ≠ Pekiti-Tirsia ≠ Inosanto). Le principe est universel — les angles spécifiques varient. Ce qui compte : apprendre à <em>lire</em> la trajectoire d'une attaque, pas mémoriser une liste.
+    </div>
+
+    <blockquote>
+      « Quand tu comprends les angles, tu comprends l'attaque — qu'elle vienne d'un bâton, d'un couteau, d'un poing ou d'un pied. »<br>
+      <small>— Enseignement FMA traditionnel</small>
+    </blockquote>
+  </section>
+
+  <!-- ══ 05 : TECHNIQUE ════════════════════════════════════════ -->
+  <section id="technique" class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2>⚡ Contenu Technique</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Domaine</th><th>Techniques / Concepts</th><th>Application</th></tr></thead>
+        <tbody>
+          <tr><td>Frappe au bâton</td><td>12 angles, back-hand, abaniko (éventail), witik</td><td>Efficacité immédiate, arme + mains nues</td></tr>
+          <tr><td>Parades / Déviations</td><td>Block, deflect, pass, gunting (ciseau), check</td><td>Redirection plutôt qu'absorption</td></tr>
+          <tr><td>Sinawali</td><td>Motifs double bâton : heaven, earth, x, 6-count...</td><td>Coordination bilatérale, timing, rythme</td></tr>
+          <tr><td>Couteau offensif</td><td>Angles de coupe, estoc, passage de garde</td><td>Conscience du danger — jamais sans contrôle éthique</td></tr>
+          <tr><td>Désarmement</td><td>Parada y golpe, strip, lock, check &amp; disarm</td><td>Retirer l'arme sans se blesser</td></tr>
+          <tr><td>Tapi-Tapi</td><td>Jeu de mains en contact (Modern Arnis)</td><td>Sensibilité au contact, flow, réponse automatique</td></tr>
+          <tr><td>Anyos / Formsets</td><td>Formes solo bâton, solo couteau, main nue</td><td>Pratique individuelle — mémorisation des angles</td></tr>
+          <tr><td>Sparring</td><td>Palakaw (light), heavy sparring rattan, free flow</td><td>Test sous pression réelle avec casque/gants</td></tr>
+          <tr><td>Trapping</td><td>Contrôle des membres, interceptions, hubud</td><td>Contact rapproché — fondation commune JKD/Wing Chun/Kali</td></tr>
+          <tr><td>Ground Kali</td><td>Combat au sol avec arme, désarmement au sol</td><td>Continuation du système armé en position basse</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Le Hubud-Lubud — Le Cœur du Kali</h3>
+    <p>Le <strong>Hubud-Lubud</strong> ("lier-délier") est l'exercice fondamental du Kali à mains nues. Deux partenaires en contact constant sur les avant-bras, ils alternent saisie et libération dans un flux circulaire. C'est la base du <em>flow training</em> — apprendre à sentir l'intention de l'adversaire avant qu'elle ne se manifeste. Cet exercice est le pont entre la technique et l'instinct.</p>
+
+    <div class="highlight-strip">
+      <strong>Sparring au rattan</strong> — Le sparring Kali utilise des bâtons en rotin véritable (rattan) avec casque plein visage, gants, et protection tronc. C'est intense, physique, et réel. La vitesse d'un bâton rattan bien utilisé dépasse celle d'un poing. Cela crée une vigilance et des réflexes défensifs impossibles à acquérir autrement.
+    </div>
+  </section>
+
+  <!-- ══ 06 : FOI CHRÉTIENNE ════════════════════════════════════ -->
+  <section id="christian" class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2>✝️ Foi, Spiritualité &amp; Arts Philippins</h2>
+    </div>
+
+    <p>Contrairement à une idée reçue, le Kali n'est pas un art "pré-chrétien" incompatible avec la foi catholique. Il est né <em>dans</em> la culture catholique philippine et en porte les marques profondes. C'est un des seuls arts martiaux du monde où la dévotion chrétienne est organiquement intégrée dans la technique.</p>
+
+    <div class="cards">
+      <div class="card" style="border-color:rgba(200,160,60,0.35); background:rgba(60,40,10,0.1);">
+        <div class="card-icon">⚔️</div>
+        <h3 style="color:#d4a050;">Le San Miguel Strike — #1</h3>
+        <p>L'angle #1 — la première frappe enseignée à tout débutant Kali — porte le nom de <strong>San Miguel Archangel</strong> (Saint Michel Archange). Frappe descendante du haut-droit vers le bas-gauche, exactement le mouvement de l'épée de l'archange sur les icônes. Ce n'est pas une métaphore : c'est un hommage gravé dans le geste technique lui-même.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.35); background:rgba(60,40,10,0.1);">
+        <div class="card-icon">🙏</div>
+        <h3 style="color:#d4a050;">Oraisons pré-duel</h3>
+        <p>Les anciens maîtres des Visayas et de Cebu récitaient des prières — souvent le "Anting-Anting Prayer" — avant tout engagement. Les objets de protection (anting-anting) portaient des versets des Évangiles. La grâce de Dieu était invoquée non pour vaincre, mais pour être juste.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.35); background:rgba(60,40,10,0.1);">
+        <div class="card-icon">🛡️</div>
+        <h3 style="color:#d4a050;">La Virgen de Guadalupe</h3>
+        <p>De nombreux maîtres de Kali placent une image de la Vierge sur l'autel de leur dojo. La protection céleste est invoquée avant l'entraînement. L'humilité devant Dieu et la puissance martiale sont vécues comme complémentaires — jamais contradictoires.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.35); background:rgba(60,40,10,0.1);">
+        <div class="card-icon">⚓</div>
+        <h3 style="color:#d4a050;">Lapulapu — Icône paradoxale</h3>
+        <p>Lapulapu tue Magellan (1521) — envoyé du roi catholique d'Espagne. Ironie de l'histoire : les Philippines deviendront le pays catholique d'Asie quelques décennies plus tard. Lapulapu est aujourd'hui un héros national ET les Philippins sont catholiques. Le Kali survit <em>avec</em> cette foi, pas contre elle.</p>
+      </div>
+    </div>
+
+    <div class="christian-box">
+      <h3>🇵🇭 Un Art Martial d'État Catholique</h3>
+      <p>En 2009, le Congrès philippin (pays catholique à 80%+) déclare l'Arnis <strong>art martial national</strong> et l'intègre dans les programmes scolaires obligatoires. Des enfants philippins apprennent l'Arnis à l'école catholique le matin et vont à la messe le dimanche. Il n'y a aucune contradiction dans leur culture.</p>
+      <p style="margin-top:0.8rem;">Le <strong>Miles Christi</strong> — le guerrier chrétien médiéval — trouve son équivalent direct dans la tradition martiale philippine : un homme qui frappe juste, qui protège les siens, qui remercie Dieu, qui ne combat pas pour la gloire.</p>
+    </div>
+
+    <blockquote>
+      « Je ne vous donne pas la paix comme le monde la donne. » — Jean 14:27<br>
+      <small style="color:#7a6840;">La paix du guerrier chrétien n'est pas l'absence de conflit — c'est la capacité à le résoudre avec justice et précision.</small>
+    </blockquote>
+  </section>
+
+  <!-- ══ 07 : FRANCE ════════════════════════════════════════════ -->
+  <section id="france" class="section">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2>🇫🇷 Le Kali en France</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Structure</th><th>Localisation</th><th>Proximité SGB (91)</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Club FMA Fleury-Mérogis</td><td>Fleury-Mérogis (91)</td><td>★★★★★ ~10 min</td><td>Club associatif HelloAsso — à visiter</td></tr>
+          <tr><td>Eskrima Arnis Kali System</td><td>France (réseau)</td><td>★★★★ Contacter</td><td>Communauté FMA nationale — Facebook</td></tr>
+          <tr><td>Inosanto Academy France</td><td>Paris + régions</td><td>★★★ ~30 min</td><td>Lignée Dan Inosanto — référence mondiale</td></tr>
+          <tr><td>Pekiti-Tirsia France</td><td>Paris / Île-de-France</td><td>★★★ ~30 min</td><td>Style forces spéciales — niveau technique élevé</td></tr>
+          <tr><td>Doce Pares France</td><td>Île-de-France</td><td>★★★ variable</td><td>Compétition WEKAF — style classique</td></tr>
+          <tr><td>Stages IKAEF</td><td>National</td><td>★★ (stages)</td><td>Fédération européenne FMA — stages réguliers</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert" style="margin-top:1.5rem;">
+      <strong>Premier contact recommandé :</strong><br>
+      1. Club de <strong>Fleury-Mérogis (91)</strong> via HelloAsso — le plus proche<br>
+      2. Page Facebook <strong>Eskrima Arnis Kali System</strong> — <a href="https://www.facebook.com/eskrimaarniskalisystem" target="_blank">@eskrimaarniskalisystem</a><br>
+      3. <strong>Kajukenbo (Méthode Diaz)</strong> intègre le Kali — les clubs de Massy/Saulx enseignent déjà les sticks !
+    </div>
+
+    <h3>Budget prévisionnel</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Poste</th><th>Coût</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Cotisation annuelle</td><td>80 – 120 €</td><td>Clubs associatifs — très accessibles</td></tr>
+          <tr><td>Sticks rattan (paire)</td><td>20 – 35 €</td><td>2 bâtons 60-65cm — indispensables</td></tr>
+          <tr><td>Casque sparring (rattan)</td><td>40 – 80 €</td><td>Pour sparring au rattan — prioritaire</td></tr>
+          <tr><td>Gants (si non fournis)</td><td>20 – 40 €</td><td>Parfois fournis par le club au départ</td></tr>
+          <tr><td>Couteau d'entraînement</td><td>10 – 25 €</td><td>Rubber training knife — sécurité</td></tr>
+          <tr><td>Tenue</td><td>0 €</td><td>Vêtements de sport normaux</td></tr>
+          <tr><td><strong>Total an 1</strong></td><td><strong>~170 – 300 €</strong></td><td>✅ Dans ton budget</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ 08 : EFFICACITÉ ════════════════════════════════════════ -->
+  <section id="efficacite" class="section">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <h2>🎯 Analyse d'efficacité</h2>
+    </div>
+
+    <div class="verdict-grid">
+      <div class="verdict-box pro">
+        <h3>✅ Points forts</h3>
+        <ul>
+          <li>Meilleur système de défense couteau au monde</li>
+          <li>Testé au combat réel (1521 → Guerilla WWII)</li>
+          <li>Adopté par l'US Army, USMC, forces spéciales</li>
+          <li>Angles d'attaque applicables à toute arme ou objet</li>
+          <li>Coordination bilatérale exceptionnelle (sinawali)</li>
+          <li>Pratique solo complète (Anyos, solo drills)</li>
+          <li>Complémentaire à TOUT autre art martial</li>
+          <li>Budget très accessible — équipement minimal</li>
+          <li>Système esthétique et fluide — plaisir de pratique</li>
+          <li>Dimension spirituelle chrétienne authentique</li>
+        </ul>
+      </div>
+      <div class="verdict-box con">
+        <h3>△ Points de vigilance</h3>
+        <ul>
+          <li>Peu de pratiquants en France (communauté petite)</li>
+          <li>Qualité très variable selon l'instructeur</li>
+          <li>Pas de fédération nationale reconnue en France</li>
+          <li>Les armes = cadre légal à connaître</li>
+          <li>Moins efficace seul SANS fondation de frappe</li>
+          <li>Multiplicité des styles — peut créer confusion</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="verdict-final">
+      <h3>🎯 Verdict général</h3>
+      <p>
+        Le Kali est un art de <strong>guerre et de paix simultanément</strong>. Il est l'un des systèmes les plus complets au monde pour tout ce qui concerne les armes courtes et les combats à courte distance. Sa faiblesse intrinsèque est d'être <strong>moins complet en frappe à mains nues</strong> que le Kajukenbo — ce qui explique pourquoi la combinaison Kajukenbo + Kali est si souvent recommandée par les experts.
+      </p>
+      <p style="margin-top:0.8rem; color:#40a0e0; font-weight:600;">
+        Bilan : Le Kali ne remplace pas un art de frappe — il le complète. C'est le multiplicateur d'efficacité ultime pour quelqu'un qui a déjà une base solide.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ 09 : POURQUOI TOI ══════════════════════════════════════ -->
+  <section id="pour-toi" class="section">
+    <div class="section-header">
+      <span class="section-number">09</span>
+      <h2>🧭 Pourquoi le Kali est fait pour TOI</h2>
+    </div>
+
+    <div class="profil-box">
+      <h2>🧍 Ton profil — Rappel</h2>
+      <p style="color:#a0b8c8; margin-bottom:1rem;">
+        45 ans — Essonne (91) — Vo Vietnam (Nguyen Duc Moc) — 4 ans Aïkido (4e Kyu) — Biceps guéri — Foi catholique — Self-défense réelle — Budget ~400€/an — 2 séances/semaine
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="border-color:rgba(0,100,180,0.4);">
+        <div class="card-icon">🎋</div>
+        <h3>Ton fond Vo Vietnam — Activé immédiatement</h3>
+        <p>L'école Nguyen Duc Moc travaille les angles, les armes courtes, la conscience des lignes d'attaque. Le Kali fonctionne avec exactement la même logique. Ta mémoire musculaire va se réveiller dès le premier cours. Tu auras <strong>18 mois d'avance</strong> sur un débutant complet.</p>
+        <span class="tag">Vo Vietnam → Kali = même ADN</span>
+      </div>
+      <div class="card" style="border-color:rgba(0,100,180,0.4);">
+        <div class="card-icon">💪</div>
+        <h3>Ton biceps — 100% compatible</h3>
+        <p>Le Kali ne sollicite <strong>pas les clefs de bras</strong>. Le travail est en frappes de bâton, déviations, rotations de poignet. Les rotations légères sont même <strong>thérapeutiques</strong> pour un tendon en phase de consolidation. Tu peux pratiquer à intensité 100% dès le départ.</p>
+        <span class="tag">Zéro risque biceps</span>
+      </div>
+      <div class="card" style="border-color:rgba(0,100,180,0.4);">
+        <div class="card-icon">✝️</div>
+        <h3>Ta foi — au cœur du système</h3>
+        <p>Saint Michel Archange nommé dans la première frappe. La Vierge sur l'autel du dojo. Les prières avant les duels. C'est l'art martial qui parle le plus explicitement la langue de ta foi. Le guerrier philippin et le <em>Miles Christi</em> se confondent.</p>
+        <span class="tag">San Miguel Strike — Miles Christi</span>
+      </div>
+      <div class="card" style="border-color:rgba(0,100,180,0.4);">
+        <div class="card-icon">🛡️</div>
+        <h3>La défense contre couteau</h3>
+        <p>Dans la vraie vie, la menace la plus courante n'est pas un pratiquant de MMA — c'est un homme avec un couteau dans la rue. Le Kali est reconnu mondialement comme <strong>le meilleur système de défense couteau</strong>. Armé ou désarmé. Seul ou avec objet improvisé.</p>
+        <span class="tag">Référence mondiale défense couteau</span>
+      </div>
+      <div class="card" style="border-color:rgba(0,100,180,0.4);">
+        <div class="card-icon">📍</div>
+        <h3>À 10 minutes — Et déjà inclus</h3>
+        <p>Fleury-Mérogis est à 10 min. Mais surtout : le club Kajukenbo de Saulx-les-Chartreux (ta recommandation principale) <strong>enseigne déjà le Kali</strong> via la Méthode Diaz. Tu peux commencer les deux en même temps dans le même club.</p>
+        <span class="tag">Kajukenbo + Kali = même dojo</span>
+      </div>
+      <div class="card" style="border-color:rgba(0,100,180,0.4);">
+        <div class="card-icon">🎨</div>
+        <h3>La beauté du geste — retrouvée</h3>
+        <p>Tu aimais la beauté de l'Aïkido. Le sinawali (double bâton) est d'une beauté formelle comparable à celle d'un kata Karaté — mais avec une résistance réelle. Les Anyos solo sont méditatifs, précis, exigeants. La beauté est là — avec la vérité.</p>
+        <span class="tag">Beauté + Vérité = Kali</span>
+      </div>
+    </div>
+
+    <div class="verdict-final" style="margin-top:2rem;">
+      <h3>🎯 Pourquoi le Kali — En une phrase</h3>
+      <p>
+        Le Kali est l'art que ton fond Vo Vietnam reconnaît immédiatement, que ton biceps peut pratiquer sans appréhension, et que ta foi peut porter sans contradiction. Il est le complément naturel du Kajukenbo — ensemble, ils forment le système complet du guerrier protecteur chrétien philippin-français que tu es en train de devenir.
+      </p>
+      <p style="margin-top:0.8rem; color:#40a0e0; font-weight:700; font-size:1.05rem;">
+        ⚔️ San Miguel Archangel — ora pro nobis ✝️
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ 10 : PRATIQUE SOLO ══════════════════════════════════════ -->
+  <section id="solo" class="section">
+    <div class="section-header">
+      <span class="section-number">10</span>
+      <h2>🪞 Pratique Solo — La Grande Différence</h2>
+    </div>
+
+    <div class="alert" style="border-color:rgba(200,160,20,0.4); background:rgba(80,60,10,0.1);">
+      <strong style="color:#d4a050;">⚠️ Ce que l'Aïkido ne peut pas faire</strong> — En Aïkido, <strong>chaque technique nécessite un partenaire</strong>. Pas de kata individuel, pas de shadow work, pas de pratique solo structurée. Tu ne peux pas progresser entre les séances. C'est une limite fondamentale que tu as vécue sans peut-être la nommer.
+    </div>
+
+    <h3>Ce que le Kali t'offre — Seul, chez toi, tous les jours</h3>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>Les Anyos (Formes solo)</h3>
+        <p>Formes individuelles au bâton, au couteau, à mains nues. Mémorisation des 12 angles, des transitions, des enchaînements. <strong>15-20 minutes par jour</strong> de pratique solo Anyo = progression visible en 3 mois.</p>
+        <span class="tag">Équivalent du kata — mais vrai</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🥢</div>
+        <h3>Sinawali Solo</h3>
+        <p>Les motifs double bâton peuvent être pratiqués <strong>seul dans ta chambre</strong>. Heaven six, earth six, x-pattern... 10 minutes par jour améliore la dextérité des deux mains plus efficacement que n'importe quel exercice de coordination.</p>
+        <span class="tag">Dans 2m² — tous les jours</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>Travail sur cible</h3>
+        <p>Un coussin, une bouteille plastique, un poteau enveloppé de mousse. Les 12 angles sur cible — une session de 20 min développe la précision, la puissance et la distance de frappe. Peut se faire dans un jardin, un garage, ou un couloir.</p>
+        <span class="tag">Matériel = rien</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌊</div>
+        <h3>Flow Drills (Vidéo)</h3>
+        <p>Une fois les bases acquises en cours, les flow drills peuvent être travaillés mentalement et physiquement via les vidéos. La communauté FMA partage massivement en ligne. <strong>Dan Inosanto</strong> lui-même a des ressources accessibles sur YouTube.</p>
+        <span class="tag">Communauté ouverte en ligne</span>
+      </div>
+    </div>
+
+    <div class="verdict-final" style="margin-top:1.5rem; background:linear-gradient(135deg,rgba(100,60,20,0.12),rgba(60,40,10,0.05)); border-color:rgba(200,160,50,0.3);">
+      <h3 style="color:#d4a050;">💡 L'équation gagnante</h3>
+      <p>
+        2 séances Kajukenbo/semaine + 1 séance Kali/semaine + 15 min de pratique solo quotidienne Kali = plus de progression martiale que 5 séances/semaine d'Aïkido sans pratique solo possible. Tu multiplies l'effet de chaque cours par un facteur 3 minimum.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-icon">🇵🇭</span>
+  Document rédigé le 18 mars 2026 — Arts Martiaux Philippins<br>
+  Kali / Arnis / Eskrima — Art Martial National des Philippines (Republic Act 9850, 2009)<br>
+  <span style="color:#304050; font-size:0.75rem; margin-top:0.5rem; display:block;">
+    ⚔️ San Miguel Archangel — ora pro nobis ✝️
+  </span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚔️ Mon Art Martial — Synthèse Personnalisée</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #070708; color: #e8e0d5; line-height: 1.75; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative; min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 15% 40%, rgba(180,20,20,0.16) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 40%, rgba(0,100,180,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 80%, rgba(200,80,0,0.10) 0%, transparent 50%),
+        #070708;
+    }
+    .hero::before {
+      content: '⚔️'; position: absolute; font-size: clamp(14rem,40vw,32rem);
+      pointer-events:none; user-select:none; top:50%; left:50%; transform:translate(-50%,-50%);
+      opacity:0.04; white-space:nowrap; line-height:1;
+    }
+    .hero-badge { display:inline-block; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); color:#c8c0b8; font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; padding:0.35rem 1rem; border-radius:999px; margin-bottom:1.5rem; }
+    .hero h1 { font-size:clamp(2rem,6vw,4.5rem); font-weight:900; letter-spacing:-0.02em; line-height:1.05; color:#fff; margin-bottom:0.5rem; }
+    .hero h1 em { font-style:normal; color:#e05050; }
+    .hero-sub { font-size:clamp(0.95rem,2vw,1.2rem); color:#8a8070; margin-bottom:2.5rem; letter-spacing:0.08em; text-transform:uppercase; }
+    .hero-trinity { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin:1.5rem 0; }
+    .trinity-pill { display:flex; align-items:center; gap:0.5rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:999px; padding:0.5rem 1.2rem; font-size:0.9rem; color:#d0c8c0; }
+    .trinity-pill span { font-size:1.1rem; }
+    .hero-quote { font-style:italic; font-size:1rem; color:#b0a898; border-left:3px solid #c0392b; padding-left:1.2rem; margin-top:2rem; max-width:520px; text-align:left; }
+    .scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); color:#404038; font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:0.4rem; }
+    .scroll-hint::after { content:''; width:1px; height:40px; background:linear-gradient(to bottom,#404038,transparent); }
+
+    /* ─── NAV ─── */
+    nav { position:sticky; top:0; z-index:100; background:rgba(7,7,8,0.94); backdrop-filter:blur(12px); border-bottom:1px solid rgba(255,255,255,0.06); padding:0 2rem; }
+    nav ul { display:flex; gap:0; list-style:none; overflow-x:auto; max-width:1100px; margin:0 auto; scrollbar-width:none; }
+    nav ul::-webkit-scrollbar { display:none; }
+    nav ul li a { display:block; padding:1rem 1.1rem; color:#7a7060; text-decoration:none; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap; transition:color 0.2s; }
+    nav ul li a:hover { color:#e05050; }
+
+    main { max-width:1100px; margin:0 auto; padding:4rem 2rem 6rem; }
+    .section { margin-bottom:5rem; }
+    .section-header { display:flex; align-items:center; gap:1rem; margin-bottom:2.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .section-number { font-size:0.7rem; letter-spacing:0.2em; color:#c0392b; text-transform:uppercase; font-weight:700; white-space:nowrap; }
+    .section-header h2 { font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; }
+
+    .alert { border:1px solid rgba(180,20,20,0.3); border-radius:8px; padding:1.5rem 1.8rem; margin-bottom:2rem; color:#d8c8c0; background:rgba(180,20,20,0.06); }
+    .alert strong { color:#e05050; }
+
+    .table-wrap { overflow-x:auto; margin:1.5rem 0; }
+    table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+    thead tr { background:rgba(180,20,20,0.1); }
+    thead th { padding:0.75rem 1rem; text-align:left; color:#e05050; font-weight:700; letter-spacing:0.05em; font-size:0.8rem; text-transform:uppercase; white-space:nowrap; }
+    tbody tr { border-bottom:1px solid rgba(255,255,255,0.04); transition:background 0.15s; }
+    tbody tr:hover { background:rgba(255,255,255,0.03); }
+    tbody td { padding:0.7rem 1rem; color:#c8bfb5; vertical-align:top; }
+    tbody td:first-child { color:#f0e8e0; font-weight:600; }
+
+    .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.2rem; margin:1.5rem 0; }
+    .card { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:1.5rem; transition:border-color 0.2s,transform 0.2s; }
+    .card:hover { transform:translateY(-2px); }
+    .card-icon { font-size:1.8rem; margin-bottom:0.7rem; }
+    .card h3 { font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.5rem; }
+    .card p, .card ul { font-size:0.88rem; color:#9a9080; line-height:1.6; }
+    .card ul { padding-left:1.1rem; }
+    .card ul li { margin-bottom:0.3rem; }
+    .tag { display:inline-block; font-size:0.7rem; background:rgba(180,20,20,0.1); color:#e05050; border:1px solid rgba(180,20,20,0.25); border-radius:999px; padding:0.15rem 0.6rem; margin-top:0.8rem; }
+
+    .timeline { position:relative; padding-left:2rem; margin:1.5rem 0; }
+    .timeline::before { content:''; position:absolute; left:0; top:0.5rem; bottom:0; width:1px; background:linear-gradient(to bottom,#c0392b,transparent); }
+    .timeline-item { position:relative; margin-bottom:2.5rem; }
+    .timeline-item::before { content:''; position:absolute; left:-2rem; top:0.55rem; width:8px; height:8px; border-radius:50%; background:#c0392b; box-shadow:0 0 8px rgba(192,57,43,0.5); }
+    .timeline-date { font-size:0.75rem; color:#c0392b; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.3rem; }
+    .timeline-title { font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.3rem; }
+    .timeline-desc { font-size:0.88rem; color:#9a9080; }
+    .timeline-detail { margin-top:0.6rem; display:flex; gap:0.6rem; flex-wrap:wrap; }
+    .timeline-tag { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:0.25rem 0.7rem; font-size:0.75rem; color:#a0a098; }
+
+    blockquote { border-left:3px solid #c0392b; padding-left:1.2rem; font-style:italic; color:#b0a898; margin:1.2rem 0; }
+
+    .big-verdict {
+      background: linear-gradient(135deg, rgba(180,20,20,0.12), rgba(0,100,180,0.08), rgba(200,80,0,0.06));
+      border: 1px solid rgba(180,20,20,0.3);
+      border-radius: 16px; padding: 2.5rem; margin:2rem 0;
+    }
+    .big-verdict h2 { font-size:1.5rem; font-weight:800; color:#fff; margin-bottom:1.5rem; }
+
+    .profile-identity {
+      background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; padding:2rem; margin:1.5rem 0;
+      display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;
+    }
+    @media (max-width:600px) { .profile-identity { grid-template-columns:1fr; } }
+    .identity-block h4 { font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:#c0392b; margin-bottom:0.6rem; }
+    .identity-block p { font-size:0.92rem; color:#c8c0b8; margin:0; }
+
+    .system-comparison {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.5rem 0;
+    }
+    @media (max-width:700px) { .system-comparison { grid-template-columns:1fr; } }
+    .sys-card { border-radius:10px; padding:1.5rem; position:relative; overflow:hidden; }
+    .sys-card.kaju { background:rgba(200,80,0,0.08); border:1px solid rgba(200,80,0,0.3); }
+    .sys-card.kali { background:rgba(0,100,180,0.08); border:1px solid rgba(0,100,180,0.3); }
+    .sys-card.aikido { background:rgba(100,100,100,0.08); border:1px solid rgba(100,100,100,0.2); }
+    .sys-card .sys-title { font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:700; margin-bottom:0.8rem; }
+    .sys-card.kaju .sys-title { color:#e08040; }
+    .sys-card.kali .sys-title { color:#40a0e0; }
+    .sys-card.aikido .sys-title { color:#888; }
+    .sys-card .sys-role { font-size:0.85rem; color:#c0b8b0; margin-bottom:0.8rem; font-weight:600; }
+    .sys-card ul { list-style:none; font-size:0.8rem; color:#8a8880; }
+    .sys-card ul li { padding:0.2rem 0; padding-left:1rem; position:relative; }
+    .sys-card.kaju ul li::before { content:'🌺'; position:absolute; left:0; font-size:0.65rem; }
+    .sys-card.kali ul li::before { content:'🇵🇭'; position:absolute; left:0; font-size:0.65rem; }
+    .sys-card.aikido ul li::before { content:'☯'; position:absolute; left:0; font-size:0.65rem; color:#666; }
+
+    .week-plan { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px; overflow:hidden; margin:1.5rem 0; }
+    .week-plan-header { background:rgba(180,20,20,0.12); padding:1rem 1.5rem; display:flex; justify-content:space-between; align-items:center; }
+    .week-plan-header h3 { color:#fff; font-size:1rem; margin:0; }
+    .week-plan-body { padding:0; }
+    .day-row { display:grid; grid-template-columns:120px 1fr; border-bottom:1px solid rgba(255,255,255,0.04); }
+    .day-row:last-child { border-bottom:none; }
+    .day-name { padding:1rem; background:rgba(255,255,255,0.02); font-size:0.8rem; font-weight:700; color:#e05050; letter-spacing:0.1em; text-transform:uppercase; display:flex; align-items:center; border-right:1px solid rgba(255,255,255,0.04); }
+    .day-content { padding:1rem; font-size:0.88rem; color:#a0a098; }
+    .day-content strong { color:#e8e0d8; }
+    .day-content .activity-badge { display:inline-block; background:rgba(200,80,0,0.12); border:1px solid rgba(200,80,0,0.25); color:#e08040; font-size:0.72rem; padding:0.1rem 0.5rem; border-radius:999px; margin-left:0.4rem; }
+    .day-content .activity-badge.kali-b { background:rgba(0,100,180,0.12); border-color:rgba(0,100,180,0.25); color:#40a0e0; }
+    .day-content .activity-badge.solo-b { background:rgba(80,80,80,0.12); border-color:rgba(80,80,80,0.25); color:#888; }
+
+    .christian-box { background:linear-gradient(135deg,rgba(100,60,20,0.18),rgba(60,40,10,0.1)); border:1px solid rgba(200,160,60,0.45); border-radius:12px; padding:2rem; margin:1.5rem 0; }
+    .christian-box h3 { color:#d4a050; margin-top:0; font-size:1.15rem; }
+
+    .highlight-strip { background:rgba(180,20,20,0.07); border-left:4px solid #c0392b; border-radius:0 8px 8px 0; padding:1rem 1.5rem; margin:1rem 0; color:#d0c8c0; font-size:0.93rem; }
+    .highlight-strip strong { color:#e05050; }
+
+    .final-manifesto {
+      margin-top:3rem;
+      background: linear-gradient(160deg, rgba(180,20,20,0.15), rgba(0,100,180,0.12), rgba(200,80,0,0.08));
+      border: 1px solid rgba(180,20,20,0.4);
+      border-radius:16px; padding:3rem;
+      text-align:center;
+    }
+    .final-manifesto .manifesto-icon { font-size:3rem; margin-bottom:1.5rem; display:block; }
+    .final-manifesto h2 { font-size:clamp(1.4rem,3vw,2rem); font-weight:900; color:#fff; margin-bottom:1.5rem; }
+    .final-manifesto p { font-size:1rem; color:#c0b8b0; max-width:640px; margin:0 auto 1rem; line-height:1.8; }
+    .final-manifesto .final-quote { font-size:1.1rem; font-weight:700; color:#e05050; margin-top:2rem; font-style:italic; }
+
+    .link-hub { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1rem; margin:2rem 0; }
+    .link-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:1.3rem 1.5rem; display:flex; align-items:center; gap:1rem; text-decoration:none; transition:border-color 0.2s, transform 0.2s; color:inherit; }
+    .link-card:hover { border-color:rgba(180,20,20,0.4); transform:translateY(-2px); text-decoration:none; }
+    .link-card .lc-icon { font-size:1.8rem; flex-shrink:0; }
+    .link-card .lc-title { font-size:0.9rem; font-weight:700; color:#fff; }
+    .link-card .lc-sub { font-size:0.78rem; color:#7a7868; }
+
+    p { margin-bottom:1rem; color:#c8bfb5; }
+    strong { color:#f0e0d8; }
+    em { color:#b8a898; }
+    a { color:#c0392b; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h3 { color:#f0e8e0; font-size:1.1rem; margin:1.5rem 0 0.7rem; }
+    .divider { border:none; border-top:1px solid rgba(255,255,255,0.05); margin:3rem 0; }
+    .mt-2 { margin-top:2rem; }
+
+    footer { text-align:center; padding:3rem 2rem; color:#303028; font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.04); letter-spacing:0.05em; }
+    footer .footer-icon { display:block; font-size:2.5rem; margin-bottom:0.5rem; opacity:0.15; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ════════════════════════════════════════════════════ -->
+<section class="hero">
+  <span class="hero-badge">Synthèse Personnalisée — Mars 2026</span>
+  <h1>Mon <em>Art Martial</em></h1>
+  <p class="hero-sub">Le Portrait du Guerrier — et son Chemin</p>
+
+  <div class="hero-trinity">
+    <div class="trinity-pill"><span>🌺</span> Kajukenbo</div>
+    <div class="trinity-pill"><span>✝️</span></div>
+    <div class="trinity-pill"><span>🇵🇭</span> Kali</div>
+  </div>
+
+  <blockquote class="hero-quote">
+    « Ce n'est pas l'art que tu choisis. C'est l'art que tu es, enfin nommé. »
+  </blockquote>
+
+  <div class="scroll-hint">Mon Portrait</div>
+</section>
+
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <ul>
+    <li><a href="#portrait">Portrait</a></li>
+    <li><a href="#diagnostic">Diagnostic</a></li>
+    <li><a href="#systeme">Mon Système</a></li>
+    <li><a href="#semaine">Ma Semaine</a></li>
+    <li><a href="#foi">Foi ✝️</a></li>
+    <li><a href="#blessure">Blessure</a></li>
+    <li><a href="#plan">Plan</a></li>
+    <li><a href="#manifeste">Manifeste</a></li>
+    <li><a href="#liens">Liens</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ══ 00 : PORTRAIT ══════════════════════════════════════════ -->
+  <section id="portrait" class="section">
+    <div class="section-header">
+      <span class="section-number">00</span>
+      <h2>🧍 Mon Portrait Martial</h2>
+    </div>
+
+    <div class="profile-identity">
+      <div class="identity-block">
+        <h4>Profil Physique</h4>
+        <p>45 ans — 1m75 / 79 kg — gabarit équilibré<br>Forme 3/5 — dos fragile, hanches raides<br>Biceps droit guéri (déchirure niv.2) — tendon raide en flexion</p>
+      </div>
+      <div class="identity-block">
+        <h4>Historique Martial</h4>
+        <p>Aïkido — 4 ans — 4e Kyu<br>Vo Vietnam — École Nguyen Duc Moc (Nanterre)<br>Krav Maga — initiations</p>
+      </div>
+      <div class="identity-block">
+        <h4>Contexte</h4>
+        <p>Sainte-Geneviève-des-Bois (Essonne, 91)<br>2 séances/semaine max<br>Budget ~400€/an</p>
+      </div>
+      <div class="identity-block">
+        <h4>Priorités (toutes max)</h4>
+        <p>Self-défense réelle ★★★★★<br>Développement personnel ★★★★★<br>Plaisir de pratique ★★★★★<br>Forme physique ★★★★★<br>Compétition ✗</p>
+      </div>
+    </div>
+
+    <div class="highlight-strip">
+      <strong>En une phrase :</strong> Un pratiquant catholique de 45 ans, avec un fond martial solide (Vo Vietnam + Aïkido), une blessure instruite, une foi réelle, cherchant la vérité du geste martial dans un art qui protège, embellit et respecte sa foi.
+    </div>
+  </section>
+
+  <!-- ══ 01 : DIAGNOSTIC ════════════════════════════════════════ -->
+  <section id="diagnostic" class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2>🧠 Diagnostic — Ce que l'histoire révèle</h2>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="border-color:rgba(180,20,20,0.3);">
+        <div class="card-icon">💡</div>
+        <h3>Le Paradoxe de l'Aïkidoka</h3>
+        <p>4 ans d'Aïkido, connexion spirituelle réelle, mais frustration croissante. La blessure a été le révélateur : <em>"Je ne veux pas me blesser pour rien — mais je veux bien me blesser pour quelque chose de vrai."</em></p>
+        <p style="font-size:0.82rem; color:#e05050; margin-top:0.5rem; font-style:italic;">Ce n'est pas de l'ingratitude envers l'Aïkido. C'est de la maturité martiale.</p>
+      </div>
+      <div class="card" style="border-color:rgba(180,20,20,0.3);">
+        <div class="card-icon">😴</div>
+        <h3>Les Insomnies Post-Aïkido</h3>
+        <p>Un signe physiologique clair : le corps réclamait une décharge d'adrénaline que l'Aïkido coopératif ne fournit pas. Le système nerveux avait besoin du <strong>contact réel consenti</strong>. Ce besoin n'est pas une faiblesse — c'est une honnêteté biologique.</p>
+      </div>
+      <div class="card" style="border-color:rgba(180,20,20,0.3);">
+        <div class="card-icon">🤜</div>
+        <h3>Les Frappes Manquantes</h3>
+        <p>Dès le départ, quelque chose manquait en Aïkido. Pas de frappe réelle, pas de percussion. Le Vo Vietnam avait donné ce goût — l'Aïkido ne l'avait pas satisfait. C'est la frustration centrale.</p>
+      </div>
+      <div class="card" style="border-color:rgba(180,20,20,0.3);">
+        <div class="card-icon">🪞</div>
+        <h3>La Pratique Solo Impossible</h3>
+        <p>En Aïkido, <strong>chaque technique nécessite un partenaire</strong>. Pas de kata individuel, pas de shadow work. Impossible de progresser seul. C'est une limite que tu n'avais peut-être pas nommée — mais qui creusait la frustration.</p>
+      </div>
+      <div class="card" style="border-color:rgba(180,20,20,0.3);">
+        <div class="card-icon">👘</div>
+        <h3>L'Hakama — La Leçon</h3>
+        <p>Vouloir l'hakama trop vite — vouloir le signe du grade avant le grade lui-même. Prise de conscience lucide : l'art martial ne se porte pas sur les épaules, il se vit dans les mains. Le gi noir Kajukenbo dit exactement ça.</p>
+      </div>
+      <div class="card" style="border-color:rgba(180,20,20,0.3);">
+        <div class="card-icon">🌱</div>
+        <h3>Le Fond Vo Vietnam — Endormi</h3>
+        <p>L'école Nguyen Duc Moc à Nanterre est sérieuse. Ce fond n'a pas disparu — il dort. Les angles d'attaque, les armes courtes, le travail des jambes. Il se réveillera au premier cours de Kali comme une évidence.</p>
+      </div>
+    </div>
+
+    <blockquote>
+      « Le guerrier contemplatif cherchant la vérité du geste. »<br>
+      <small>— Ton portrait martial en 7 mots</small>
+    </blockquote>
+  </section>
+
+  <!-- ══ 02 : MON SYSTÈME ═══════════════════════════════════════ -->
+  <section id="systeme" class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>⚙️ Mon Système — La Trinité Martiale</h2>
+    </div>
+
+    <p>Ton art martial ne tient pas dans une seule discipline. Il tient dans une <strong>architecture à trois niveaux</strong> qui se complètent, se nourrissent, et forment un tout cohérent — technique, spirituel, et pratique.</p>
+
+    <div class="system-comparison">
+      <div class="sys-card kaju">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🌺</div>
+        <div class="sys-title">Kajukenbo</div>
+        <div class="sys-role">La fondation — Le feu</div>
+        <ul>
+          <li>Les frappes réelles</li>
+          <li>Le sparring consenti</li>
+          <li>La vérité du contact</li>
+          <li>L'Aïkido valorisé</li>
+          <li>Gi noir 🇫🇷</li>
+          <li>2 séances/semaine</li>
+        </ul>
+      </div>
+      <div class="sys-card kali">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🇵🇭</div>
+        <div class="sys-title">Kali / Arnis</div>
+        <div class="sys-role">Le complément — L'âme</div>
+        <ul>
+          <li>Les armes courtes</li>
+          <li>Les 12 angles</li>
+          <li>San Miguel ✝️</li>
+          <li>Pratique solo quotidienne</li>
+          <li>Défense couteau</li>
+          <li>1 séance/semaine</li>
+        </ul>
+      </div>
+      <div class="sys-card aikido">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">☯</div>
+        <div class="sys-title">L'Aïkido — Héritage</div>
+        <div class="sys-role">La mémoire — La racine</div>
+        <ul>
+          <li>Conscience spatiale</li>
+          <li>Chutes sans peur</li>
+          <li>Projection / déséquilibre</li>
+          <li>Culture martiale</li>
+          <li>Connexion intérieure</li>
+          <li>Pas perdu — transmis</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert" style="margin-top:1.5rem;">
+      <strong>La logique :</strong> Le Kajukenbo donne le feu (frappes, sparring, résistance). Le Kali donne l'âme (armes, angles, foi philippine). L'Aïkido donne les racines (conscience, chutes, culture). Ces trois niveaux ne s'annulent pas — ils s'additionnent.
+    </div>
+
+    <h3>Pourquoi cette combinaison est unique</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Besoin</th><th>Réponse</th><th>Discipline</th></tr></thead>
+        <tbody>
+          <tr><td>Frappes réelles</td><td>Boxing + kicks + coudes</td><td>🌺 Kajukenbo</td></tr>
+          <tr><td>Sparring sous résistance</td><td>Contact consenti avec protections</td><td>🌺 Kajukenbo</td></tr>
+          <tr><td>Vérité des projections Aïkido</td><td>Jujutsu intégré au Kajukenbo</td><td>🌺 Kajukenbo</td></tr>
+          <tr><td>Défense couteau</td><td>Meilleur système mondial</td><td>🇵🇭 Kali</td></tr>
+          <tr><td>Armes courtes</td><td>12 angles — tout objet = arme</td><td>🇵🇭 Kali</td></tr>
+          <tr><td>Pratique solo quotidienne</td><td>Anyos, Sinawali solo, Shadow boxing</td><td>🇵🇭 Kali + 🌺 Kajukenbo</td></tr>
+          <tr><td>Dimension spirituelle chrétienne</td><td>San Miguel Strike, Miles Christi</td><td>🇵🇭 Kali</td></tr>
+          <tr><td>Bi compatible (biceps)</td><td>Arts debout en priorité, pas de kimura</td><td>🌺 + 🇵🇭</td></tr>
+          <tr><td>Budget 400€/an</td><td>Total an 1 : ~300-400€ les deux</td><td>🌺 + 🇵🇭</td></tr>
+          <tr><td>10 minutes de chez toi</td><td>Massy / Saulx-les-Chartreux (91)</td><td>🌺 Kajukenbo Diaz</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ 03 : MA SEMAINE ════════════════════════════════════════ -->
+  <section id="semaine" class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>📅 Ma Semaine Idéale</h2>
+    </div>
+
+    <div class="week-plan">
+      <div class="week-plan-header"><h3>Semaine Type — Phase 2 (Mois 6+)</h3></div>
+      <div class="week-plan-body">
+        <div class="day-row">
+          <div class="day-name">Lundi</div>
+          <div class="day-content"><strong>Kajukenbo</strong> <span class="activity-badge">Séance 1</span> — 1h30 de cours (frappes, self-défense debout, Pinans)<br><small>+ 15 min solo : shadow boxing à la maison avant de dormir</small></div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Mardi</div>
+          <div class="day-content"><strong>Pratique solo Kali</strong> <span class="activity-badge solo-b">Solo</span> — 15-20 min Sinawali + Anyos bâton solo<br><small>Dans ton jardin ou couloir — 2 sticks rattan</small></div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Mercredi</div>
+          <div class="day-content"><strong>Kajukenbo</strong> <span class="activity-badge">Séance 2</span> — 1h30 (sparring, Kali sticks intégré, clefs)<br><small>La méthode Diaz intègre le Kali — les deux en même cours</small></div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Jeudi</div>
+          <div class="day-content"><strong>Récupération active</strong> <span class="activity-badge solo-b">Solo</span> — 10 min : étirements hanches + mobilité dos<br><small>+ lecture / vidéo FMA (Dan Inosanto YouTube) — progression mentale</small></div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Vendredi</div>
+          <div class="day-content"><strong>Pratique solo Kali</strong> <span class="activity-badge kali-b">Kali</span> — 20 min Anyos + 12 angles sur cible improvisée<br><small>Un cousin, une bouteille plastique, un poteau de jardin</small></div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Samedi</div>
+          <div class="day-content"><strong>Variable</strong> — Stage FMA ou Kajukenbo (mensuel) / repos actif / course légère 30 min<br><small>1 stage national Kajukenbo ou Kali tous les 2-3 mois</small></div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Dimanche</div>
+          <div class="day-content"><strong>Repos + Foi</strong> — Messe. Méditation. Pas d'entraînement physique.<br><small>La récupération est une discipline martiale. Le dimanche se respecte.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-strip" style="margin-top:1.5rem;">
+      <strong>Total hebdomadaire :</strong> 2 séances en club (3h) + 3×15 min solo à domicile = ~3h45 de pratique. En Aïkido, sans partenaire, tu ne pouvais rien faire seul. Ici, 3 jours supplémentaires de progression à la maison. Le multiplicateur est énorme.
+    </div>
+  </section>
+
+  <!-- ══ 04 : FOI ══════════════════════════════════════════════ -->
+  <section id="foi" class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2>✝️ La Foi au Cœur du Système</h2>
+    </div>
+
+    <p>Ta foi catholique n'est pas un obstacle à l'art martial. Elle en est le fondement. Voici pourquoi cette combinaison Kajukenbo + Kali est la seule qui parle explicitement la langue du <em>Miles Christi</em>.</p>
+
+    <div class="christian-box">
+      <h3>⚔️ Le San Miguel Strike — La Prière dans le Geste</h3>
+      <p>La première frappe du Kali — l'Angle #1, appris le premier jour par tout débutant — porte le nom de <strong>Saint Michel Archange</strong>. Frappe descendante droite-gauche, exactement le geste de l'épée de l'archange dans toute l'iconographie catholique. <em>Ce n'est pas une métaphore</em>. C'est une dévotion gravée dans le mouvement technique.</p>
+      <p style="margin-top:0.8rem;">Chaque fois que tu frappes cet angle en entraînement, tu fais un geste qui a été nommé en l'honneur de l'archange patron des guerriers depuis des siècles par des guerriers philippins catholiques.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="border-color:rgba(200,160,60,0.3); background:rgba(60,40,10,0.08);">
+        <div class="card-icon">🌺</div>
+        <h3 style="color:#d4a050;">Emperado — Le Catholique de Palama</h3>
+        <p>Sijo Adriano Emperado, fondateur du Kajukenbo, était philippino-américain catholique. Pour lui, enseigner le Kajukenbo aux pauvres de Honolulu était un <strong>acte de charité</strong>. La force au service des faibles. Pas la gloire personnelle.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.3); background:rgba(60,40,10,0.08);">
+        <div class="card-icon">🙏</div>
+        <h3 style="color:#d4a050;">Prières et Anting-Anting</h3>
+        <p>Les maîtres de Kali de Cebu priaient avant les duels. Leurs objets de protection portaient des versets bibliques. La grâce de Dieu était invoquée — pour être juste, pas pour vaincre. L'humilité avant le combat.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.3); background:rgba(60,40,10,0.08);">
+        <div class="card-icon">🛡️</div>
+        <h3 style="color:#d4a050;">Le Miles Christi — Toi</h3>
+        <p>Tu ne pratiques pas pour la gloire. Tu pratiques pour <strong>protéger</strong> — ta famille, ceux que tu aimes, les plus faibles. C'est exactement la définition médiévale du guerrier chrétien. Un art martial qui sert ce but est un acte de foi en soi.</p>
+      </div>
+      <div class="card" style="border-color:rgba(200,160,60,0.3); background:rgba(60,40,10,0.08);">
+        <div class="card-icon">🇵🇭</div>
+        <h3 style="color:#d4a050;">L'Art d'un Peuple Catholique</h3>
+        <p>Les Philippines sont le seul pays catholique d'Asie. Leur art martial national — déclaré par loi — est enseigné dans les écoles catholiques. Un art et une foi qui ne se contredisent pas — ils se complètent depuis 500 ans.</p>
+      </div>
+    </div>
+
+    <blockquote>
+      « Je ne vous donne pas la paix comme le monde la donne. » — Jean 14:27<br>
+      <small>Le guerrier de paix ne fuit pas le conflit. Il le résout avec justice, précision et miséricorde.</small>
+    </blockquote>
+  </section>
+
+  <!-- ══ 05 : BLESSURE ══════════════════════════════════════════ -->
+  <section id="blessure" class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2>🩺 La Blessure — De l'Obstacle au Maître</h2>
+    </div>
+
+    <p>La déchirure du biceps en Aïkido (ude kemi nage) n'est pas une malchance — c'est un enseignement. Elle t'a dit quelque chose que tu as mis du temps à entendre : <em>"Ce que tu faisais ne te préparait pas à encaisser ce qu'une blessure de combat peut produire."</em></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Discipline</th><th>Risque biceps</th><th>Clefs de bras</th><th>Adaptation possible</th></tr></thead>
+        <tbody>
+          <tr><td>🌺 Kajukenbo (Méthode Diaz)</td><td>⚠️ Moyen — à surveiller</td><td>Existent mais non centraux</td><td>✅ Oui — instructeurs expérimentés</td></tr>
+          <tr><td>🇵🇭 Kali / Arnis</td><td>✅ Très faible</td><td>Quasi inexistantes</td><td>✅ Oui — rotations poignet thérapeutiques</td></tr>
+          <tr><td>Aïkido</td><td>🔴 Élevé</td><td>Centrales (ude kemi nage, etc.)</td><td>⚠️ Difficile sans changer de style</td></tr>
+          <tr><td>BJJ</td><td>🔴 Élevé</td><td>Kimura, armbar = quotidien</td><td>⚠️ Très difficile</td></tr>
+          <tr><td>Judo</td><td>🔴 Élevé</td><td>+ chutes intensives</td><td>⚠️ Risque dos aussi</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>Ce qu'il faut dire à l'instructeur</h3>
+        <p>Dès le premier cours Kajukenbo : <em>"J'ai eu une déchirure de biceps niveau 2 en Aïkido il y a [X mois]. Le tendon est guéri mais raide en flexion de coude sous charge. Je veux éviter les hyperextensions de coude et les kimura."</em></p>
+        <p style="font-size:0.82rem; color:#9a9080; margin-top:0.5rem;">Un instructeur sérieux adaptera immédiatement. Si ce n'est pas le cas — change de club.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💪</div>
+        <h3>Le Kali — Thérapeutique</h3>
+        <p>Les rotations de poignet et d'avant-bras du Kali (sinawali, 12 angles) sont <strong>progressives et thérapeutiques</strong> pour un tendon bicipital en consolidation. Les kinés recommandent exactement ce type de mouvement contrôlé. C'est une heureuse coïncidence.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧘</div>
+        <h3>Le Dos et les Hanches</h3>
+        <p>Le Kajukenbo Méthode Diaz est un art <strong>debout en priorité</strong>. Pas de chutes répétitives comme le Judo. Le sol existe mais n'est pas central. Les étirements de hanches sont à intégrer dans le programme de récupération quotidien.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 06 : PLAN D'ACTION ══════════════════════════════════════ -->
+  <section id="plan" class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2>🗺️ Mon Plan d'Action — Étape par Étape</h2>
+    </div>
+
+    <div class="timeline mt-2">
+      <div class="timeline-item">
+        <div class="timeline-date">Cette semaine</div>
+        <div class="timeline-title">Contacter — Pas plus</div>
+        <div class="timeline-desc">Aller sur kajukenbo.fr → clubs → Massy (91) ou Saulx-les-Chartreux (91). Envoyer un email ou appeler. Demander un cours d'essai. Mentionner la blessure. <em>Une seule action. Cette semaine.</em></div>
+        <div class="timeline-detail">
+          <span class="timeline-tag">kajukenbo.fr</span>
+          <span class="timeline-tag">Massy 91</span>
+          <span class="timeline-tag">Saulx-les-Chartreux 91</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Cours 1</div>
+        <div class="timeline-title">Observer — Ne pas briller</div>
+        <div class="timeline-desc">Regarder l'ambiance, l'humilité de l'instructeur, la façon dont les élèves se respectent. Un bon club Kajukenbo : sparring gradué, pas d'ego, sécurité via protections. Si l'ambiance est machiste et brutale : partir.</div>
+        <div class="timeline-detail">
+          <span class="timeline-tag">Écouter le corps</span>
+          <span class="timeline-tag">Signaler biceps</span>
+          <span class="timeline-tag">Zéro performance</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mois 1–3</div>
+        <div class="timeline-title">Phase 1 — Le Plaisir Retrouvé</div>
+        <div class="timeline-desc">Objectif unique : retrouver le plaisir de frapper pour de vrai. Pas de grade, pas de pression. Laisser la mémoire Vo Vietnam se réveiller. Les chutes Aïkido gèrent les projections sans appréhension. Commencer le sinawali solo à la maison avec 2 sticks rattan.</div>
+        <div class="timeline-detail">
+          <span class="timeline-tag">2 séances/sem</span>
+          <span class="timeline-tag">Solo 15 min/jour</span>
+          <span class="timeline-tag">Budget: gants + sticks (~80€)</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mois 3–6</div>
+        <div class="timeline-title">Phase 2 — La Vérité du Sparring</div>
+        <div class="timeline-desc">Premier sparring résistant avec protections. Ce moment que tu attendais depuis des années — la décharge d'adrénaline consentie et structurée. Les insomnies ne reviendront pas. Tu rentreras fatigué mais apaisé. Introduction du Kali via la Méthode Diaz (sticks en cours).</div>
+        <div class="timeline-detail">
+          <span class="timeline-tag">Protège-dents</span>
+          <span class="timeline-tag">Casque rattan</span>
+          <span class="timeline-tag">Premier stage national</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mois 6–12</div>
+        <div class="timeline-title">Phase 3 — Les Angles s'Ouvrent</div>
+        <div class="timeline-desc">Le Kali philippin prend de la place. Les 12 angles sont intégrés. La logique arme/main nue devient claire. Explorer la communauté FMA locale (Fleury-Mérogis, EAK System France). Stage Kali dédié si occasion se présente.</div>
+        <div class="timeline-detail">
+          <span class="timeline-tag">FMA Fleury 91</span>
+          <span class="timeline-tag">EAK Facebook</span>
+          <span class="timeline-tag">Anyos solo maîtrisés</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">An 1 — Bilan</div>
+        <div class="timeline-title">Le Guerrier se Nomme</div>
+        <div class="timeline-desc">À 12 mois, tu pratiques Kajukenbo + Kali avec une régularité réelle. Tu frappes, tu pares, tu travailles les armes, tu t'entraînes seul. Tu protèges. Tu portes ta foi dans tes gestes. Tu comprends pourquoi tes années d'Aïkido t'ont conduit ici — pas ailleurs.</div>
+        <div class="timeline-detail">
+          <span class="timeline-tag">Gi noir 🇫🇷</span>
+          <span class="timeline-tag">San Miguel dans les mains</span>
+          <span class="timeline-tag">Miles Christi</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">An 2+</div>
+        <div class="timeline-title">L'Horizon — Le Système Complet</div>
+        <div class="timeline-desc">Kajukenbo régulier + Kali dédié en parallèle. Stages nationaux des deux disciplines. Si l'envie vient : explorer le NBJR (Nihon Bu Jutsu Ryū) pour la dimension japonaise culturelle — le club VNBJ à Villemoisson-sur-Orge (91) est à 5 min de chez toi.</div>
+        <div class="timeline-detail">
+          <span class="timeline-tag">VNBJ Villemoisson 91</span>
+          <span class="timeline-tag">Stages IKAEF Kali</span>
+          <span class="timeline-tag">Système fermé ← Toi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 07 : MANIFESTE ════════════════════════════════════════ -->
+  <section id="manifeste" class="section">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2>📜 Mon Manifeste du Guerrier</h2>
+    </div>
+
+    <div class="final-manifesto">
+      <span class="manifesto-icon">⚔️</span>
+      <h2>Je suis un guerrier contemplatif.</h2>
+
+      <p>Je ne pratique pas pour gagner des médailles. Je pratique pour <strong>protéger</strong> — ceux que j'aime, ceux qui sont plus faibles. L'art martial est un acte de service, pas de gloire.</p>
+
+      <p>J'ai cherché la beauté du geste en Aïkido. Je l'ai trouvée. Mais j'avais besoin que cette beauté ait une épine dorsale de vérité — le contact réel, le sparring consenti, l'épreuve. Le <strong>Kajukenbo</strong> est cette épine dorsale.</p>
+
+      <p>Mon fond Vo Vietnam me dit que les armes sont naturelles à la main d'un guerrier. Le <strong>Kali</strong> m'a donné le nom de ce que je savais déjà : l'arme est une extension du corps, et le corps est une arme. Et le premier angle porte le nom de Saint Michel.</p>
+
+      <p>Je porte <strong>le gi noir</strong> — pas l'hakama. Je suis venu pour travailler, pas pour paraître. La compétence suit. Le grade suit. Le vêtement suit. Jamais l'inverse.</p>
+
+      <p>Je m'entraîne seul chez moi, <strong>tous les jours</strong> — avec deux bâtons en rattan, 15 minutes, dans mon couloir. Parce que l'art martial ne vit que dans les clubs — il vit dans les mains. Dans les habitudes. Dans le quotidien.</p>
+
+      <p>Je suis catholique, et mon art martial parle ma langue de foi. <strong>San Miguel Archangel</strong>, nommé dans chaque frappe fondatrice. Les guerriers philippins priant avant les duels. La Vierge sur l'autel du dojo. Je ne suis pas seul dans cette tradition.</p>
+
+      <p>Je ne cours pas après l'immortalité martiale. Je cours après la <strong>dignité quotidienne</strong> du guerrier — capable de protéger, de frapper juste, de tomber sans se briser, de se relever.</p>
+
+      <div class="final-quote">
+        « Train Strong to Remain Strong. » — Sijo Adriano Emperado ✝️<br>
+        « San Miguel Archangel — ora pro nobis. » ⚔️
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 08 : LIENS ════════════════════════════════════════════ -->
+  <section id="liens" class="section">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <h2>🔗 Mes Documents &amp; Ressources</h2>
+    </div>
+
+    <h3>Mes 4 pages de référence</h3>
+    <div class="link-hub">
+      <a href="Nihon_Bu_Jutsu_Ryu.html" class="link-card">
+        <div class="lc-icon">武</div>
+        <div><div class="lc-title">Nihon Bu Jutsu Ryū</div><div class="lc-sub">Histoire complète, clubs, comparaison</div></div>
+      </a>
+      <a href="Kajukenbo.html" class="link-card">
+        <div class="lc-icon">🌺</div>
+        <div><div class="lc-title">Kajukenbo</div><div class="lc-sub">Histoire, fondateurs, méthode Diaz, pourquoi toi</div></div>
+      </a>
+      <a href="Kali_Arnis_Eskrima.html" class="link-card">
+        <div class="lc-icon">🇵🇭</div>
+        <div><div class="lc-title">Kali / Arnis / Eskrima</div><div class="lc-sub">12 angles, foi chrétienne, pratique solo</div></div>
+      </a>
+      <a href="Mon_Art_Martial.html" class="link-card" style="border-color:rgba(180,20,20,0.3);">
+        <div class="lc-icon">⚔️</div>
+        <div><div class="lc-title">Mon Art Martial</div><div class="lc-sub">Cette page — Synthèse personnalisée</div></div>
+      </a>
+    </div>
+
+    <h3 style="margin-top:2rem;">Liens externes essentiels</h3>
+    <div class="link-hub">
+      <a href="https://www.kajukenbo.fr/" target="_blank" class="link-card">
+        <div class="lc-icon">🌺</div>
+        <div><div class="lc-title">kajukenbo.fr</div><div class="lc-sub">Site officiel Méthode Diaz — Clubs France</div></div>
+      </a>
+      <a href="https://www.facebook.com/eskrimaarniskalisystem" target="_blank" class="link-card">
+        <div class="lc-icon">🇵🇭</div>
+        <div><div class="lc-title">EAK System France</div><div class="lc-sub">Communauté FMA française — Facebook</div></div>
+      </a>
+      <a href="https://www.vnbj.org/" target="_blank" class="link-card">
+        <div class="lc-icon">武</div>
+        <div><div class="lc-title">VNBJ — Villemoisson (91)</div><div class="lc-sub">Club NBJR à 5 min — option future</div></div>
+      </a>
+    </div>
+
+    <div class="alert" style="margin-top:2rem; border-color:rgba(200,160,50,0.4); background:rgba(80,60,10,0.1);">
+      <strong style="color:#d4a050;">💡 Première action concrète</strong><br><br>
+      Va sur <a href="https://www.kajukenbo.fr/" target="_blank" style="color:#e08040;">kajukenbo.fr</a> → Section "Clubs" → Contact Massy (91) ou Saulx-les-Chartreux (91) → Demande un cours d'essai → Mentionne ton biceps.<br><br>
+      <strong>C'est tout. Cette semaine. Une seule action.</strong>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-icon">⚔️</span>
+  Document de synthèse — Mars 2026<br>
+  Construit à partir d'un profil réel, d'une recherche approfondie, et d'une conversation honnête.<br>
+  <span style="color:#282820; margin-top:0.5rem; display:block;">
+    « Train Strong to Remain Strong » — Sijo Adriano Emperado ✝️ &nbsp;|&nbsp; ⚔️ San Miguel Archangel — ora pro nobis
+  </span>
+</footer>
+
+</body>
+</html>

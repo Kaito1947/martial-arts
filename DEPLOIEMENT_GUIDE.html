@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🚀 Guide de Déploiement — GitHub Pages + Netlify</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #07080c; color: #e8e0d5; line-height: 1.75; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative; min-height: 80vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(30,60,180,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 50%, rgba(20,160,80,0.10) 0%, transparent 55%),
+        #07080c;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '🚀'; position: absolute; font-size: clamp(14rem,40vw,30rem);
+      pointer-events:none; top:50%; left:50%; transform:translate(-50%,-50%);
+      opacity:0.04; line-height:1;
+    }
+    .hero-badge { display:inline-block; background:rgba(30,60,180,0.12); border:1px solid rgba(80,120,255,0.35); color:#8090e0; font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; padding:0.35rem 1.1rem; border-radius:999px; margin-bottom:1.5rem; }
+    .hero h1 { font-size:clamp(2rem,6vw,4.5rem); font-weight:900; letter-spacing:-0.02em; color:#fff; margin-bottom:0.5rem; }
+    .hero h1 em { font-style:normal; color:#5080ff; }
+    .hero-sub { font-size:clamp(0.9rem,2vw,1.1rem); color:#606870; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:2rem; }
+    .hero-options { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+    .option-pill { display:flex; align-items:center; gap:0.5rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:999px; padding:0.5rem 1.2rem; font-size:0.85rem; color:#c0c8d0; }
+    .option-pill .dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+    .dot-blue { background:#5080ff; }
+    .dot-teal { background:#40c090; }
+
+    /* ─── NAV ─── */
+    nav { position:sticky; top:0; z-index:100; background:rgba(7,8,12,0.94); backdrop-filter:blur(12px); border-bottom:1px solid rgba(80,120,255,0.1); padding:0 2rem; }
+    nav ul { display:flex; gap:0; list-style:none; overflow-x:auto; max-width:1100px; margin:0 auto; scrollbar-width:none; }
+    nav ul::-webkit-scrollbar { display:none; }
+    nav ul li a { display:block; padding:1rem 1.1rem; color:#5a6070; text-decoration:none; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap; transition:color 0.2s; }
+    nav ul li a:hover { color:#5080ff; }
+    nav .nav-sep { color:#252530; padding:1rem 0.5rem; font-size:0.7rem; }
+
+    main { max-width:1000px; margin:0 auto; padding:4rem 2rem 6rem; }
+    .section { margin-bottom:5rem; }
+    .section-header { display:flex; align-items:center; gap:1rem; margin-bottom:2.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .section-number { font-size:0.65rem; letter-spacing:0.25em; font-weight:800; text-transform:uppercase; }
+    .sn-blue { color:#5080ff; }
+    .sn-teal { color:#40c090; }
+    .section-header h2 { font-size:clamp(1.3rem,3vw,1.9rem); font-weight:700; color:#fff; }
+
+    /* ─── STEP CARDS ─── */
+    .step { display:grid; grid-template-columns:48px 1fr; gap:1.5rem; margin-bottom:2.5rem; align-items:start; }
+    .step-num {
+      width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-size:1rem; font-weight:900; flex-shrink:0; border:2px solid;
+    }
+    .step-num.blue { background:rgba(80,120,255,0.1); border-color:rgba(80,120,255,0.4); color:#5080ff; }
+    .step-num.teal { background:rgba(64,192,144,0.1); border-color:rgba(64,192,144,0.4); color:#40c090; }
+    .step-body { }
+    .step-title { font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:0.4rem; }
+    .step-desc { font-size:0.88rem; color:#8a9090; line-height:1.7; margin-bottom:0.8rem; }
+    .step-desc strong { color:#d0d8d0; }
+
+    /* ─── CODE BLOCKS ─── */
+    .code-block {
+      background:#0d1117; border:1px solid rgba(255,255,255,0.08); border-radius:10px;
+      padding:1.2rem 1.5rem; font-family:'SF Mono','Fira Code','Consolas',monospace;
+      font-size:0.85rem; line-height:1.8; overflow-x:auto; margin:0.8rem 0;
+      position:relative;
+    }
+    .code-block .comment { color:#4a5568; }
+    .code-block .cmd { color:#79c0ff; }
+    .code-block .str { color:#a5d6a7; }
+    .code-block .kw { color:#ff7b72; }
+    .code-block .path { color:#ffa657; }
+    .code-block-label {
+      font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase;
+      color:#4a5568; margin-bottom:0.3rem; font-family:monospace;
+    }
+
+    /* ─── SCREEN MOCKUP ─── */
+    .screen-mockup {
+      background:#0d1117; border:1px solid rgba(255,255,255,0.08); border-radius:10px;
+      overflow:hidden; margin:1rem 0;
+    }
+    .screen-bar {
+      background:#161b22; padding:0.7rem 1rem; display:flex; align-items:center; gap:0.6rem;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+    .screen-dot { width:10px; height:10px; border-radius:50%; }
+    .sd-red { background:#ff5f57; }
+    .sd-yellow { background:#febc2e; }
+    .sd-green { background:#28c840; }
+    .screen-url { flex:1; text-align:center; }
+    .screen-url input {
+      background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08);
+      border-radius:6px; padding:0.25rem 1rem; font-size:0.78rem; color:#8090a0;
+      width:60%; text-align:center; outline:none; font-family:monospace;
+    }
+    .screen-body { padding:1.5rem; }
+
+    /* ─── ALERT / HIGHLIGHT ─── */
+    .alert-info { background:rgba(80,120,255,0.07); border:1px solid rgba(80,120,255,0.3); border-radius:8px; padding:1.2rem 1.5rem; margin:1rem 0; color:#c0c8e0; font-size:0.9rem; }
+    .alert-info strong { color:#5080ff; }
+    .alert-success { background:rgba(40,180,100,0.07); border:1px solid rgba(40,180,100,0.3); border-radius:8px; padding:1.2rem 1.5rem; margin:1rem 0; color:#b0d8c0; font-size:0.9rem; }
+    .alert-success strong { color:#40c070; }
+    .alert-warn { background:rgba(220,140,20,0.07); border:1px solid rgba(220,140,20,0.3); border-radius:8px; padding:1.2rem 1.5rem; margin:1rem 0; color:#d8c8a0; font-size:0.9rem; }
+    .alert-warn strong { color:#e0a040; }
+    .highlight-strip { background:rgba(80,120,255,0.06); border-left:4px solid #5080ff; border-radius:0 8px 8px 0; padding:0.8rem 1.2rem; margin:1rem 0; color:#c0c8d8; font-size:0.9rem; }
+    .highlight-strip strong { color:#7090ff; }
+    .success-strip { background:rgba(40,180,100,0.06); border-left:4px solid #40c090; border-radius:0 8px 8px 0; padding:0.8rem 1.2rem; margin:1rem 0; color:#b0d8c0; font-size:0.9rem; }
+    .success-strip strong { color:#40c090; }
+
+    /* ─── COMPARISON TABLE ─── */
+    .table-wrap { overflow-x:auto; margin:1.5rem 0; }
+    table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+    thead tr { background:rgba(80,120,255,0.08); }
+    thead th { padding:0.75rem 1rem; text-align:left; color:#5080ff; font-weight:700; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; }
+    tbody tr { border-bottom:1px solid rgba(255,255,255,0.04); }
+    tbody tr:hover { background:rgba(255,255,255,0.02); }
+    tbody td { padding:0.65rem 1rem; color:#b0b8b8; vertical-align:top; }
+    tbody td:first-child { color:#e0e0e0; font-weight:600; }
+    .td-yes { color:#40c090 !important; }
+    .td-no { color:#c05050 !important; }
+    .td-warn { color:#e0a040 !important; }
+
+    /* ─── BADGE ─── */
+    .badge { display:inline-block; font-size:0.68rem; padding:0.15rem 0.6rem; border-radius:999px; font-weight:700; letter-spacing:0.05em; }
+    .badge-blue { background:rgba(80,120,255,0.15); color:#5080ff; border:1px solid rgba(80,120,255,0.3); }
+    .badge-teal { background:rgba(40,180,100,0.12); color:#40c090; border:1px solid rgba(40,180,100,0.3); }
+    .badge-gold { background:rgba(200,140,20,0.12); color:#d4a030; border:1px solid rgba(200,140,20,0.3); }
+
+    /* ─── PART BANNER ─── */
+    .part-banner {
+      border-radius:14px; padding:2rem 2.5rem; margin-bottom:3rem;
+      display:flex; align-items:center; gap:1.5rem;
+    }
+    .part-banner.github { background:linear-gradient(135deg,rgba(30,60,180,0.12),rgba(30,60,120,0.06)); border:1px solid rgba(80,120,255,0.3); }
+    .part-banner.netlify { background:linear-gradient(135deg,rgba(20,160,120,0.12),rgba(20,100,80,0.06)); border:1px solid rgba(40,192,144,0.3); }
+    .part-banner-icon { font-size:3rem; flex-shrink:0; }
+    .part-banner-label { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; margin-bottom:0.4rem; }
+    .github .part-banner-label { color:#5080ff; }
+    .netlify .part-banner-label { color:#40c090; }
+    .part-banner h2 { font-size:1.5rem; font-weight:800; color:#fff; margin-bottom:0.3rem; }
+    .part-banner p { font-size:0.88rem; color:#808898; margin:0; }
+    .part-banner .pb-badge { margin-left:auto; flex-shrink:0; }
+
+    /* ─── BONUS SECTION ─── */
+    .bonus-card { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:1.8rem; margin:1.2rem 0; }
+    .bonus-card h3 { font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.6rem; }
+    .bonus-card p, .bonus-card li { font-size:0.88rem; color:#8a9898; line-height:1.7; }
+    .bonus-card ul { padding-left:1.2rem; }
+    .bonus-card ul li { margin-bottom:0.3rem; }
+
+    p { color:#b8c0b8; margin-bottom:1rem; font-size:0.95rem; }
+    strong { color:#e8e0d8; }
+    em { color:#a0b0a8; }
+    a { color:#5080ff; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h3 { color:#e8e8e0; font-size:1rem; margin:1.5rem 0 0.5rem; }
+    hr { border:none; border-top:1px solid rgba(255,255,255,0.05); margin:3rem 0; }
+    .mt-2 { margin-top:2rem; }
+    .link-back { display:inline-flex; align-items:center; gap:0.5rem; color:#5a6070; text-decoration:none; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:3rem; transition:color 0.2s; }
+    .link-back:hover { color:#5080ff; text-decoration:none; }
+    .link-back::before { content:'←'; }
+
+    footer { text-align:center; padding:3rem 2rem; color:#252530; font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.04); letter-spacing:0.05em; }
+    footer .fi { display:block; font-size:2rem; opacity:0.1; margin-bottom:0.5rem; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <span class="hero-badge">Tuto · Déploiement Web · 2026</span>
+  <h1>Mettre ce site<br><em>en ligne</em></h1>
+  <p class="hero-sub">GitHub Pages · Netlify Drop · Accessible partout</p>
+  <div class="hero-options">
+    <div class="option-pill"><span class="dot dot-blue"></span> GitHub Pages — La voie Pro</div>
+    <div class="option-pill"><span class="dot dot-teal"></span> Netlify Drop — 30 secondes</div>
+  </div>
+</section>
+
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <ul>
+    <li><a href="#comparaison">Comparaison</a></li>
+    <span class="nav-sep">|</span>
+    <li><a href="#github">GitHub Pages</a></li>
+    <li><a href="#git-cli">Git CLI</a></li>
+    <span class="nav-sep">|</span>
+    <li><a href="#netlify">Netlify Drop</a></li>
+    <li><a href="#netlify-auto">Netlify + GitHub</a></li>
+    <span class="nav-sep">|</span>
+    <li><a href="#bonus">Bonus</a></li>
+    <li><a href="#index">← Accueil</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <a href="index.html" class="link-back">Retour à l'accueil</a>
+
+  <!-- ══ 00 : COMPARAISON ═══════════════════════════════════════ -->
+  <section id="comparaison" class="section">
+    <div class="section-header">
+      <span class="section-number sn-blue">00</span>
+      <h2>⚖️ GitHub vs Netlify — Que choisir ?</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>🐙 GitHub Pages</th>
+            <th>⚡ Netlify Drop</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Vitesse de mise en ligne</td><td class="td-warn">5–15 min (1ère fois)</td><td class="td-yes">30 secondes</td></tr>
+          <tr><td>Compte requis</td><td>GitHub (gratuit)</td><td class="td-yes">Non (glisser-déposer)</td></tr>
+          <tr><td>URL obtenue</td><td><code style="font-size:0.8rem;color:#ffa657;">tonnom.github.io/martial-arts</code></td><td><code style="font-size:0.8rem;color:#ffa657;">xyz.netlify.app</code></td></tr>
+          <tr><td>Compétences pro acquises</td><td class="td-yes">Git, GitHub, versioning, CLI</td><td class="td-no">Aucune (drag & drop)</td></tr>
+          <tr><td>Mise à jour du site</td><td>git push → déploiement auto</td><td class="td-warn">Re-déposer le dossier</td></tr>
+          <tr><td>Historique des versions</td><td class="td-yes">Oui — git log complet</td><td class="td-no">Non</td></tr>
+          <tr><td>Accès mobile</td><td class="td-yes">Oui</td><td class="td-yes">Oui</td></tr>
+          <tr><td>Gratuit</td><td class="td-yes">Oui</td><td class="td-yes">Oui</td></tr>
+          <tr><td>Recommandé si...</td><td>Tu veux les skills dev pro</td><td>Tu veux tester vite</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert-info">
+      <strong>Recommandation :</strong> Commence par <strong>Netlify Drop</strong> pour voir le résultat en 30 secondes. Puis fais <strong>GitHub Pages</strong> pour acquérir les compétences. Les deux se complètent — Netlify peut même se brancher sur GitHub automatiquement.
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- PARTIE A : GITHUB PAGES                                     -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <div class="part-banner github" id="github">
+    <div class="part-banner-icon">🐙</div>
+    <div>
+      <div class="part-banner-label">Partie A — La voie Pro</div>
+      <h2>GitHub Pages</h2>
+      <p>Hébergement gratuit par Microsoft/GitHub. Apprends git en même temps.</p>
+    </div>
+    <div class="pb-badge"><span class="badge badge-blue">~15 min</span></div>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number sn-blue">A1</span>
+      <h2>Créer un compte GitHub</h2>
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">1</div>
+      <div class="step-body">
+        <div class="step-title">Aller sur github.com</div>
+        <div class="step-desc">Va sur <a href="https://github.com" target="_blank">github.com</a> → clique <strong>"Sign up"</strong> (en haut à droite)</div>
+        <div class="screen-mockup">
+          <div class="screen-bar">
+            <div class="screen-dot sd-red"></div><div class="screen-dot sd-yellow"></div><div class="screen-dot sd-green"></div>
+            <div class="screen-url"><input type="text" value="github.com" readonly></div>
+          </div>
+          <div class="screen-body" style="font-size:0.82rem; color:#8a9898; line-height:2;">
+            📌 <strong style="color:#e0e0d8;">Conseil username :</strong> Choisis quelque chose de pro — ce sera dans ton URL.<br>
+            Par exemple : <code style="color:#ffa657;">fab-martial</code> → URL = <code style="color:#79c0ff;">fab-martial.github.io</code><br><br>
+            ✅ Email + mot de passe fort + vérification CAPTCHA
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">2</div>
+      <div class="step-body">
+        <div class="step-title">Créer un nouveau Repository</div>
+        <div class="step-desc">Une fois connecté → clique le bouton vert <strong>"New"</strong> ou le <strong>"+"</strong> en haut à droite → "New repository"</div>
+        <div class="screen-mockup">
+          <div class="screen-bar">
+            <div class="screen-dot sd-red"></div><div class="screen-dot sd-yellow"></div><div class="screen-dot sd-green"></div>
+            <div class="screen-url"><input type="text" value="github.com/new" readonly></div>
+          </div>
+          <div class="screen-body" style="font-size:0.82rem; color:#8a9898; line-height:2.2;">
+            <strong style="color:#e0e0d8;">Repository name :</strong> <code style="color:#ffa657;">martial-arts</code><br>
+            <strong style="color:#e0e0d8;">Description :</strong> <code style="color:#a5d6a7;">Mon parcours martial — Kajukenbo + Kali</code><br>
+            <strong style="color:#e0e0d8;">Visibility :</strong> ⚪ Public &nbsp;(requis pour GitHub Pages gratuit)<br>
+            <strong style="color:#e0e0d8;">Initialize :</strong> ☑️ Add a README file<br><br>
+            → Clique <strong style="color:#40c090;">"Create repository"</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">3</div>
+      <div class="step-body">
+        <div class="step-title">Uploader les fichiers HTML (méthode interface web)</div>
+        <div class="step-desc">Dans ton repo → clique <strong>"Add file"</strong> → <strong>"Upload files"</strong></div>
+        <div class="screen-mockup">
+          <div class="screen-bar">
+            <div class="screen-dot sd-red"></div><div class="screen-dot sd-yellow"></div><div class="screen-dot sd-green"></div>
+            <div class="screen-url"><input type="text" value="github.com/fab-martial/martial-arts/upload" readonly></div>
+          </div>
+          <div class="screen-body" style="font-size:0.82rem; color:#8a9898; line-height:2;">
+            📁 Glisse-dépose <strong style="color:#e0e0d8;">tous les fichiers .html</strong> du dossier <code style="color:#ffa657;">Martial Arts/</code><br>
+            → <code style="color:#79c0ff;">index.html</code>, <code style="color:#79c0ff;">Kajukenbo.html</code>, <code style="color:#79c0ff;">Kali_Arnis_Eskrima.html</code>, etc.<br><br>
+            Commit message : <code style="color:#a5d6a7;">"Initial commit — site martial arts"</code><br>
+            → Clique <strong style="color:#40c090;">"Commit changes"</strong>
+          </div>
+        </div>
+        <div class="alert-warn" style="margin-top:0.8rem;">
+          <strong>⚠️ Important :</strong> GitHub ne supporte pas les espaces dans les noms de dossier pour l'upload. Upload <strong>directement les fichiers .html</strong> à la racine du repo (pas le dossier "Martial Arts/").
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">4</div>
+      <div class="step-body">
+        <div class="step-title">Activer GitHub Pages</div>
+        <div class="step-desc">Dans ton repo → onglet <strong>Settings</strong> → section <strong>Pages</strong> (dans le menu gauche)</div>
+        <div class="screen-mockup">
+          <div class="screen-bar">
+            <div class="screen-dot sd-red"></div><div class="screen-dot sd-yellow"></div><div class="screen-dot sd-green"></div>
+            <div class="screen-url"><input type="text" value="github.com/fab-martial/martial-arts/settings/pages" readonly></div>
+          </div>
+          <div class="screen-body" style="font-size:0.82rem; color:#8a9898; line-height:2.2;">
+            <strong style="color:#e0e0d8;">Source :</strong> Deploy from a branch<br>
+            <strong style="color:#e0e0d8;">Branch :</strong> <code style="color:#ffa657;">main</code> &nbsp;/&nbsp; <code style="color:#ffa657;">/ (root)</code><br>
+            → Clique <strong style="color:#40c090;">"Save"</strong><br><br>
+            ⏳ Attendre 1–2 minutes...<br>
+            ✅ <strong style="color:#40c090;">Ton site est en ligne à :</strong><br>
+            <code style="color:#79c0ff;">https://fab-martial.github.io/martial-arts/</code>
+          </div>
+        </div>
+        <div class="success-strip mt-2">
+          <strong>🎉 C'est tout !</strong> Ton site est maintenant accessible depuis n'importe quel appareil dans le monde. Partage l'URL à qui tu veux.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GIT CLI ── -->
+  <section id="git-cli" class="section">
+    <div class="section-header">
+      <span class="section-number sn-blue">A2</span>
+      <h2>🖥️ Git en Ligne de Commande — Skills Pro</h2>
+    </div>
+
+    <div class="alert-info">
+      <strong>Pourquoi apprendre ça ?</strong> Toutes les équipes dev utilisent Git quotidiennement. Maîtriser git en ligne de commande te permettra de contribuer à n'importe quel projet, de gérer des mises à jour proprement, et d'impressionner en entretien. Tu as déjà <code>git</code> installé sur ton Mac.
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">1</div>
+      <div class="step-body">
+        <div class="step-title">Configuration initiale (1 seule fois)</div>
+        <div class="code-block-label">Terminal (zsh)</div>
+        <div class="code-block">
+<span class="comment"># Dire à git qui tu es</span><br>
+<span class="cmd">git</span> config --global user.name <span class="str">"Fab"</span><br>
+<span class="cmd">git</span> config --global user.email <span class="str">"ton@email.com"</span><br>
+<br>
+<span class="comment"># Vérifier</span><br>
+<span class="cmd">git</span> config --list
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">2</div>
+      <div class="step-body">
+        <div class="step-title">Cloner ton repo GitHub en local</div>
+        <div class="step-desc">Remplace <strong>fab-martial</strong> par ton username GitHub</div>
+        <div class="code-block-label">Terminal</div>
+        <div class="code-block">
+<span class="comment"># Aller sur le Bureau</span><br>
+<span class="cmd">cd</span> ~/Desktop<br>
+<br>
+<span class="comment"># Cloner (télécharger) le repo</span><br>
+<span class="cmd">git</span> clone https://github.com/<span class="path">fab-martial</span>/martial-arts.git<br>
+<br>
+<span class="comment"># Entrer dans le dossier</span><br>
+<span class="cmd">cd</span> martial-arts
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">3</div>
+      <div class="step-body">
+        <div class="step-title">Copier tes fichiers HTML dans le repo cloné</div>
+        <div class="code-block-label">Terminal</div>
+        <div class="code-block">
+<span class="comment"># Copier tous les fichiers HTML de ton dossier Martial Arts</span><br>
+<span class="cmd">cp</span> ~/Desktop/"Martial Arts"/*.html ~/Desktop/martial-arts/<br>
+<br>
+<span class="comment"># Voir l'état</span><br>
+<span class="cmd">git</span> status
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">4</div>
+      <div class="step-body">
+        <div class="step-title">Commit & Push — Le flux quotidien</div>
+        <div class="step-desc">Ces 4 commandes sont le <strong>cœur de Git</strong>. Tu les utiliseras des milliers de fois dans ta vie de dev.</div>
+        <div class="code-block-label">Terminal — Workflow quotidien</div>
+        <div class="code-block">
+<span class="comment"># 1. Voir ce qui a changé</span><br>
+<span class="cmd">git</span> status<br>
+<br>
+<span class="comment"># 2. Ajouter tous les fichiers modifiés</span><br>
+<span class="cmd">git</span> add .<br>
+<br>
+<span class="comment"># 3. Créer un "snapshot" avec un message</span><br>
+<span class="cmd">git</span> commit -m <span class="str">"Ajout programme préparation physique"</span><br>
+<br>
+<span class="comment"># 4. Envoyer sur GitHub → site mis à jour automatiquement</span><br>
+<span class="cmd">git</span> push
+        </div>
+        <div class="highlight-strip" style="margin-top:0.8rem;">
+          <strong>Mémorise ça :</strong> <code>git add .</code> → <code>git commit -m "message"</code> → <code>git push</code><br>
+          C'est le triptyque fondamental de tout développeur. Tu viens d'apprendre 80% de git.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num blue">5</div>
+      <div class="step-body">
+        <div class="step-title">Commandes utiles à connaître</div>
+        <div class="code-block-label">Terminal — Référence rapide</div>
+        <div class="code-block">
+<span class="comment"># Voir l'historique de tes commits</span><br>
+<span class="cmd">git</span> log --oneline<br>
+<br>
+<span class="comment"># Voir les différences avant de commit</span><br>
+<span class="cmd">git</span> diff<br>
+<br>
+<span class="comment"># Récupérer les dernières modifications depuis GitHub</span><br>
+<span class="cmd">git</span> pull<br>
+<br>
+<span class="comment"># Créer une branche (pour tester sans casser le site)</span><br>
+<span class="cmd">git</span> checkout -b ma-nouvelle-idee<br>
+<br>
+<span class="comment"># Revenir sur la branche principale</span><br>
+<span class="cmd">git</span> checkout main
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- PARTIE B : NETLIFY                                          -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <div class="part-banner netlify" id="netlify">
+    <div class="part-banner-icon">⚡</div>
+    <div>
+      <div class="part-banner-label">Partie B — La voie Ultra-Rapide</div>
+      <h2>Netlify Drop</h2>
+      <p>Glisser-déposer → site en ligne en 30 secondes. Zéro compte requis.</p>
+    </div>
+    <div class="pb-badge"><span class="badge badge-teal">30 secondes</span></div>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number sn-teal">B1</span>
+      <h2>⚡ Netlify Drop — Le plus Simple</h2>
+    </div>
+
+    <div class="step">
+      <div class="step-num teal">1</div>
+      <div class="step-body">
+        <div class="step-title">Aller sur app.netlify.com/drop</div>
+        <div class="step-desc">Ouvre ton navigateur → va sur <a href="https://app.netlify.com/drop" target="_blank">app.netlify.com/drop</a></div>
+        <div class="screen-mockup">
+          <div class="screen-bar">
+            <div class="screen-dot sd-red"></div><div class="screen-dot sd-yellow"></div><div class="screen-dot sd-green"></div>
+            <div class="screen-url"><input type="text" value="app.netlify.com/drop" readonly></div>
+          </div>
+          <div class="screen-body" style="text-align:center; padding:2.5rem; color:#6a7878;">
+            <div style="font-size:3rem; margin-bottom:1rem; opacity:0.4;">📁</div>
+            <div style="font-size:0.9rem;">Drag and drop your site output folder here</div>
+            <div style="font-size:0.75rem; margin-top:0.5rem; color:#3a4848;">or browse to upload</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num teal">2</div>
+      <div class="step-body">
+        <div class="step-title">Glisser-déposer le dossier "Martial Arts"</div>
+        <div class="step-desc">Ouvre le Finder → navigue vers ton Bureau → <strong>glisse le dossier "Martial Arts"</strong> directement dans la zone de dépôt Netlify dans le navigateur.</div>
+        <div class="alert-warn">
+          <strong>⚠️ Important :</strong> Netlify Drop requiert que <code>index.html</code> soit <strong>à la racine du dossier déposé</strong>. C'est le cas — <code>index.html</code> est bien dans le dossier <code>Martial Arts/</code>. ✅
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num teal">3</div>
+      <div class="step-body">
+        <div class="step-title">Ton site est en ligne !</div>
+        <div class="step-desc">Après quelques secondes, Netlify génère automatiquement une URL aléatoire :</div>
+        <div class="screen-mockup">
+          <div class="screen-bar">
+            <div class="screen-dot sd-red"></div><div class="screen-dot sd-yellow"></div><div class="screen-dot sd-green"></div>
+            <div class="screen-url"><input type="text" value="festive-samurai-abc123.netlify.app" readonly></div>
+          </div>
+          <div class="screen-body" style="font-size:0.85rem; color:#8a9898; line-height:2;">
+            🎉 <strong style="color:#40c090;">Production deploy is live!</strong><br>
+            URL : <code style="color:#79c0ff;">https://festive-samurai-abc123.netlify.app</code><br><br>
+            → Copie cette URL → ouvre-la sur ton téléphone → <strong style="color:#e0e0d8;">ton site est là !</strong>
+          </div>
+        </div>
+        <div class="success-strip">
+          <strong>🏆 30 secondes chrono !</strong> Accessible depuis ton téléphone, n'importe où dans le monde, sans abonnement.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num teal">4</div>
+      <div class="step-body">
+        <div class="step-title">Créer un compte pour conserver l'URL</div>
+        <div class="step-desc">Sans compte, le site expire après un certain temps. Pour le garder définitivement :</div>
+        <div class="screen-mockup">
+          <div class="screen-bar">
+            <div class="screen-dot sd-red"></div><div class="screen-dot sd-yellow"></div><div class="screen-dot sd-green"></div>
+            <div class="screen-url"><input type="text" value="app.netlify.com/signup" readonly></div>
+          </div>
+          <div class="screen-body" style="font-size:0.82rem; color:#8a9898; line-height:2;">
+            Clique <strong style="color:#40c090;">"Claim your site"</strong> sous l'URL générée<br>
+            → Crée un compte Netlify gratuit (email + mot de passe)<br>
+            → L'URL est <strong style="color:#e0e0d8;">définitivement liée à ton compte</strong><br>
+            → Tu peux personnaliser le sous-domaine : <code style="color:#ffa657;">mon-parcours-martial.netlify.app</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NETLIFY + GITHUB AUTO ── -->
+  <section id="netlify-auto" class="section">
+    <div class="section-header">
+      <span class="section-number sn-teal">B2</span>
+      <h2>🔄 Netlify + GitHub — Déploiement Automatique</h2>
+    </div>
+
+    <div class="alert-info">
+      <strong>Le combo parfait :</strong> Une fois que tu as GitHub (Partie A), tu peux connecter Netlify à ton repo. Résultat : chaque fois que tu fais un <code>git push</code>, Netlify redéploie automatiquement ton site en moins d'une minute. C'est ce qu'on appelle le <strong>CI/CD</strong> — très utilisé en entreprise.
+    </div>
+
+    <div class="step">
+      <div class="step-num teal">1</div>
+      <div class="step-body">
+        <div class="step-title">Connecter GitHub à Netlify</div>
+        <div class="step-desc">Sur Netlify → <strong>"Add new site"</strong> → <strong>"Import an existing project"</strong> → <strong>"Deploy with GitHub"</strong></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num teal">2</div>
+      <div class="step-body">
+        <div class="step-title">Sélectionner le repo</div>
+        <div class="step-desc">Choisir <code>fab-martial/martial-arts</code> → laisser les paramètres par défaut (pas de build command, publish directory = /) → <strong>"Deploy site"</strong></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num teal">3</div>
+      <div class="step-body">
+        <div class="step-title">Le workflow pro est en place</div>
+        <div class="code-block-label">Ton workflow désormais</div>
+        <div class="code-block">
+<span class="comment"># Tu modifies une page HTML sur ton Mac</span><br>
+<span class="comment"># Puis dans le terminal :</span><br>
+<br>
+<span class="cmd">git</span> add .<br>
+<span class="cmd">git</span> commit -m <span class="str">"Mise à jour programme Phase 2"</span><br>
+<span class="cmd">git</span> push<br>
+<br>
+<span class="comment"># ↓ Netlify détecte automatiquement le push</span><br>
+<span class="comment"># ↓ Rebuilde et déploie en ~30 secondes</span><br>
+<span class="comment"># ↓ Ton site est mis à jour partout 🚀</span>
+        </div>
+        <div class="highlight-strip">
+          <strong>C'est le même workflow</strong> que des équipes chez Netflix, Airbnb, et des milliers de startups. En apprenant ça pour ton site martial arts, tu apprends la base du dev moderne.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ══ BONUS ══════════════════════════════════════════════════ -->
+  <section id="bonus" class="section">
+    <div class="section-header">
+      <span class="section-number sn-blue">BONUS</span>
+      <h2>🎓 Prochaines Étapes — Développer ses Skills</h2>
+    </div>
+
+    <div class="bonus-card">
+      <h3>📖 Comprendre Git en profondeur</h3>
+      <p>Maintenant que tu as les bases, ces ressources gratuites complètent la formation :</p>
+      <ul>
+        <li><a href="https://learngitbranching.js.org/?locale=fr_FR" target="_blank">learngitbranching.js.org</a> — Le meilleur tuto Git interactif (visuel, en français)</li>
+        <li><a href="https://docs.github.com/fr" target="_blank">docs.github.com/fr</a> — Documentation officielle GitHub en français</li>
+        <li><code>git --help</code> dans le terminal — aide intégrée</li>
+      </ul>
+    </div>
+
+    <div class="bonus-card">
+      <h3>🌐 Avoir un vrai nom de domaine</h3>
+      <p>Si tu veux une URL personnalisée comme <code>fab-martial.com</code> à la place de <code>fab-martial.github.io</code> :</p>
+      <ul>
+        <li><strong>OVH</strong> (français) — ~8€/an pour un .fr ou .com</li>
+        <li><strong>Namecheap</strong> — souvent 5-7€/an</li>
+        <li>GitHub Pages et Netlify supportent tous les deux les domaines personnalisés gratuitement</li>
+      </ul>
+    </div>
+
+    <div class="bonus-card">
+      <h3>🔒 Rendre le site privé (accès par mot de passe)</h3>
+      <p>Si tu veux partager uniquement à des proches sans que ce soit public sur Google :</p>
+      <ul>
+        <li><strong>Netlify</strong> → Site settings → Identity → Password protection (plan gratuit limité)</li>
+        <li><strong>Alternative simple :</strong> GitHub repo privé + partage de lien direct aux personnes choisies</li>
+        <li><strong>Alternative gratuite :</strong> Netlify team plan ou <a href="https://tiiny.host" target="_blank">tiiny.host</a> avec mot de passe</li>
+      </ul>
+    </div>
+
+    <div class="bonus-card" style="border-color:rgba(80,120,255,0.2);">
+      <h3>🚀 Et après — Si la dev t'accroche</h3>
+      <ul>
+        <li><strong>HTML/CSS avancé</strong> — Tu as déjà un excellent niveau (ces pages le prouvent)</li>
+        <li><strong>JavaScript</strong> — Ajouter de l'interactivité (timer Tabata dans le programme ? 😊)</li>
+        <li><strong>VS Code + Extensions</strong> — Prettier, Live Server, GitLens</li>
+        <li><strong>React/Vue</strong> — Les frameworks frontend modernes (si tu veux aller plus loin)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── RETOUR ── -->
+  <div style="text-align:center; margin-top:3rem; padding:2rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:12px;">
+    <div style="font-size:2rem; margin-bottom:0.8rem;">⚔️</div>
+    <p style="color:#8a9090; font-size:0.88rem; max-width:500px; margin:0 auto 1.5rem;">
+      Ton site martial arts est prêt. Il ne reste qu'à l'envoyer en ligne.<br>
+      <strong style="color:#c0c8c0;">30 secondes avec Netlify. 15 minutes avec GitHub. Les deux valent le coup.</strong>
+    </p>
+    <a href="index.html" style="display:inline-block; background:rgba(80,120,255,0.12); border:1px solid rgba(80,120,255,0.35); color:#7090ff; border-radius:8px; padding:0.7rem 1.8rem; font-size:0.85rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none;">
+      ← Retour à l'accueil du site
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  <span class="fi">🚀</span>
+  Guide de déploiement — Mars 2026<br>
+  <span style="color:#181820;">GitHub Pages + Netlify Drop · Pour Mon Parcours Martial ⚔️</span>
+</footer>
+
+</body>
+</html>

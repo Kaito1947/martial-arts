@@ -1,0 +1,1618 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>武術 — Nihon Bu Jutsu Ryū</title>
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: #0e0e0e;
+      color: #e8e0d5;
+      line-height: 1.75;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(180,20,20,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(180,20,20,0.10) 0%, transparent 60%),
+        #0e0e0e;
+    }
+
+    .hero::before {
+      content: '武術';
+      position: absolute;
+      font-size: clamp(12rem, 35vw, 28rem);
+      font-weight: 900;
+      color: rgba(180,20,20,0.06);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(180,20,20,0.15);
+      border: 1px solid rgba(180,20,20,0.4);
+      color: #e05050;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 span { color: #e05050; }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: #9a9080;
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-quote {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #b8a898;
+      border-left: 3px solid #c0392b;
+      padding-left: 1.2rem;
+      margin-top: 2rem;
+      max-width: 480px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #5a5048;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, #5a5048, transparent);
+    }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0 2rem;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      overflow-x: auto;
+      max-width: 1100px;
+      margin: 0 auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    nav ul::-webkit-scrollbar { display: none; }
+
+    nav ul li a {
+      display: block;
+      padding: 1rem 1.1rem;
+      color: #8a8080;
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    nav ul li a:hover { color: #e05050; }
+
+    /* ─── LAYOUT ────────────────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ─── SECTION HEADERS ───────────────────────────────────── */
+    .section {
+      margin-bottom: 5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .section-number {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: #c0392b;
+      text-transform: uppercase;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .section-header h2 .kanji {
+      color: #c0392b;
+      margin-right: 0.4rem;
+    }
+
+    /* ─── ALERT BOX ─────────────────────────────────────────── */
+    .alert {
+      background: rgba(180,20,20,0.08);
+      border: 1px solid rgba(180,20,20,0.3);
+      border-radius: 8px;
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 2rem;
+      color: #d8c8c0;
+    }
+    .alert strong { color: #e05050; }
+
+    /* ─── TABLES ─────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    thead tr {
+      background: rgba(180,20,20,0.15);
+    }
+
+    thead th {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      color: #e05050;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+    tbody td {
+      padding: 0.7rem 1rem;
+      color: #c8bfb5;
+      vertical-align: top;
+    }
+
+    tbody td:first-child { color: #f0e8e0; font-weight: 600; }
+
+    /* ─── CARDS GRID ─────────────────────────────────────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      border-color: rgba(180,20,20,0.4);
+      transform: translateY(-2px);
+    }
+
+    .card-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p, .card ul {
+      font-size: 0.88rem;
+      color: #9a9080;
+      line-height: 1.6;
+    }
+
+    .card ul { padding-left: 1.1rem; }
+    .card ul li { margin-bottom: 0.2rem; }
+
+    .card .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(180,20,20,0.15);
+      color: #e05050;
+      border: 1px solid rgba(180,20,20,0.3);
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    /* ─── MASTER PROFILE ────────────────────────────────────── */
+    .master-profile {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      align-items: start;
+    }
+
+    .master-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(180,20,20,0.2);
+      border: 2px solid rgba(180,20,20,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .master-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .master-title {
+      font-size: 0.82rem;
+      color: #e05050;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .grades {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .grade-badge {
+      background: rgba(180,20,20,0.1);
+      border: 1px solid rgba(180,20,20,0.25);
+      color: #c8a898;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+    }
+
+    /* ─── TIMELINE ───────────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, #c0392b, transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.55rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c0392b;
+      box-shadow: 0 0 8px rgba(192,57,43,0.5);
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      color: #c0392b;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.88rem;
+      color: #9a9080;
+    }
+
+    /* ─── ANALYSIS VERDICT ──────────────────────────────────── */
+    .verdict-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    @media (max-width: 600px) {
+      .verdict-grid { grid-template-columns: 1fr; }
+      .master-profile { grid-template-columns: 1fr; }
+      .master-avatar { width: 60px; height: 60px; font-size: 1.5rem; }
+    }
+
+    .verdict-box {
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .verdict-box.pro {
+      background: rgba(30,120,60,0.1);
+      border: 1px solid rgba(30,120,60,0.3);
+    }
+
+    .verdict-box.con {
+      background: rgba(180,80,20,0.1);
+      border: 1px solid rgba(180,80,20,0.3);
+    }
+
+    .verdict-box h3 {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .verdict-box.pro h3 { color: #4caf70; }
+    .verdict-box.con h3 { color: #e08040; }
+
+    .verdict-box ul {
+      list-style: none;
+      font-size: 0.88rem;
+      color: #c0b0a0;
+    }
+
+    .verdict-box ul li {
+      padding: 0.4rem 0;
+      padding-left: 1.4rem;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .verdict-box ul li:last-child { border-bottom: none; }
+
+    .verdict-box.pro ul li::before { content: '✓'; position: absolute; left: 0; color: #4caf70; font-weight: 700; }
+    .verdict-box.con ul li::before { content: '△'; position: absolute; left: 0; color: #e08040; }
+
+    .verdict-final {
+      background: linear-gradient(135deg, rgba(180,20,20,0.12), rgba(180,20,20,0.04));
+      border: 1px solid rgba(180,20,20,0.3);
+      border-radius: 10px;
+      padding: 1.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .verdict-final h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #e05050;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .verdict-final p {
+      color: #c8bfb5;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ─── GLOSSARY ───────────────────────────────────────────── */
+    .glossary {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+    }
+
+    .gloss-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+    }
+
+    .gloss-kanji { font-size: 1.4rem; color: #c0392b; line-height: 1; }
+    .gloss-romaji { font-size: 0.85rem; font-weight: 700; color: #e8e0d5; margin: 0.2rem 0 0.1rem; }
+    .gloss-def { font-size: 0.78rem; color: #7a7068; }
+
+    /* ─── SOURCES ────────────────────────────────────────────── */
+    .sources-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .sources-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.88rem;
+    }
+
+    .source-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c0392b;
+      margin-top: 0.45rem;
+      flex-shrink: 0;
+    }
+
+    .source-content { flex: 1; }
+    .source-label { color: #fff; font-weight: 600; margin-bottom: 0.1rem; }
+    .source-url { color: #5a7890; font-size: 0.78rem; word-break: break-all; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #3a3028;
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      letter-spacing: 0.05em;
+    }
+
+    footer .footer-kanji {
+      display: block;
+      font-size: 2rem;
+      color: rgba(180,20,20,0.2);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ─── UTILITY ────────────────────────────────────────────── */
+    p { margin-bottom: 1rem; color: #c8bfb5; }
+    strong { color: #f0e0d8; }
+    em { color: #b8a898; }
+    a { color: #c0392b; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .text-red { color: #e05050; }
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mb-1 { margin-bottom: 1rem; }
+
+    h3 { color: #f0e8e0; font-size: 1.1rem; margin: 1.5rem 0 0.7rem; }
+    h4 { color: #e05050; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin: 1.2rem 0 0.4rem; }
+
+    ul.standard { padding-left: 1.4rem; color: #c0b8b0; font-size: 0.93rem; }
+    ul.standard li { margin-bottom: 0.35rem; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin: 3rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!--                          HERO                               -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<section class="hero">
+  <span class="hero-badge">Art Martial — France / Japon</span>
+  <h1><span>武術</span><br>Nihon Bu Jutsu Ryū</h1>
+  <p class="hero-sub">日本武術流 — L'École des Techniques Martiales Japonaises</p>
+  <blockquote class="hero-quote">
+    « Ce que l'on apprend avec le corps, on ne l'oublie jamais »
+  </blockquote>
+  <div class="scroll-hint">Défiler</div>
+</section>
+
+<!-- ─── NAVIGATION ───────────────────────────────────────────── -->
+<nav>
+  <ul>
+    <li><a href="#distinction">Distinction</a></li>
+    <li><a href="#histoire">Histoire</a></li>
+    <li><a href="#fondateur">Fondateur</a></li>
+    <li><a href="#lignees">Lignées</a></li>
+    <li><a href="#disciplines">Disciplines</a></li>
+    <li><a href="#technique">Technique</a></li>
+    <li><a href="#structure">Structure</a></li>
+    <li><a href="#comparaison">Comparaison</a></li>
+    <li><a href="#efficacite">Efficacité</a></li>
+    <li><a href="#analyse-clubs">Clubs</a></li>
+    <li><a href="#profil">Mon Profil</a></li>
+    <li><a href="#glossaire">Glossaire</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+</nav>
+
+<!-- ─── MAIN ─────────────────────────────────────────────────── -->
+<main>
+
+  <!-- ══ SECTION 0 : DISTINCTION ══════════════════════════════ -->
+  <section id="distinction" class="section">
+    <div class="section-header">
+      <span class="section-number">00</span>
+      <h2><span class="kanji">⚠</span>Distinction essentielle</h2>
+    </div>
+
+    <div class="alert">
+      Le <strong>Nihon Bu Jutsu Ryū (NBJR)</strong> est un <strong>art martial spécifique créé en France</strong> — et non un art martial japonais ancestral générique. C'est une <em>école (ryū) synthétique</em> fondée par un maître français, construite sur des lignées japonaises authentiques transmises directement.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Terme</th>
+            <th>Kanji</th>
+            <th>Signification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Nihon</td><td>日本</td><td>Japon / japonais</td></tr>
+          <tr><td>Bu</td><td>武</td><td>Martial, guerrier</td></tr>
+          <tr><td>Jutsu</td><td>術</td><td>Technique, méthode, art</td></tr>
+          <tr><td>Ryū</td><td>流</td><td>École, lignée ("flux")</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 1 : HISTOIRE ══════════════════════════════════ -->
+  <section id="histoire" class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2><span class="kanji">歴史</span>Contexte historique</h2>
+    </div>
+
+    <p>Le <strong>Bujutsu</strong> (武術) désigne l'ensemble des arts martiaux traditionnels japonais développés au sein de la classe des <strong>samouraïs</strong> à l'époque féodale. Le mot <em>jutsu</em> indique une approche <strong>pratique et utilitaire</strong> du combat, à finalité militaire réelle — en opposition au <em>Budō</em> moderne, tourné vers le développement personnel.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Terme</th><th>Kanji</th><th>Sens</th><th>Finalité</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Bujutsu</td><td>武術</td><td>Techniques martiales</td><td>Combat réel, militaire</td></tr>
+          <tr><td>Budō</td><td>武道</td><td>Voie martiale</td><td>Développement personnel</td></tr>
+          <tr><td>Bugei</td><td>武芸</td><td>Arts martiaux</td><td>Enseignement codifié</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="timeline mt-2">
+      <div class="timeline-item">
+        <div class="timeline-date">XIe – XVe siècle</div>
+        <div class="timeline-title">Époque féodale — Naissance du Bujutsu</div>
+        <div class="timeline-desc">Développement au sein de la caste samouraï. Maîtrise obligatoire : sabre, arc, lance, hallebarde, armes à feu, techniques à cheval.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">XVe – XVIe siècle</div>
+        <div class="timeline-title">Période Sengoku — Apogée</div>
+        <div class="timeline-desc">Guerres civiles. Développement intensif des techniques. Apparition du Battōjutsu, Suijutsu (combat aquatique), Ninjutsu.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1603 – 1867</div>
+        <div class="timeline-title">Shogunat Tokugawa — Spécialisation</div>
+        <div class="timeline-desc">Longue paix. Le sabre devient l'arme la plus prestigieuse. Spécialisation des écoles. Émergence d'une philosophie martiale.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1868</div>
+        <div class="timeline-title">Restauration Meiji — Point de rupture</div>
+        <div class="timeline-desc">Naissance du Gendai Budō (arts modernes). Distinction officielle : Koryu Bujutsu (écoles anciennes) vs Gendai Budō (arts modernes).</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">XXe siècle</div>
+        <div class="timeline-title">Synthèse occidentale — Maître Renault</div>
+        <div class="timeline-desc">Après 60 ans de pratique et formation directe auprès de maîtres japonais, Philippe Renault fonde le Nihon Bu Jutsu Ryū en France.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Juin 2018</div>
+        <div class="timeline-title">Création de la NBJE</div>
+        <div class="timeline-desc">La Nihon Bu Jutsu Europe est officiellement enregistrée en Ardèche (W071003020), affiliation FEKAMT.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 2 : FONDATEUR ═════════════════════════════════ -->
+  <section id="fondateur" class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2><span class="kanji">師</span>Fondateur</h2>
+    </div>
+
+    <div class="master-profile">
+      <div class="master-avatar">🥋</div>
+      <div>
+        <div class="master-name">Maître Philippe RENAULT</div>
+        <div class="master-title">Sōke — Chef d'école NBJR</div>
+        <p style="font-size:0.9rem; color:#9a9080; margin-bottom:0.8rem;">
+          Avec plus de <strong>60 années d'expérience</strong>, Maître Renault a réalisé un travail gigantesque de reformulation et de rédaction, offrant un cursus de <em>niveau universitaire de type classique occidental</em>. Son enseignement allie pédagogie, lien avec la réalité et références culturelles profondes.
+        </p>
+        <div class="grades">
+          <span class="grade-badge">9ème DAN Karaté — FFKDA</span>
+          <span class="grade-badge">9ème DAN Nihon Ju Jutsu — EJJU/IJJF/SEIBUKAN/IMAF</span>
+          <span class="grade-badge">7ème Degré Kobu-Jutsu — FEKAMT</span>
+          <span class="grade-badge">Diplômé d'État 2ème degré</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 3 : LIGNÉES ═══════════════════════════════════ -->
+  <section id="lignees" class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2><span class="kanji">系譜</span>Lignées &amp; Sources</h2>
+    </div>
+
+    <p>L'école NBJR puise ses origines dans plusieurs grandes lignées martiales japonaises authentiques, toutes transmises <strong>directement</strong> à Maître Renault :</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚔️</div>
+        <h3>Maître Hironori ŌTSUKA<br><small style="color:#7a7068;font-weight:400">大塚博紀</small></h3>
+        <p>Fondateur du <strong>Wado Ryū</strong> (和道流, "École de la voie de la paix"), 10ème Dan (Meijin). Maître Renault se réclame du Wado Ryū « ancien ». Ōtsuka avait magistralement unifié l'art du noble samouraï et les techniques okinawaïennes.</p>
+        <span class="tag">Wado Ryū — Ju-Jutsu — Ate Waza</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🤼</div>
+        <h3>Maître Minoru MOCHIZUKI<br><small style="color:#7a7068;font-weight:400">望月稔</small></h3>
+        <p>Artisan de la synthèse <strong>Ju Jutsu + Aïkido + Kobu-Jutsu</strong>. La Kokusai Budoin (IMAF) a officialisé une division Nihon-Den Ju-Jutsu sous sa direction. La NBJR reprend sa version originale transmise directement à Renault.</p>
+        <span class="tag">Yoseikan Budo — Nihon Ju Jutsu</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🥋</div>
+        <h3>Maître Kenji TOMIKI<br><small style="color:#7a7068;font-weight:400">富木謙治</small></h3>
+        <p>Fondateur du <strong>Shodokan Aikido</strong> (aïkido compétitif). Source pour l'aïkijutsu et les applications de combat libre.</p>
+        <span class="tag">Shodokan Aikido</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🪃</div>
+        <h3>Maître Teruo SANO</h3>
+        <p>Transmission des traditions du <strong>Kobudo</strong> — arts des armes d'Okinawa intégrés dans le curriculum NBJR.</p>
+        <span class="tag">Kobudo</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">👊</div>
+        <h3>Maître Motobu CHOKI<br><small style="color:#7a7068;font-weight:400">本部朝基</small></h3>
+        <p>Co-auteur de la recomposition des techniques de <strong>Karate Jutsu</strong> intégrées dans le système NBJR.</p>
+        <span class="tag">Karate Jutsu</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 4 : DISCIPLINES ═══════════════════════════════ -->
+  <section id="disciplines" class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2><span class="kanji">道場</span>Disciplines enseignées</h2>
+    </div>
+
+    <h3>Au sein de la NIHON BU JUTSU RYU (NBJR)</h3>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🥊</div>
+        <h3>Karate Wadokan</h3>
+        <p>Issu des cursus Yoshin Shindo Ryū et Wado Ryū, adapté à la pédagogie occidentale. Reprend au plus près les choix de Maître Ōtsuka.</p>
+        <ul>
+          <li>Esquives et déplacements</li>
+          <li>Vitesse d'exécution</li>
+          <li>Efficacité martiale</li>
+        </ul>
+        <span class="tag">Sensei S. AOUDIA — 6ème Dan DE BEES2</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Juku Karate Jutsu (JKJ)</h3>
+        <p>Cursus destiné au combat libre. Base technique Okinawa-Te + études de Maître Renault sur le combat libre.</p>
+        <ul>
+          <li>Apprentissage progressif</li>
+          <li>Avec ou sans armes</li>
+          <li>Combat libre structuré</li>
+        </ul>
+        <span class="tag">Sensei C. LAHSEN — 6ème Dan DE</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎽</div>
+        <h3>Nihon Den Ju Jutsu (NDJJ)</h3>
+        <p>Ju-Jutsu authentiquement japonais selon la transmission de Mochizuki.</p>
+        <ul>
+          <li>Yoroi Kumiuchi (samouraï en armure)</li>
+          <li>Suhada Ju-Jutsu (temps de paix)</li>
+          <li>Projection, clefs, contrôles</li>
+        </ul>
+        <span class="tag">Sensei G. CROZET — 7ème Dan</span>
+      </div>
+    </div>
+
+    <h3 class="mt-2">Au sein de la NIHON BU JUTSU EUROPE (NBJE) — FEKAMT</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Discipline</th><th>Description</th><th>Responsable technique</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Karaté Jutsu Wado</td>
+            <td>Karaté ancien du Wado Ryū — clefs, projections, contrôle au sol</td>
+            <td>Ph. AYMOND — 6ème Dan GO-RENSHI, BEES2</td>
+          </tr>
+          <tr>
+            <td>Nihon Ju Jitsu</td>
+            <td>Ju Jitsu traditionnel de Maître Mochizuki</td>
+            <td>P. LIGNEUL — 7ème Dan KYOSHI, DEJEPS</td>
+          </tr>
+          <tr>
+            <td>Kobudo-Kobujutsu</td>
+            <td>Maniement des armes traditionnelles + Atemi, contrôles, projections</td>
+            <td>C. TROCMÉ — 6ème Dan Kobudo</td>
+          </tr>
+          <tr>
+            <td>Ken Jutsu</td>
+            <td>Maniement du sabre — inspiré de l'école Katori Shinto Ryū</td>
+            <td>G. SCHILTZ — 5ème Dan</td>
+          </tr>
+          <tr>
+            <td>Self Défense NBJE "Faire Face"</td>
+            <td>Traditions mêlées japonaises/occidentales, application moderne collective</td>
+            <td>Collège technique NBJE</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 5 : TECHNIQUE ══════════════════════════════════ -->
+  <section id="technique" class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2><span class="kanji">技術</span>Contenu technique</h2>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🤜</div>
+        <h3>Combat à mains nues</h3>
+        <ul>
+          <li><strong>Ate Waza</strong> — Frappes aux points vitaux</li>
+          <li><strong>Nage Waza</strong> — Projections</li>
+          <li><strong>Kansetsu Waza</strong> — Clefs articulaires</li>
+          <li><strong>Katame Waza</strong> — Contrôles &amp; immobilisations</li>
+          <li>Boxes de pieds et de poings</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🗡️</div>
+        <h3>Armes japonaises (Kobu-Jutsu)</h3>
+        <ul>
+          <li><strong>Bō</strong> 棒 — Bâton long (~180 cm)</li>
+          <li><strong>Tambo</strong> — Bâton court (~50 cm)</li>
+          <li><strong>Bokken</strong> 木剣 — Sabre de bois</li>
+          <li><strong>Tantō</strong> 短刀 — Couteau / dague</li>
+          <li><strong>Ken</strong> 剣 — Sabre réel</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🌀</div>
+        <h3>Kobudo d'Okinawa</h3>
+        <ul>
+          <li><strong>Tonfa</strong> — Matraque articulée</li>
+          <li><strong>Saï</strong> — Trident de métal</li>
+          <li><strong>Nunchaku</strong> — Double bâton articulé</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>Self-Défense moderne</h3>
+        <ul>
+          <li>Défense contre couteau</li>
+          <li>Canne, bâton, parapluie, sac à dos</li>
+          <li>Adaptation au handicap</li>
+          <li>Auto-préservation (jeunes)</li>
+          <li>Défense arme vs arme similaire</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 6 : STRUCTURE ══════════════════════════════════ -->
+  <section id="structure" class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2><span class="kanji">組織</span>Structure organisationnelle</h2>
+    </div>
+
+    <h3>NIHON BU JUTSU RYU (NBJR) — Syndicat d'enseignants</h3>
+    <p><strong>Affiliation :</strong> FFKDA (Fédération Française de Karaté et Disciplines Associées) &bull; <strong>Sōke :</strong> Maître Philippe RENAULT &bull; <a href="https://www.nihon-bu-jutsu-ryu.fr/" target="_blank">nihon-bu-jutsu-ryu.fr</a></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Club</th><th>Localisation</th><th>Contact</th></tr></thead>
+        <tbody>
+          <tr><td>Budokai Claude Houriez</td><td>Dunkerque (59140)</td><td>goshin-bugei-jutsu@wanadoo.fr</td></tr>
+          <tr><td>Seibukan Paris 12</td><td>Paris 12e (75012)</td><td>contact@sp12.fr</td></tr>
+          <tr><td>Karate Bujutsu Suresnois</td><td>Suresnes (92150)</td><td>plana.francis@numericable.fr</td></tr>
+          <tr><td>Wado Paris Montrouge Karate Jutsu</td><td>Paris 13e (75013)</td><td>vincnew@yahoo.fr</td></tr>
+          <tr><td>Samouraï Buchelois</td><td>Buchelay (78200)</td><td>samouraibuchelois@gmail.com</td></tr>
+          <tr><td>NBJR 37</td><td>Cinq-Mars-La-Pile (37130)</td><td>nbjr.cinq.mars.la.pile@gmail.com</td></tr>
+          <tr><td>KW Ambillou</td><td>Tours (37340)</td><td>nbjstours@hotmail.fr</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-2">NIHON BU JUTSU EUROPE (NBJE) — Association</h3>
+    <p><strong>Créée :</strong> Juin 2018 &bull; <strong>N° enregistrement :</strong> W071003020 (Largentière, Ardèche) &bull; <strong>Affiliation :</strong> FEKAMT</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nom</th><th>Grade</th><th>Fédération</th></tr></thead>
+        <tbody>
+          <tr><td>Patrice Ligneul</td><td>7ème DAN KYOSHI</td><td>FEKAMT</td></tr>
+          <tr><td>Philippe Aymond</td><td>6ème DAN GO-RENSHI</td><td>FEKAMT</td></tr>
+          <tr><td>Christian Trocmé</td><td>6ème DAN Kobudo</td><td>FEKAMT</td></tr>
+          <tr><td>Gilles Schiltz</td><td>5ème DAN</td><td>FEKAMT</td></tr>
+          <tr><td>Pascal Géhant-Pulby</td><td>5ème DAN</td><td>FEKAMT</td></tr>
+          <tr><td>Stevens Villareal</td><td>3ème DAN</td><td>FEKAMT</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-2">VNBJ — Club Villemoisson Nihon Bu Jutsu</h3>
+    <p>Situé à Villemoisson-sur-Orge (91) &bull; Fondé en <strong>1998</strong> &bull; Spécialité : Karaté Wadokan &bull; <a href="https://www.vnbj.org/" target="_blank">vnbj.org</a></p>
+    <ul class="standard">
+      <li><strong>Cours adultes :</strong> Mardi 21h–22h30 / Vendredi 20h30–22h30</li>
+      <li><strong>Cours enfants :</strong> Samedi 14h–17h (deux niveaux)</li>
+      <li><strong>Enseignants :</strong> Me Ph. FARRIOL (4ème Dan, DE) + N. RACHAS (2ème Dan, DIF)</li>
+    </ul>
+  </section>
+
+  <!-- ══ SECTION 7 : COMPARAISON ══════════════════════════════ -->
+  <section id="comparaison" class="section">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2><span class="kanji">比較</span>Comparaison avec systèmes similaires</h2>
+    </div>
+
+    <p>Le NBJR n'est pas isolé dans le paysage des arts martiaux synthétiques du XXe siècle. Deux autres systèmes, créés dans des contextes très différents, partagent une même logique fondatrice : <strong>unifier le meilleur de plusieurs disciplines pour former un système complet et efficace</strong>.</p>
+
+    <div class="cards">
+      <!-- ─ NBJR ─ -->
+      <div class="card" style="border-color:rgba(180,20,20,0.4);">
+        <div class="card-icon">🎌</div>
+        <h3>Nihon Bu Jutsu Ryū<br><small style="color:#7a7068;font-weight:400">France — XXe s.</small></h3>
+        <p><strong>Origine :</strong> France (École fondée par Maître Philippe Renault)</p>
+        <p><strong>Sources :</strong> Wado Ryū (Ōtsuka), Ju Jutsu (Mochizuki), Aïkido (Tomiki), Kobudo, Karate Jutsu (Motobu)</p>
+        <p><strong>Philosophie :</strong> Synthèse pédagogique occidentale sur base de lignées japonaises directes. Cursus formalisé, transmission structurée.</p>
+        <p><strong>Spécificité :</strong> Cursus écrit "niveau universitaire", adaptation au handicap, armes japonaises ET okinawaïennes.</p>
+        <span class="tag">Japon ↔ France</span>
+      </div>
+
+      <!-- ─ KAJUKENBO ─ -->
+      <div class="card">
+        <div class="card-icon">🌺</div>
+        <h3>Kajukenbo<br><small style="color:#7a7068;font-weight:400">Hawaï — 1947</small></h3>
+        <p><strong>Origine :</strong> Hawaï (Palama Settlement, Honolulu) — fondé par 5 maîtres (Emperado, Holck, Choo, Ordonez, Chang)</p>
+        <p><strong>Sources :</strong> <strong>KA</strong>raté (Tang Soo Do) + <strong>JU</strong>do/Jujutsu + <strong>KEN</strong>po + <strong>BO</strong>xe chinoise</p>
+        <p><strong>Philosophie :</strong> "Si ça marche dans la rue, ça reste ; sinon, on le vire." Pragmatisme total, contexte de violence urbaine réelle. Les étudiants sont encouragés à développer <em>leur propre expression</em> de l'art.</p>
+        <p><strong>Spécificité :</strong> Système ouvert en constante évolution. Comprend armes (bâton, couteau, sticks kali). Présence en France (Rungis, 2000 — Luis & Joe Diaz). Champions UFC issus de la pratique (Chuck Liddell).</p>
+        <span class="tag">Hawaï → Monde</span>
+      </div>
+
+      <!-- ─ KALI / ARNIS ─ -->
+      <div class="card">
+        <div class="card-icon">🇵🇭</div>
+        <h3>Kali / Arnis / Eskrima<br><small style="color:#7a7068;font-weight:400">Philippines — Art national</small></h3>
+        <p><strong>Origine :</strong> Philippines (art national officiel). Connu sous trois noms selon les régions : Arnis (Luzon), Eskrima/Escrima (Visayas), Kali (terme générique moderne).</p>
+        <p><strong>Sources :</strong> Arts indigènes philippins pré-hispaniques, influence de l'escrime espagnole (Destreza), Silat malais, arts chinois.</p>
+        <p><strong>Philosophie :</strong> Priorité aux armes (bâton, couteau, lame) — l'étude à mains nues découle naturellement du maniement des armes. Concept de <em>"Live Hand"</em> : la main libre est toujours une arme.</p>
+        <p><strong>Spécificité :</strong> L'arme est vue comme extension du corps. Un seul set de techniques valable avec ou sans arme. Historiquement utilisé au combat réel (Bataille de Mactan, 1521). Forte présence en cross-training avec JKD, Wing Chun, MMA.</p>
+        <span class="tag">Philippines → Monde</span>
+      </div>
+    </div>
+
+    <h3 class="mt-2">Tableau comparatif</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>🎌 NBJR</th>
+            <th>🌺 Kajukenbo</th>
+            <th>🇵🇭 Kali / Arnis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Origine géographique</td>
+            <td>France (racines japonaises)</td>
+            <td>Hawaï (USA)</td>
+            <td>Philippines</td>
+          </tr>
+          <tr>
+            <td>Fondation</td>
+            <td>XXe siècle (Ph. Renault)</td>
+            <td>1947 (5 co-fondateurs)</td>
+            <td>Pré-colonial (XVe s. ou avant)</td>
+          </tr>
+          <tr>
+            <td>Nature du système</td>
+            <td>Synthèse pédagogique japonaise</td>
+            <td>MMA pragmatique de rue</td>
+            <td>Art national ancestral</td>
+          </tr>
+          <tr>
+            <td>Priorité technique</td>
+            <td>Équilibre mains nues + armes</td>
+            <td>Frappe + projection + contrôle</td>
+            <td>Armes en priorité, vide ensuite</td>
+          </tr>
+          <tr>
+            <td>Armes enseignées</td>
+            <td>Bō, Tambo, Ken, Tantō, Kobudo</td>
+            <td>Bâton, couteau (Kali intégré)</td>
+            <td>Bâton rattan, lame, couteau, improvisation</td>
+          </tr>
+          <tr>
+            <td>Philosophie</td>
+            <td>Transmission culturelle + pédagogie</td>
+            <td>Efficacité pragmatique maximale</td>
+            <td>"Weapon = extension du corps"</td>
+          </tr>
+          <tr>
+            <td>Ouverture à l'évolution</td>
+            <td>Cursus formel, traditions fixes</td>
+            <td>Très ouvert — évolution permanente</td>
+            <td>Variable selon école</td>
+          </tr>
+          <tr>
+            <td>Test en résistance</td>
+            <td>Kata, combat codifié</td>
+            <td>Sparring "de rue", MMA, UFC</td>
+            <td>Sparring au bâton rattan + duels historiques</td>
+          </tr>
+          <tr>
+            <td>Présence en France</td>
+            <td>~7 clubs (NBJR) + NBJE</td>
+            <td>Oui (Rungis, Lyon, Bordeaux...)</td>
+            <td>Oui (Inosanto Academy France, clubs FMA)</td>
+          </tr>
+          <tr>
+            <td>Diplômes / Grades</td>
+            <td>Menkyo (koryu) + Dan FFKDA</td>
+            <td>Ceintures (variable par école)</td>
+            <td>Souvent titres seulement (pas de ceintures)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-2">Points de convergence notables</h3>
+    <p>Ces trois systèmes, malgré leurs origines radicalement différentes, partagent des points communs révélateurs :</p>
+    <ul class="standard">
+      <li><strong>Toutes trois sont des synthèses</strong> — elles refusent le dogmatisme d'une seule école et combinent ce qui fonctionne.</li>
+      <li><strong>Toutes trois intègrent armes ET mains nues</strong> — un signe de maturité martiale.</li>
+      <li><strong>Toutes trois sont présentes en France</strong> — signe d'un intérêt croissant pour les arts martiaux complets.</li>
+      <li><strong>Le Kali est présent dans le Kajukenbo</strong> (apport d'Adriano Emperado, pratiquant de Kali/Arnis philippin) — les trois systèmes s'influencent mutuellement.</li>
+      <li><strong>La self-défense réaliste</strong> est au cœur des trois approches.</li>
+    </ul>
+
+    <h3 class="mt-2">Différence fondamentale</h3>
+    <div class="alert" style="margin-top:1rem;">
+      Le <strong>NBJR</strong> mise sur la <em>transmission culturelle japonaise rigoureuse et formalisée</em>. Le <strong>Kajukenbo</strong> mise sur le <em>pragmatisme de rue radical et l'évolution permanente</em>. Le <strong>Kali/Arnis</strong> part d'un postulat inverse aux autres : <em>maîtriser l'arme en premier</em>, et laisser cette maîtrise irriguer le combat à mains nues. Ces trois approches sont complémentaires et non contradictoires.
+    </div>
+  </section>
+
+  <!-- ══ SECTION 8 : EFFICACITÉ ════════════════════════════════ -->
+  <section id="efficacite" class="section">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <h2><span class="kanji">評価</span>Analyse d'efficacité</h2>
+    </div>
+
+    <p>Voici une analyse objective, basée sur les sources disponibles et les critères modernes d'évaluation des arts martiaux :</p>
+
+    <div class="verdict-grid">
+      <div class="verdict-box pro">
+        <h3>✅ Points forts</h3>
+        <ul>
+          <li>Lignées sérieuses et vérifiables (Ōtsuka, Mochizuki, Tomiki...)</li>
+          <li>Transmission directe des maîtres japonais</li>
+          <li>Système complet — mains nues + armes</li>
+          <li>Le Wado Ryū ancien est redoutablement efficace</li>
+          <li>Pragmatisme : du traditionnel au contemporain</li>
+          <li>Pédagogie formalisée et structurée (niveau universitaire)</li>
+          <li>Adaptation handicap — rare dans les arts martiaux</li>
+        </ul>
+      </div>
+
+      <div class="verdict-box con">
+        <h3>△ Points de vigilance</h3>
+        <ul>
+          <li>Système à fondateur unique — fragilité de succession</li>
+          <li>Peu de sparring en résistance visible publiquement</li>
+          <li>Synthèse = choix arbitraires, cohérence non garantie</li>
+          <li>Pas de compétition standardisée (test "live" limité)</li>
+          <li>Diffusion restreinte (~7 clubs recensés en France)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="verdict-final">
+      <h3>🎯 Verdict</h3>
+      <p>
+        Le Nihon Bu Jutsu Ryū est un <strong>système de qualité sérieuse</strong>, fondé sur des bases solides et des lignées légitimes. Pour quelqu'un cherchant une pratique martiale <strong>complète, culturellement ancrée et pédagogiquement structurée</strong>, c'est un choix pertinent — notamment pour les adultes et les professionnels.
+      </p>
+      <p style="margin-top:0.8rem;">
+        Pour une efficacité <em>maximale en combat moderne</em>, il gagnerait à être complété par un entraînement régulier en résistance réelle (sparring, grappling sous pression). C'est d'ailleurs ce que reconnaissent honnêtement les praticiens sérieux de tout koryu bujutsu.
+      </p>
+      <p style="margin-top:0.8rem; color:#e05050; font-weight:600;">
+        En résumé : base solide, esprit juste, application à valider par la pratique intensive.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 9 : ANALYSE DES CLUBS ════════════════════════ -->
+  <section id="analyse-clubs" class="section">
+    <div class="section-header">
+      <span class="section-number">09</span>
+      <h2><span class="kanji">分析</span>Analyse des clubs identifiés</h2>
+    </div>
+
+    <p>Voici une analyse méthodologique des trois entités supplémentaires identifiées lors de la recherche, avec une évaluation de leur approche pédagogique et de leur sérieux.</p>
+
+    <h3>🌺 Kajukenbo France — <em>Méthode Diaz</em> (<a href="https://www.kajukenbo.fr/" target="_blank">kajukenbo.fr</a>)</h3>
+    <div class="alert" style="margin-top:0.5rem; margin-bottom:1rem;">
+      <strong>Organisation :</strong> Kajukenbo Self-Défense KSDEF — Représentants officiels KSDI (Kajukenbo Self Defense Institute fondé par Sijo Emperado) pour la France, la Suisse et le Koweït. Marque : <em>"Hawaiian Boxing — Kajukenbo Diaz Method"</em>.
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>📍 Implantation France</h3>
+        <p><strong>Île-de-France :</strong> Massy (91), Rungis (94 — club historique 2000), Saulx-les-Chartreux (91), Choisy-le-Roi (94), Ivry-sur-Seine (94)</p>
+        <p><strong>Régions :</strong> Alsace (68), Bordeaux (33), Lyon (69), Haute-Savoie (74), Salaunes (33)</p>
+        <p><strong>International :</strong> Genève (Suisse), Koweït</p>
+        <span class="tag">~10 clubs France + international</span>
+      </div>
+      <div class="card">
+        <h3>🎯 Méthodologie — Méthode Diaz</h3>
+        <p>La Méthode Diaz (Luis &amp; Joe Diaz, 8ème Dan KSDI) est une branche évoluée du Kajukenbo, aussi appelée <em>"Hawaiian Boxing"</em>. Elle intègre :</p>
+        <ul>
+          <li>Self-défense urbaine en priorité</li>
+          <li>Boxe anglaise + MMA moderne</li>
+          <li>Kali philippin (sticks, couteau)</li>
+          <li>Système ouvert — chacun développe sa propre expression</li>
+          <li>Coaching en ligne + stages nationaux</li>
+        </ul>
+        <span class="tag">Affilié KSDI — Sijo Emperado</span>
+      </div>
+    </div>
+
+    <div class="verdict-final" style="margin-top:1.2rem;">
+      <h3>🔍 Mon analyse — Kajukenbo France (Méthode Diaz)</h3>
+      <p><strong>Points forts :</strong> Affiliation directe au KSDI, réseau structuré avec ~10 clubs en France + international. La méthode Diaz est une synthèse honnête et évolutive. Coaching en ligne disponible — organisation professionnelle.</p>
+      <p style="margin-top:0.7rem;"><strong>Points de vigilance :</strong> Comme tout système ouvert, la qualité varie d'un club à l'autre. La légitimité des grades au sein du KSDI a parfois été questionnée au niveau international (cf. Wikipedia EN). Vérifier systématiquement la lignée de l'instructeur local.</p>
+      <p style="margin-top:0.7rem; color:#e05050; font-weight:600;">Verdict : Sérieux et pragmatique. Bon choix pour une self-défense urbaine moderne — à condition de choisir un instructeur avec une lignée certifiable.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <h3>🇵🇭 Club Kali — Fleury-Mérogis / Essonne (91) (<a href="https://www.helloasso.com/e/reg/ile-de-france/dep/essonne/ville/fleury-merogis/cat/sport" target="_blank">HelloAsso</a>)</h3>
+
+    <div class="cards">
+      <div class="card">
+        <h3>📍 Contexte géographique</h3>
+        <p>Fleury-Mérogis est une commune de l'Essonne (91), banlieue sud de Paris. La présence d'un club de Kali/Arnis dans cette zone reflète l'expansion des Filipino Martial Arts (FMA) en Île-de-France, portée par la diaspora philippine et le cross-training avec JKD et MMA.</p>
+        <p>Ces clubs sont généralement des <strong>associations loi 1901</strong> animées par des pratiquants passionnés, avec des cotisations accessibles.</p>
+      </div>
+      <div class="card">
+        <h3>🎯 Profil type — Club FMA associatif</h3>
+        <ul>
+          <li>Structure associative légère</li>
+          <li>Enseignement centré sur armes courtes (bâton rattan, couteau)</li>
+          <li>Cross-training fréquent : MMA, JKD, Wing Chun</li>
+          <li>Pas de hiérarchie de ceintures systématique</li>
+          <li>Stages avec grands maîtres FMA (Inosanto, Doce Pares...)</li>
+          <li>Public adulte, ambiance technique et pragmatique</li>
+        </ul>
+        <span class="tag">Filipino Martial Arts — Île-de-France</span>
+      </div>
+    </div>
+
+    <div class="verdict-final" style="margin-top:1.2rem;">
+      <h3>🔍 Mon analyse — Clubs FMA type HelloAsso / Essonne</h3>
+      <p><strong>Points forts :</strong> Les clubs FMA associatifs sont souvent animés par des pratiquants très investis avec de vraies lignées (Inosanto, Pekiti-Tirsia, Doce Pares...). Le Kali est reconnu internationalement comme l'un des systèmes d'armes les plus efficaces au monde — popularisé par Dan Inosanto via le JKD de Bruce Lee.</p>
+      <p style="margin-top:0.7rem;"><strong>Points de vigilance :</strong> Sans accès direct au profil du club sur HelloAsso, impossible de certifier le niveau ou la lignée. Vérifier l'affiliation à une fédération reconnue (IKAEF, WEKAF) et la lignée de l'instructeur principal.</p>
+      <p style="margin-top:0.7rem; color:#e05050; font-weight:600;">Verdict : Intéressant à explorer en personne. Le Kali demande peu de matériel et offre une efficacité immédiate — idéal en complément d'un autre art martial.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <h3>🇵🇭 Eskrima Arnis Kali System — France (<a href="https://www.facebook.com/eskrimaarniskalisystem" target="_blank">Facebook</a>)</h3>
+
+    <div class="cards">
+      <div class="card">
+        <h3>📋 Profil de la page</h3>
+        <p>Page Facebook dédiée aux Filipino Martial Arts en France. Utilisée pour :</p>
+        <ul>
+          <li>Partager des vidéos techniques</li>
+          <li>Annoncer stages et événements</li>
+          <li>Mettre en réseau les pratiquants FMA de France</li>
+          <li>Diffuser des contenus pédagogiques</li>
+        </ul>
+        <span class="tag">Communauté FMA France</span>
+      </div>
+      <div class="card">
+        <h3>🌐 Le système EAK</h3>
+        <p>Le nom "Eskrima Arnis Kali" regroupe les trois appellations des FMA :</p>
+        <ul>
+          <li><strong>Eskrima</strong> — terme visayen (Visayas)</li>
+          <li><strong>Arnis</strong> — terme national officiel (Luzon)</li>
+          <li><strong>Kali</strong> — terme générique moderne international</li>
+        </ul>
+        <p>Un système portant les trois noms indique généralement une <strong>approche œcuménique</strong> des FMA, sans allégeance exclusive à un style.</p>
+      </div>
+    </div>
+
+    <div class="verdict-final" style="margin-top:1.2rem;">
+      <h3>🔍 Mon analyse — Eskrima Arnis Kali System (France)</h3>
+      <p><strong>Points forts :</strong> Une présence Facebook active signale une communauté vivante. L'approche multi-styles (EAK) est intellectuellement honnête et évite le sectarisme. Les FMA ont une réputation mondiale solide en matière de travail des armes courtes.</p>
+      <p style="margin-top:0.7rem;"><strong>Points de vigilance :</strong> Une page Facebook seule ne garantit pas la qualité pédagogique. Il faut identifier l'instructeur, sa lignée certifiable, et si des cours réguliers en salle existent (vs. stages ponctuels). Risque avec les structures très informelles : absence de progression structurée.</p>
+      <p style="margin-top:0.7rem; color:#e05050; font-weight:600;">Verdict : À utiliser comme point d'entrée dans la communauté FMA française. Contacter directement avant de s'engager.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <h3 class="mt-2">🏆 Que choisir ? — Synthèse personnelle</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Critère</th><th>🎌 NBJR</th><th>🌺 Kajukenbo Diaz</th><th>🇵🇭 Kali / EAK</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Pour débuter</td><td>✅ Cursus structuré</td><td>✅ Accessible, progressif</td><td>⚠️ Dépend du club</td></tr>
+          <tr><td>Self-défense rapide</td><td>⚠️ Long terme</td><td>✅ Priorité n°1</td><td>✅ Armes immédiates</td></tr>
+          <tr><td>Richesse culturelle</td><td>✅✅ Très haute (Japon)</td><td>⚠️ Moyenne</td><td>✅ Haute (Philippines)</td></tr>
+          <tr><td>Travail des armes</td><td>✅ Japonaises + Okinawa</td><td>✅ Kali intégré</td><td>✅✅ Spécialité absolue</td></tr>
+          <tr><td>Combat libre / MMA</td><td>⚠️ Limité</td><td>✅✅ Cœur du système</td><td>✅ Sparring au bâton</td></tr>
+          <tr><td>Accessibilité Paris/IDF</td><td>✅ ~5 clubs</td><td>✅ ~5 clubs IDF</td><td>✅ Communauté active</td></tr>
+          <tr><td>Certification reconnue</td><td>✅ FFKDA + FEKAMT</td><td>✅ KSDI international</td><td>⚠️ Variable</td></tr>
+          <tr><td>Cours en ligne</td><td>❌ Non recensé</td><td>✅ Disponible</td><td>⚠️ Via réseaux sociaux</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert" style="margin-top:1.5rem; border-color:rgba(80,160,80,0.4); background:rgba(30,100,50,0.08);">
+      <strong style="color:#4caf70;">💡 Recommandation personnelle</strong><br><br>
+      Ces trois systèmes sont <strong>complémentaires</strong>, non concurrents. Un pratiquant idéal pourrait suivre le <strong>NBJR</strong> pour la profondeur culturelle et la pédagogie structurée, le <strong>Kajukenbo</strong> pour le sparring régulier sous résistance réelle, et le <strong>Kali</strong> pour maîtriser le travail des armes courtes — notamment la défense contre couteau, domaine dans lequel les FMA n'ont pas d'équivalent mondial.
+    </div>
+  </section>
+
+  <!-- ══ SECTION 10 : PROFIL & RECOMMANDATION PERSONNALISÉE ═══ -->
+  <section id="profil" class="section">
+    <div class="section-header">
+      <span class="section-number">10</span>
+      <h2><span class="kanji">我</span>Profil Martial &amp; Recommandation Personnalisée</h2>
+    </div>
+
+    <div class="alert" style="border-color:rgba(80,160,80,0.4); background:rgba(20,60,30,0.15); margin-bottom:2rem;">
+      <strong style="color:#4caf70;">🥋 Analyse personnalisée</strong> — Ce qui suit est une recommandation construite à partir d'un profil réel, issu d'un questionnaire approfondi. Elle intègre l'historique martial, les contraintes physiques, la géographie et la dimension spirituelle.
+    </div>
+
+    <!-- ── FICHE PROFIL ── -->
+    <h3>🧍 La Fiche</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Paramètre</th><th>Détail</th></tr></thead>
+        <tbody>
+          <tr><td>Âge / Morphologie</td><td>45 ans — 1m75 / 79 kg — gabarit équilibré</td></tr>
+          <tr><td>Forme physique</td><td>3/5 — maintien correct, dos fragile, hanches raides</td></tr>
+          <tr><td>Blessure historique</td><td>Déchirure biceps niveau 2 (ude kemi nage en Aïkido) — guéri, tendon encore raide en flexion de coude. Appréhensions sur clefs de bras.</td></tr>
+          <tr><td>Arts pratiqués</td><td>Aïkido (4 ans — 4e Kyu), Vo Vietnam école Nguyen Duc Moc / Xavier Philippe (Nanterre), Krav Maga (initiations)</td></tr>
+          <tr><td>Localisation</td><td>Sainte-Geneviève-des-Bois (91 — Essonne)</td></tr>
+          <tr><td>Disponibilité</td><td>2 séances / semaine max</td></tr>
+          <tr><td>Budget annuel</td><td>~400 €</td></tr>
+          <tr><td>Priorités (1=max)</td><td>Self-défense réelle ★★★★★ — Développement personnel ★★★★★ — Plaisir ★★★★★ — Forme physique ★★★★★ — Compétition ✗</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── DIAGNOSTIC ── -->
+    <h3 class="mt-2">🧠 Diagnostic — Ce que ton profil révèle</h3>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">💡</div>
+        <h3>Le paradoxe de l'Aïkidoka frustré</h3>
+        <p>4 ans d'Aïkido avec une vraie connexion spirituelle à l'art, mais une <strong>frustration chronique</strong> face à l'absence d'épreuve de vérité. La blessure a fonctionné comme un révélateur :</p>
+        <p style="font-style:italic; color:#e05050; margin-top:0.5rem;">"Je ne veux pas me blesser pour rien — mais je veux bien me blesser pour quelque chose de vrai."</p>
+        <p>Les insomnies post-Aïkido sont également révélatrices : ton système nerveux réclamait une <strong>décharge d'adrénaline</strong> que seul le contact réel procure.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚔️</div>
+        <h3>Le guerrier contemplatif</h3>
+        <p>Tu n'es pas un combattant qui cherche à "gagner". Tu cherches :</p>
+        <ul>
+          <li>La <strong>beauté du geste parfait</strong> (Aïkido)</li>
+          <li>La <strong>vérité martiale</strong> (Vo Vietnam, Krav)</li>
+          <li>La <strong>profondeur culturelle et spirituelle</strong></li>
+          <li>La <strong>capacité de protéger</strong> — pas la performance</li>
+        </ul>
+        <p style="margin-top:0.5rem; color:#e05050; font-weight:600; font-style:italic;">"Un guerrier contemplatif cherchant la vérité du geste."</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌱</div>
+        <h3>Le fond Vo Vietnam</h3>
+        <p>L'école <strong>Nguyen Duc Moc / Xavier Philippe à Nanterre</strong> est une école sérieuse et reconnue. Ce fond martial n'a jamais disparu — il s'est juste mis en veille. La mémoire musculaire des angles d'attaque et des armes courtes est encore là.</p>
+        <p>Le Kali va <strong>immédiatement te parler</strong> parce que la logique des angles d'attaque est exactement la même.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── RECOMMANDATION PRINCIPALE ── -->
+    <h3>🥇 Recommandation Principale — <span style="color:#e05050;">Kajukenbo (Méthode Diaz)</span></h3>
+
+    <div class="alert" style="border-color:rgba(180,20,20,0.5); margin-bottom:1.5rem;">
+      <strong>Pourquoi le Kajukenbo est fait pour toi :</strong> C'est le seul système qui combine exactement tes 4 priorités simultanément — self-défense réelle, développement personnel, plaisir à l'entraînement, et forme physique — sans jamais sacrifier l'une pour l'autre.
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🤜</div>
+        <h3>Les frappes — enfin</h3>
+        <p>Ce qui manquait en Aïkido depuis le premier jour. Le Kajukenbo (méthode Diaz) intègre la <strong>boxe anglaise, le Tang Soo Do, le Kung Fu</strong> dans un système cohérent de multi-percussion. Tu frappes, tu es frappé (avec protections). Le sparring est régulier et structuré.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌊</div>
+        <h3>Ton Aïkido valorisé</h3>
+        <p>Adriano Emperado intégrait le <strong>Jujutsu</strong> dans le Kajukenbo. Tes années d'Aïkido — chutes, projections, conscience spatiale — ne sont pas perdues. Elles deviennent une <strong>fondation solide</strong> que le Kajukenbo va enrichir.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🦴</div>
+        <h3>Compatible avec tes fragilités</h3>
+        <p>Le Kajukenbo méthode Diaz est un art debout en priorité. Le travail au sol existe mais n'est pas central. <strong>Moins de clefs de bras que l'Aïkido.</strong> À signaler au professeur pour ton biceps — les instructeurs sérieux adaptent.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📍</div>
+        <h3>Clubs proches de toi (91)</h3>
+        <p>Kajukenbo France (Méthode Diaz) a plusieurs clubs en Essonne :</p>
+        <ul>
+          <li><strong>Massy (91)</strong> — le plus proche</li>
+          <li><strong>Saulx-les-Chartreux (91)</strong></li>
+          <li>Rungis (94) — club historique fondé en 2000</li>
+        </ul>
+        <p><a href="https://www.kajukenbo.fr/" target="_blank">kajukenbo.fr</a> pour contacter</p>
+        <span class="tag">Budget ~100-150€/an + gants</span>
+      </div>
+    </div>
+
+    <!-- ── RECOMMANDATION SECONDAIRE : KALI ── -->
+    <hr class="divider" />
+    <h3>🥈 Recommandation Secondaire — <span style="color:#e05050;">Kali / Arnis / Eskrima</span> ✝️</h3>
+
+    <div class="alert" style="border-color:rgba(80,130,200,0.4); background:rgba(20,40,80,0.15); margin-bottom:1.5rem;">
+      <strong style="color:#6090e0;">À commencer dans 12-18 mois</strong>, une fois stabilisé dans le Kajukenbo. Le Kali est le complément parfait — et il résonne avec ta foi.
+    </div>
+
+    <!-- ── DIMENSION SPIRITUELLE CHRÉTIENNE ── -->
+    <div style="background: linear-gradient(135deg, rgba(100,60,20,0.15), rgba(60,40,10,0.08)); border: 1px solid rgba(180,130,50,0.4); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem;">
+      <h3 style="color:#d4a050; margin-top:0;">✝️ Le Kali — Art du Guerrier Chrétien</h3>
+
+      <p>Les Philippines sont le <strong>seul pays majoritairement catholique d'Asie</strong> (80%+). Cette foi imprègne l'Arnis à tous les niveaux, et ce n'est pas anecdotique :</p>
+
+      <div class="cards" style="margin-top:1rem;">
+        <div class="card" style="border-color:rgba(180,130,50,0.3); background:rgba(60,40,10,0.15);">
+          <div class="card-icon">⚔️</div>
+          <h3 style="color:#d4a050;">Le Coup San Miguel</h3>
+          <p>Le frappe fondatrice du Kali — la plus enseignée, la première apprise — s'appelle le <strong>San Miguel strike</strong> (Saint Michel Archange). Elle descend de l'épaule droite vers la hanche gauche, exactement comme le geste de l'épée de l'archange dans les icônes traditionnelles.</p>
+          <p style="color:#b8a060; font-style:italic; margin-top:0.5rem;">Ce n'est pas un hasard. C'est un hommage délibéré.</p>
+        </div>
+        <div class="card" style="border-color:rgba(180,130,50,0.3); background:rgba(60,40,10,0.15);">
+          <div class="card-icon">🙏</div>
+          <h3 style="color:#d4a050;">Prières et Anting-Anting</h3>
+          <p>Les anciens maîtres de Cebu et des Visayas récitaient des <strong>prières avant les duels</strong>. Les <em>anting-anting</em> (talismans de protection) portaient fréquemment des <strong>versets bibliques</strong>. La protection divine était invoquée — pas la victoire.</p>
+        </div>
+        <div class="card" style="border-color:rgba(180,130,50,0.3); background:rgba(60,40,10,0.15);">
+          <div class="card-icon">🛡️</div>
+          <h3 style="color:#d4a050;">Le Miles Christi</h3>
+          <p>Dans la tradition philippine, le guerrier ne combat pas pour la gloire. Il combat pour <strong>protéger</strong> — la famille, la communauté, les faibles. C'est exactement la vision du <em>Miles Christi</em> (guerrier du Christ) médiéval. Une convergence rare et profonde.</p>
+        </div>
+        <div class="card" style="border-color:rgba(180,130,50,0.3); background:rgba(60,40,10,0.15);">
+          <div class="card-icon">⚓</div>
+          <h3 style="color:#d4a050;">Lapulapu &amp; la Providence</h3>
+          <p>L'histoire du Kali commence en <strong>1521</strong> : Datu Lapulapu tient tête à Magellan. Un art né dans la confrontation, mais aussi dans la <em>survie d'un peuple</em>. Les missionnaires espagnols qui suivirent ne détruisirent pas le Kali — ils le côtoyèrent, parfois l'intégrèrent.</p>
+        </div>
+      </div>
+
+      <blockquote style="border-left: 3px solid #d4a050; padding-left: 1.2rem; margin-top: 1.5rem; font-style:italic; color:#c8a060;">
+        « Je ne vous donne pas la paix comme le monde la donne. » — Jean 14:27<br>
+        <small style="color:#8a7040;">Le guerrier de paix ne fuit pas le conflit — il le résout avec justice et précision.</small>
+      </blockquote>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🎋</div>
+        <h3>Ton fond Vo Vietnam activé</h3>
+        <p>La logique du Kali — <strong>angles d'attaque, armes courtes, transition arme/main nue</strong> — est identique à celle du Vo Vietnam. Ta mémoire musculaire va se réveiller très vite. Tu auras 6 mois d'avance sur un débutant.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💪</div>
+        <h3>Biceps préservé</h3>
+        <p>Le Kali ne sollicite <strong>pas les clefs de bras</strong>. Le travail est en frappes, déviations, travail de bâton. Compatible à 100% avec ton tendon réparé. C'est même thérapeutique — les rotations de poignet renforcent progressivement.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📍</div>
+        <h3>Clubs proches — Essonne</h3>
+        <ul>
+          <li><strong>Fleury-Mérogis (91)</strong> — club FMA associatif</li>
+          <li><strong>Eskrima Arnis Kali System France</strong> — communauté nationale</li>
+        </ul>
+        <p style="margin-top:0.5rem;">Contacter via <a href="https://www.facebook.com/eskrimaarniskalisystem" target="_blank">Facebook EAK</a> pour localiser le club le plus proche.</p>
+        <span class="tag">Budget très accessible (~80-120€/an)</span>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── PLAN D'ACTION ── -->
+    <h3>🗺️ Plan d'action — Les 3 étapes</h3>
+
+    <div class="timeline mt-2">
+      <div class="timeline-item">
+        <div class="timeline-date">Maintenant → Mois 6</div>
+        <div class="timeline-title">Phase 1 — Reprendre confiance</div>
+        <div class="timeline-desc">Contacter le club Kajukenbo de Massy (91) ou Saulx-les-Chartreux (91). Signaler la blessure au biceps dès le premier cours. Objectif : retrouver le plaisir de l'entraînement, frapper pour de vrai, sans pression de performance. 2 séances/semaine.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mois 6 → Mois 18</div>
+        <div class="timeline-title">Phase 2 — Consolider</div>
+        <div class="timeline-desc">Sparring régulier en Kajukenbo. Réintégrer progressivement les projections et saisies. Ton Aïkido devient un atout conscient. Commencer à explorer la communauté FMA locale (stages découverte Kali).</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mois 18+</div>
+        <div class="timeline-title">Phase 3 — Le chemin du guerrier</div>
+        <div class="timeline-desc">Pratique régulière Kajukenbo + Kali en parallèle. Ces deux systèmes se nourrissent mutuellement. Le Kajukenbo t'a donné les frappes et le contact réel. Le Kali te donne la maîtrise des armes courtes et la profondeur spirituelle. Tu es complet.</div>
+      </div>
+    </div>
+
+    <!-- ── VERDICT FINAL ── -->
+    <div class="verdict-final" style="margin-top:2rem; background: linear-gradient(135deg, rgba(180,130,20,0.1), rgba(180,20,20,0.08));">
+      <h3 style="color:#d4a050;">🎯 Le verdict final</h3>
+      <p>
+        Tu n'as pas besoin de renier l'Aïkido. Tu as besoin de ce que l'Aïkido avait promis mais n'a pas entièrement tenu — la <strong>beauté ET la vérité du geste</strong>. Le Kajukenbo assume pleinement cette tension. Le Kali lui donne une âme chrétienne que tu peux porter sans contradiction.
+      </p>
+      <p style="margin-top:0.8rem;">
+        À 45 ans, avec un biceps guéri, un dos fragile et 4 ans d'Aïkido en bagage, tu as exactement le profil idéal pour ces deux disciplines. Pas trop tôt (les bases sont là), pas trop tard (la récupération suit encore).
+      </p>
+      <p style="margin-top:0.8rem; color:#d4a050; font-weight:700; font-size:1.05rem;">
+        « Train Strong to Remain Strong. » — Sijo Adriano Emperado &nbsp;✝️
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 11 : GLOSSAIRE ════════════════════════════════ -->
+  <section id="glossaire" class="section">
+    <div class="section-header">
+      <span class="section-number">11</span>
+      <h2><span class="kanji">語彙</span>Glossaire</h2>
+    </div>
+
+    <div class="glossary">
+      <div class="gloss-item"><div class="gloss-kanji">武術</div><div class="gloss-romaji">Bujutsu</div><div class="gloss-def">Arts martiaux / techniques martiales</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">武道</div><div class="gloss-romaji">Budō</div><div class="gloss-def">Voie martiale — arts modernes</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">古流</div><div class="gloss-romaji">Koryu</div><div class="gloss-def">École ancienne (avant 1868)</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">現代武道</div><div class="gloss-romaji">Gendai Budō</div><div class="gloss-def">Arts martiaux modernes</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">流</div><div class="gloss-romaji">Ryū</div><div class="gloss-def">École, lignée</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">宗家</div><div class="gloss-romaji">Sōke</div><div class="gloss-def">Chef d'école</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">先生</div><div class="gloss-romaji">Sensei</div><div class="gloss-def">Enseignant</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">免許皆伝</div><div class="gloss-romaji">Menkyo Kaiden</div><div class="gloss-def">Transmission totale</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">形</div><div class="gloss-romaji">Kata</div><div class="gloss-def">Formes codifiées</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">当て技</div><div class="gloss-romaji">Ate Waza</div><div class="gloss-def">Frappes aux points vitaux</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">投げ技</div><div class="gloss-romaji">Nage Waza</div><div class="gloss-def">Techniques de projection</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">関節技</div><div class="gloss-romaji">Kansetsu Waza</div><div class="gloss-def">Clefs articulaires</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">固め技</div><div class="gloss-romaji">Katame Waza</div><div class="gloss-def">Techniques d'immobilisation</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">古武道</div><div class="gloss-romaji">Kobudo</div><div class="gloss-def">Arts des armes traditionnelles</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">柔術</div><div class="gloss-romaji">Jūjutsu</div><div class="gloss-def">Art souple — techniques corps à corps</div></div>
+      <div class="gloss-item"><div class="gloss-kanji">剣術</div><div class="gloss-romaji">Kenjutsu</div><div class="gloss-def">Art du sabre</div></div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 12 : SOURCES ═══════════════════════════════════ -->
+  <section id="sources" class="section">
+    <div class="section-header">
+      <span class="section-number">12</span>
+      <h2><span class="kanji">参考</span>Sources consultées</h2>
+    </div>
+
+    <ul class="sources-list">
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Site officiel NBJR — Nihon Bu Jutsu Ryū</div>
+          <div class="source-url"><a href="https://www.nihon-bu-jutsu-ryu.fr/" target="_blank">https://www.nihon-bu-jutsu-ryu.fr/</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">FEKAMT — Nihon Bu-Jutsu Europe</div>
+          <div class="source-url"><a href="https://www.fekamt.com/dt_activities/nihon-bu-jutsu-europe/" target="_blank">https://www.fekamt.com/dt_activities/nihon-bu-jutsu-europe/</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Club VNBJ — Villemoisson Nihon Bu Jutsu</div>
+          <div class="source-url"><a href="https://www.vnbj.org/" target="_blank">https://www.vnbj.org/</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Wikipedia EN — Japanese martial arts</div>
+          <div class="source-url"><a href="https://en.wikipedia.org/wiki/Japanese_martial_arts" target="_blank">https://en.wikipedia.org/wiki/Japanese_martial_arts</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Wikipedia FR — Arts martiaux japonais</div>
+          <div class="source-url"><a href="https://fr.wikipedia.org/wiki/Arts_martiaux_japonais" target="_blank">https://fr.wikipedia.org/wiki/Arts_martiaux_japonais</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Hall, David A. — Encyclopedia of Japanese Martial Arts</div>
+          <div class="source-url">Kodansha USA, 2012 — ISBN 978-1568364100</div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Wikipedia EN — Kajukenbo</div>
+          <div class="source-url"><a href="https://en.wikipedia.org/wiki/Kajukenbo" target="_blank">https://en.wikipedia.org/wiki/Kajukenbo</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Wikipedia FR — Kajukenbo</div>
+          <div class="source-url"><a href="https://fr.wikipedia.org/wiki/Kajukenbo" target="_blank">https://fr.wikipedia.org/wiki/Kajukenbo</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Wikipedia EN — Arnis / Kali / Eskrima (Filipino Martial Arts)</div>
+          <div class="source-url"><a href="https://en.wikipedia.org/wiki/Arnis" target="_blank">https://en.wikipedia.org/wiki/Arnis</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Kajukenbo France — Site officiel (Tribal Spirit / Luis &amp; Joe Diaz)</div>
+          <div class="source-url"><a href="https://www.kajukenbo.fr/" target="_blank">https://www.kajukenbo.fr/</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">HelloAsso — Club Fleury-Mérogis (Essonne, 91) — Kali / Arts Martiaux</div>
+          <div class="source-url"><a href="https://www.helloasso.com/e/reg/ile-de-france/dep/essonne/ville/fleury-merogis/cat/sport" target="_blank">https://www.helloasso.com/e/reg/ile-de-france/dep/essonne/ville/fleury-merogis/cat/sport</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="source-dot"></div>
+        <div class="source-content">
+          <div class="source-label">Page Facebook — Eskrima Arnis Kali System (France)</div>
+          <div class="source-url"><a href="https://www.facebook.com/eskrimaarniskalisystem" target="_blank">https://www.facebook.com/eskrimaarniskalisystem</a></div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <span class="footer-kanji">武術</span>
+  Document rédigé le 17 mars 2026 — Recherche et compilation à partir des sources disponibles en ligne.
+  <br>Nihon Bu Jutsu Ryū — École fondée par Maître Philippe RENAULT — France
+</footer>
+
+</body>
+</html>

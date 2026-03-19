@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚔️ Mon Parcours Martial</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #07080a; color: #e8e0d5; line-height: 1.75; min-height: 100vh; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative; min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 4rem 2rem; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 15% 30%, rgba(180,20,20,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 30%, rgba(0,100,180,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 85%, rgba(20,160,80,0.08) 0%, transparent 50%),
+        #07080a;
+    }
+    .hero-bg-symbol {
+      position: absolute; font-size: clamp(16rem, 50vw, 42rem);
+      pointer-events: none; user-select: none;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      opacity: 0.035; line-height: 1; white-space: nowrap;
+    }
+    .hero-badge {
+      display: inline-block; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12); color: #a0a898;
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      padding: 0.35rem 1.2rem; border-radius: 999px; margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 900;
+      letter-spacing: -0.03em; line-height: 1; color: #fff; margin-bottom: 0.8rem;
+    }
+    .hero h1 .red { color: #e05050; }
+    .hero-desc {
+      font-size: clamp(1rem, 2.5vw, 1.25rem); color: #7a7868;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3rem;
+    }
+    .hero-tags { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem; }
+    .hero-tag {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 999px; padding: 0.45rem 1rem;
+      font-size: 0.85rem; color: #c0b8b0;
+    }
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      color: #383830; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .scroll-hint::after { content: ''; width: 1px; height: 48px; background: linear-gradient(to bottom, #383830, transparent); }
+
+    /* ─── MAIN ─── */
+    main { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem 6rem; }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 2.5rem; padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .section-number { font-size: 0.65rem; letter-spacing: 0.25em; color: #c0392b; text-transform: uppercase; font-weight: 800; }
+    .section-header h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 700; color: #fff; }
+    .section { margin-bottom: 5rem; }
+
+    /* ─── MAIN NAV CARDS ─── */
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
+    }
+    .nav-card {
+      position: relative; border-radius: 14px; padding: 2rem;
+      text-decoration: none; display: flex; flex-direction: column;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.025);
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+      overflow: hidden;
+    }
+    .nav-card:hover { transform: translateY(-4px); text-decoration: none; }
+    .nav-card::before {
+      content: attr(data-emoji);
+      position: absolute; right: 1.5rem; top: 1.5rem;
+      font-size: 2.5rem; opacity: 0.15;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-card:hover::before { opacity: 0.25; transform: scale(1.1); }
+
+    .nav-card.red { border-color: rgba(180,20,20,0.25); }
+    .nav-card.red:hover { border-color: rgba(180,20,20,0.5); background: rgba(180,20,20,0.05); }
+    .nav-card.orange { border-color: rgba(200,80,0,0.25); }
+    .nav-card.orange:hover { border-color: rgba(200,80,0,0.5); background: rgba(200,80,0,0.05); }
+    .nav-card.blue { border-color: rgba(0,100,180,0.25); }
+    .nav-card.blue:hover { border-color: rgba(0,100,180,0.5); background: rgba(0,100,180,0.05); }
+    .nav-card.sword { border-color: rgba(180,20,20,0.3); }
+    .nav-card.sword:hover { border-color: rgba(180,20,20,0.6); background: rgba(180,20,20,0.07); }
+    .nav-card.green { border-color: rgba(20,160,80,0.25); }
+    .nav-card.green:hover { border-color: rgba(20,160,80,0.5); background: rgba(20,160,80,0.05); }
+    .nav-card.gold { border-color: rgba(160,120,20,0.25); }
+    .nav-card.gold:hover { border-color: rgba(180,140,40,0.5); background: rgba(100,70,10,0.08); }
+
+    .card-label {
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 0.6rem;
+    }
+    .red .card-label { color: #c0392b; }
+    .orange .card-label { color: #e08040; }
+    .blue .card-label { color: #40a0e0; }
+    .sword .card-label { color: #e05050; }
+    .green .card-label { color: #40c070; }
+    .gold .card-label { color: #c0a030; }
+
+    .nav-card h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .nav-card p { font-size: 0.85rem; color: #8a8878; line-height: 1.6; margin: 0; }
+    .card-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.2rem; }
+    .ctag {
+      font-size: 0.68rem; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px; padding: 0.15rem 0.55rem; color: #808080;
+    }
+    .card-arrow {
+      margin-top: auto; padding-top: 1.5rem;
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .red .card-arrow { color: #c0392b; }
+    .orange .card-arrow { color: #e08040; }
+    .blue .card-arrow { color: #40a0e0; }
+    .sword .card-arrow { color: #e05050; }
+    .green .card-arrow { color: #40c070; }
+    .gold .card-arrow { color: #c0a030; }
+    .card-arrow::after { content: '→'; font-size: 1rem; transition: transform 0.2s; }
+    .nav-card:hover .card-arrow::after { transform: translateX(4px); }
+
+    /* ─── QUOTE SECTION ─── */
+    .quote-band {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 3rem 0; text-align: center; margin: 4rem 0;
+    }
+    .quote-band blockquote {
+      font-size: clamp(1rem, 2.5vw, 1.3rem); font-style: italic;
+      color: #a0a898; max-width: 640px; margin: 0 auto;
+      line-height: 1.8;
+    }
+    .quote-band cite { display: block; margin-top: 1rem; font-size: 0.8rem; color: #585850; font-style: normal; letter-spacing: 0.1em; }
+
+    /* ─── DEPLOY CARD ─── */
+    .deploy-card {
+      background: linear-gradient(135deg, rgba(20,160,80,0.1), rgba(0,100,180,0.08));
+      border: 1px solid rgba(20,160,80,0.3); border-radius: 14px;
+      padding: 2rem; display: flex; gap: 2rem; align-items: center;
+      flex-wrap: wrap; text-decoration: none; color: inherit;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .deploy-card:hover { transform: translateY(-3px); border-color: rgba(20,160,80,0.5); text-decoration: none; }
+    .deploy-icon { font-size: 3rem; flex-shrink: 0; }
+    .deploy-text h3 { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; }
+    .deploy-text p { font-size: 0.88rem; color: #8a9880; margin: 0; }
+    .deploy-btn {
+      margin-left: auto; background: rgba(20,160,80,0.15);
+      border: 1px solid rgba(20,160,80,0.4); border-radius: 8px;
+      padding: 0.6rem 1.4rem; font-size: 0.82rem; font-weight: 700;
+      color: #40c070; letter-spacing: 0.08em; text-transform: uppercase;
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-section {
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; padding: 2rem; margin-bottom: 2rem;
+    }
+    .progress-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c0392b; font-weight: 700; margin-bottom: 1.2rem; }
+    .progress-item { margin-bottom: 1rem; }
+    .progress-item:last-child { margin-bottom: 0; }
+    .progress-label { display: flex; justify-content: space-between; margin-bottom: 0.35rem; font-size: 0.82rem; }
+    .progress-label span:first-child { color: #d0c8c0; }
+    .progress-label span:last-child { color: #585850; font-size: 0.75rem; }
+    .progress-bar { height: 4px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 999px; transition: width 1s ease; }
+    .pf-red { background: linear-gradient(to right, #c0392b, #e05050); }
+    .pf-orange { background: linear-gradient(to right, #c85020, #e08040); }
+    .pf-blue { background: linear-gradient(to right, #0060b0, #40a0e0); }
+    .pf-green { background: linear-gradient(to right, #10a050, #40c070); }
+    .pf-gold { background: linear-gradient(to right, #906010, #c0a030); }
+
+    p { color: #c8bfb5; margin-bottom: 1rem; }
+    strong { color: #f0e8e0; }
+    footer {
+      text-align: center; padding: 3rem 2rem; color: #282820;
+      font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.04);
+      letter-spacing: 0.05em;
+    }
+    footer .footer-symbol { display: block; font-size: 2rem; opacity: 0.1; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg-symbol">⚔️</div>
+  <span class="hero-badge">Site Personnel · Martial Arts · 2026</span>
+  <h1>Mon Parcours<br><span class="red">Martial</span></h1>
+  <p class="hero-desc">Kajukenbo · Kali · Foi · Préparation</p>
+  <div class="hero-tags">
+    <div class="hero-tag"><span>🌺</span> Kajukenbo — Sept. 2026</div>
+    <div class="hero-tag"><span>✝️</span> Miles Christi</div>
+    <div class="hero-tag"><span>🇵🇭</span> Kali / Arnis</div>
+    <div class="hero-tag"><span>💪</span> 6 mois de préparation</div>
+  </div>
+  <div class="scroll-hint">Explorer</div>
+</section>
+
+<!-- ═══ MAIN ══════════════════════════════════════════════════════ -->
+<main>
+
+  <!-- ── NAVIGATION PRINCIPALE ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2>📚 Mes Documents</h2>
+    </div>
+
+    <div class="nav-grid">
+
+      <!-- Mon Art Martial -->
+      <a href="Mon_Art_Martial.html" class="nav-card sword" data-emoji="⚔️">
+        <div class="card-label">Synthèse Personnalisée</div>
+        <h3>Mon Art Martial</h3>
+        <p>Portrait, diagnostic, trinité martiale, semaine type, manifeste du guerrier. Le document central.</p>
+        <div class="card-tags">
+          <span class="ctag">Portrait</span>
+          <span class="ctag">Diagnostic</span>
+          <span class="ctag">Manifeste</span>
+          <span class="ctag">Plan</span>
+        </div>
+        <div class="card-arrow">Lire</div>
+      </a>
+
+      <!-- Programme -->
+      <a href="Programme_Preparation.html" class="nav-card green" data-emoji="💪">
+        <div class="card-label">Mars → Septembre 2026</div>
+        <h3>Programme de Préparation</h3>
+        <p>3 phases, mobilité quotidienne, force TRX + poids du corps, cardio combat, protocole biceps.</p>
+        <div class="card-tags">
+          <span class="ctag">Mobilité</span>
+          <span class="ctag">TRX</span>
+          <span class="ctag">HIIT</span>
+          <span class="ctag">Biceps</span>
+        </div>
+        <div class="card-arrow">Commencer</div>
+      </a>
+
+      <!-- Kajukenbo -->
+      <a href="Kajukenbo.html" class="nav-card orange" data-emoji="🌺">
+        <div class="card-label">Art Principal — Hawaii 1947</div>
+        <h3>Kajukenbo</h3>
+        <p>L'art de rue hawaïen. Histoire, fondateurs, Méthode Diaz France, clubs Essonne, tenue noire.</p>
+        <div class="card-tags">
+          <span class="ctag">Emperado</span>
+          <span class="ctag">Méthode Diaz</span>
+          <span class="ctag">Frappes</span>
+          <span class="ctag">Sparring</span>
+        </div>
+        <div class="card-arrow">Découvrir</div>
+      </a>
+
+      <!-- Kali -->
+      <a href="Kali_Arnis_Eskrima.html" class="nav-card blue" data-emoji="🇵🇭">
+        <div class="card-label">Art Philippin — Armes + Mains nues</div>
+        <h3>Kali / Arnis / Eskrima</h3>
+        <p>12 angles d'attaque, San Miguel Archange ✝️, pratique solo quotidienne, écoles Philippines.</p>
+        <div class="card-tags">
+          <span class="ctag">12 Angles</span>
+          <span class="ctag">San Miguel ✝️</span>
+          <span class="ctag">Sinawali</span>
+          <span class="ctag">FMA</span>
+        </div>
+        <div class="card-arrow">Explorer</div>
+      </a>
+
+      <!-- NBJR -->
+      <a href="Nihon_Bu_Jutsu_Ryu.html" class="nav-card red" data-emoji="武">
+        <div class="card-label">Art Japonais — Recherche d'origine</div>
+        <h3>Nihon Bu Jutsu Ryū</h3>
+        <p>Histoire complète, clubs France, comparaison avec Kajukenbo et Kali, analyse de compatibilité.</p>
+        <div class="card-tags">
+          <span class="ctag">Bu Jutsu</span>
+          <span class="ctag">VNBJ</span>
+          <span class="ctag">Comparaison</span>
+          <span class="ctag">Clubs 91</span>
+        </div>
+        <div class="card-arrow">Lire</div>
+      </a>
+
+      <!-- Guide déploiement -->
+      <a href="DEPLOIEMENT_GUIDE.html" class="nav-card gold" data-emoji="🚀">
+        <div class="card-label">Compétences Dev — GitHub + Netlify</div>
+        <h3>Mettre ce site en ligne</h3>
+        <p>Guide pas à pas : GitHub Pages (pour les skills pro) + Netlify Drop (30 secondes). Avec captures.</p>
+        <div class="card-tags">
+          <span class="ctag">GitHub</span>
+          <span class="ctag">Netlify</span>
+          <span class="ctag">Deploy</span>
+          <span class="ctag">Tuto</span>
+        </div>
+        <div class="card-arrow">Déployer</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── PROGRESSION ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>📊 Où j'en suis</h2>
+    </div>
+    <div class="progress-section">
+      <div class="progress-title">Chemin martial — Mars 2026</div>
+
+      <div class="progress-item">
+        <div class="progress-label"><span>Recherche & Documentation</span><span>✅ Complète</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-red" style="width:100%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>Programme de Préparation</span><span>🟢 En cours</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-green" style="width:5%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>Mobilité Hanches</span><span>🟡 À démarrer</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-orange" style="width:10%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>Biceps — Consolidation</span><span>🔵 Guéri, en renforcement</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-blue" style="width:60%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>Kajukenbo — Septembre 2026</span><span>⏳ ~6 mois</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-red" style="width:0%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>Kali Solo (Sinawali)</span><span>📖 À initier</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-blue" style="width:0%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CITATION ── -->
+  <div class="quote-band">
+    <blockquote>
+      « Ce n'est pas l'art que tu choisis.<br>C'est l'art que tu es, enfin nommé. »
+      <cite>— Mon Manifeste Martial · Mars 2026 ⚔️</cite>
+    </blockquote>
+  </div>
+
+  <!-- ── DÉPLOIEMENT ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>🚀 Mettre ce site en ligne</h2>
+    </div>
+    <a href="DEPLOIEMENT_GUIDE.html" class="deploy-card">
+      <div class="deploy-icon">🚀</div>
+      <div class="deploy-text">
+        <h3>Guide de Déploiement — GitHub Pages + Netlify</h3>
+        <p>Rends ce site accessible depuis ton téléphone, ta tablette, partout dans le monde. Tuto complet avec captures d'écran. Bonus : compétences GitHub utiles au boulot.</p>
+      </div>
+      <div class="deploy-btn">Voir le tuto →</div>
+    </a>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-symbol">⚔️</span>
+  Mon Parcours Martial · Site personnel · 2026<br>
+  <span style="color:#201e18;">
+    « Train Strong to Remain Strong » — Sijo Adriano Emperado ✝️ &nbsp;|&nbsp; San Miguel Archangel — ora pro nobis ⚔️
+  </span>
+</footer>
+
+</body>
+</html>

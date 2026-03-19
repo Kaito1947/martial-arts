@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💪 Programme Préparation — Kajukenbo Sept. 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #070a0e; color: #e8e0d5; line-height: 1.75; }
+
+    .hero {
+      position: relative; min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(20,160,80,0.16) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(200,80,0,0.10) 0%, transparent 60%),
+        #070a0e;
+    }
+    .hero::before {
+      content: '💪'; position: absolute; font-size: clamp(14rem,40vw,30rem);
+      pointer-events:none; user-select:none; top:50%; left:50%; transform:translate(-50%,-50%);
+      opacity:0.04; line-height:1;
+    }
+    .hero-badge { display:inline-block; background:rgba(20,160,80,0.12); border:1px solid rgba(20,160,80,0.4); color:#40c070; font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; padding:0.35rem 1rem; border-radius:999px; margin-bottom:1.5rem; }
+    .hero h1 { font-size:clamp(2rem,6vw,4.5rem); font-weight:900; letter-spacing:-0.02em; line-height:1.05; color:#fff; margin-bottom:0.5rem; }
+    .hero h1 em { font-style:normal; color:#40c070; }
+    .hero-sub { font-size:clamp(0.95rem,2vw,1.2rem); color:#6a8070; margin-bottom:2rem; letter-spacing:0.08em; text-transform:uppercase; }
+    .hero-countdown { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin:1.5rem 0; }
+    .countdown-pill { background:rgba(20,160,80,0.08); border:1px solid rgba(20,160,80,0.25); border-radius:12px; padding:0.8rem 1.2rem; text-align:center; }
+    .countdown-pill .c-num { font-size:1.8rem; font-weight:900; color:#40c070; display:block; }
+    .countdown-pill .c-label { font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:#6a8870; }
+    .hero-quote { font-style:italic; font-size:1rem; color:#b0b8a8; border-left:3px solid #40c070; padding-left:1.2rem; margin-top:2rem; max-width:500px; text-align:left; }
+    .scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); color:#303828; font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:0.4rem; }
+    .scroll-hint::after { content:''; width:1px; height:40px; background:linear-gradient(to bottom,#303828,transparent); }
+
+    nav { position:sticky; top:0; z-index:100; background:rgba(7,10,14,0.94); backdrop-filter:blur(12px); border-bottom:1px solid rgba(20,160,80,0.1); padding:0 2rem; }
+    nav ul { display:flex; gap:0; list-style:none; overflow-x:auto; max-width:1100px; margin:0 auto; scrollbar-width:none; }
+    nav ul::-webkit-scrollbar { display:none; }
+    nav ul li a { display:block; padding:1rem 1.1rem; color:#6a7868; text-decoration:none; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap; transition:color 0.2s; }
+    nav ul li a:hover { color:#40c070; }
+
+    main { max-width:1100px; margin:0 auto; padding:4rem 2rem 6rem; }
+    .section { margin-bottom:5rem; }
+    .section-header { display:flex; align-items:center; gap:1rem; margin-bottom:2.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(20,160,80,0.1); }
+    .section-number { font-size:0.7rem; letter-spacing:0.2em; color:#40c070; text-transform:uppercase; font-weight:700; white-space:nowrap; }
+    .section-header h2 { font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; }
+
+    .alert { border:1px solid rgba(20,160,80,0.3); border-radius:8px; padding:1.5rem 1.8rem; margin-bottom:2rem; color:#d0d8c8; background:rgba(20,160,80,0.05); }
+    .alert strong { color:#40c070; }
+    .alert-warn { border-color:rgba(220,120,20,0.3); background:rgba(220,120,20,0.05); color:#d8c8b0; }
+    .alert-warn strong { color:#e09040; }
+
+    .table-wrap { overflow-x:auto; margin:1.5rem 0; }
+    table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+    thead tr { background:rgba(20,160,80,0.1); }
+    thead th { padding:0.75rem 1rem; text-align:left; color:#40c070; font-weight:700; letter-spacing:0.05em; font-size:0.8rem; text-transform:uppercase; white-space:nowrap; }
+    tbody tr { border-bottom:1px solid rgba(255,255,255,0.04); transition:background 0.15s; }
+    tbody tr:hover { background:rgba(255,255,255,0.03); }
+    tbody td { padding:0.7rem 1rem; color:#c8c0b5; vertical-align:top; }
+    tbody td:first-child { color:#f0e8e0; font-weight:600; }
+
+    .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.2rem; margin:1.5rem 0; }
+    .card { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:1.5rem; transition:border-color 0.2s,transform 0.2s; }
+    .card:hover { border-color:rgba(20,160,80,0.35); transform:translateY(-2px); }
+    .card-icon { font-size:1.8rem; margin-bottom:0.7rem; }
+    .card h3 { font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.5rem; }
+    .card p, .card ul { font-size:0.88rem; color:#8a9880; line-height:1.6; }
+    .card ul { padding-left:1.1rem; }
+    .card ul li { margin-bottom:0.3rem; }
+    .tag { display:inline-block; font-size:0.7rem; background:rgba(20,160,80,0.1); color:#40c070; border:1px solid rgba(20,160,80,0.25); border-radius:999px; padding:0.15rem 0.6rem; margin-top:0.8rem; }
+
+    /* ─── PHASE TIMELINE ─── */
+    .phases { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.2rem; margin:1.5rem 0; }
+    .phase { border-radius:12px; padding:1.8rem; border:1px solid; }
+    .phase.p1 { background:rgba(0,100,180,0.07); border-color:rgba(0,100,180,0.25); }
+    .phase.p2 { background:rgba(200,80,0,0.07); border-color:rgba(200,80,0,0.25); }
+    .phase.p3 { background:rgba(20,160,80,0.07); border-color:rgba(20,160,80,0.25); }
+    .phase-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; font-weight:700; margin-bottom:0.4rem; }
+    .p1 .phase-label { color:#40a0e0; }
+    .p2 .phase-label { color:#e08040; }
+    .p3 .phase-label { color:#40c070; }
+    .phase-title { font-size:1.1rem; font-weight:800; color:#fff; margin-bottom:0.3rem; }
+    .phase-dates { font-size:0.8rem; color:#7a8878; margin-bottom:0.8rem; }
+    .phase-focus { font-size:0.88rem; color:#b0b8a8; }
+    .phase-focus li { margin-bottom:0.25rem; }
+
+    /* ─── WEEK PLAN ─── */
+    .week-plan { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:12px; overflow:hidden; margin:1.5rem 0; }
+    .week-plan-header { background:rgba(20,160,80,0.1); padding:1rem 1.5rem; }
+    .week-plan-header h3 { color:#fff; font-size:1rem; margin:0; }
+    .week-plan-header p { color:#7a8870; font-size:0.82rem; margin:0.2rem 0 0; }
+    .day-row { display:grid; grid-template-columns:110px 1fr; border-bottom:1px solid rgba(255,255,255,0.04); }
+    .day-row:last-child { border-bottom:none; }
+    .day-name { padding:1rem; background:rgba(255,255,255,0.02); font-size:0.8rem; font-weight:700; color:#40c070; letter-spacing:0.1em; text-transform:uppercase; display:flex; align-items:center; border-right:1px solid rgba(255,255,255,0.04); }
+    .day-content { padding:1rem; font-size:0.88rem; color:#a0a898; }
+    .day-content strong { color:#e8e0d8; }
+    .day-tag { display:inline-block; font-size:0.7rem; padding:0.1rem 0.5rem; border-radius:999px; margin-left:0.4rem; }
+    .dt-mob { background:rgba(0,100,180,0.12); border:1px solid rgba(0,100,180,0.25); color:#40a0e0; }
+    .dt-force { background:rgba(200,80,0,0.12); border:1px solid rgba(200,80,0,0.25); color:#e08040; }
+    .dt-cardio { background:rgba(20,160,80,0.12); border:1px solid rgba(20,160,80,0.25); color:#40c070; }
+    .dt-repos { background:rgba(80,80,80,0.12); border:1px solid rgba(80,80,80,0.2); color:#888; }
+
+    /* ─── EXERCISE CARDS ─── */
+    .exo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; margin:1.5rem 0; }
+    .exo-card { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:1.2rem; }
+    .exo-card .exo-name { font-size:0.9rem; font-weight:700; color:#fff; margin-bottom:0.3rem; }
+    .exo-card .exo-sets { font-size:0.75rem; color:#40c070; font-weight:700; letter-spacing:0.08em; margin-bottom:0.4rem; }
+    .exo-card .exo-note { font-size:0.78rem; color:#7a8878; line-height:1.5; }
+    .exo-card .exo-avoid { font-size:0.72rem; color:#e08040; margin-top:0.4rem; }
+
+    .highlight-strip { background:rgba(20,160,80,0.07); border-left:4px solid #40c070; border-radius:0 8px 8px 0; padding:1rem 1.5rem; margin:1rem 0; color:#c8d0c0; font-size:0.93rem; }
+    .highlight-strip strong { color:#40c070; }
+    .warn-strip { background:rgba(220,120,20,0.07); border-left:4px solid #e09040; border-radius:0 8px 8px 0; padding:1rem 1.5rem; margin:1rem 0; color:#d0c8b0; font-size:0.93rem; }
+    .warn-strip strong { color:#e09040; }
+
+    blockquote { border-left:3px solid #40c070; padding-left:1.2rem; font-style:italic; color:#b0b8a8; margin:1.2rem 0; }
+
+    .prog-table-header { font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:#40c070; font-weight:700; margin:1.5rem 0 0.5rem; }
+
+    p { margin-bottom:1rem; color:#c8c0b5; }
+    strong { color:#f0e0d8; }
+    em { color:#b0c8a8; }
+    a { color:#40c070; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    h3 { color:#f0e8e0; font-size:1.1rem; margin:1.5rem 0 0.7rem; }
+    h4 { font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:#40c070; margin:1.2rem 0 0.5rem; }
+    .mt-2 { margin-top:2rem; }
+
+    footer { text-align:center; padding:3rem 2rem; color:#2a302a; font-size:0.8rem; border-top:1px solid rgba(20,160,80,0.06); letter-spacing:0.05em; }
+    footer .footer-icon { display:block; font-size:2.5rem; margin-bottom:0.5rem; opacity:0.15; }
+
+    .link-hub { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; margin:1.5rem 0; }
+    .link-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1rem; text-decoration:none; transition:border-color 0.2s,transform 0.2s; color:inherit; }
+    .link-card:hover { border-color:rgba(20,160,80,0.35); transform:translateY(-2px); text-decoration:none; }
+    .link-card .lc-icon { font-size:1.8rem; flex-shrink:0; }
+    .link-card .lc-title { font-size:0.9rem; font-weight:700; color:#fff; }
+    .link-card .lc-sub { font-size:0.78rem; color:#6a7868; }
+
+    @media (max-width:600px) { .day-row { grid-template-columns:80px 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ════════════════════════════════════════════════════ -->
+<section class="hero">
+  <span class="hero-badge">Mars → Septembre 2026 — 6 mois de préparation</span>
+  <h1>Programme <em>Pré-Kajukenbo</em></h1>
+  <p class="hero-sub">Mobilité · Souplesse · Force · Conditionnement</p>
+
+  <div class="hero-countdown">
+    <div class="countdown-pill"><span class="c-num">~6</span><span class="c-label">Mois</span></div>
+    <div class="countdown-pill"><span class="c-num">3</span><span class="c-label">Phases</span></div>
+    <div class="countdown-pill"><span class="c-num">4</span><span class="c-label">Séances/sem</span></div>
+    <div class="countdown-pill"><span class="c-num">0€</span><span class="c-label">Équipement requis</span></div>
+  </div>
+
+  <blockquote class="hero-quote">
+    « Arrive en septembre comme un athlète — pas comme un débutant. »
+  </blockquote>
+
+  <div class="scroll-hint">Commencer</div>
+</section>
+
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <ul>
+    <li><a href="#objectifs">Objectifs</a></li>
+    <li><a href="#phases">3 Phases</a></li>
+    <li><a href="#semaine">Semaine Type</a></li>
+    <li><a href="#mobilite">Mobilité</a></li>
+    <li><a href="#force">Force</a></li>
+    <li><a href="#cardio">Cardio</a></li>
+    <li><a href="#biceps">Biceps ⚠️</a></li>
+    <li><a href="#nutrition">Nutrition</a></li>
+    <li><a href="#progression">Progression</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ══ 00 : OBJECTIFS ══════════════════════════════════════════ -->
+  <section id="objectifs" class="section">
+    <div class="section-header">
+      <span class="section-number">00</span>
+      <h2>🎯 Objectifs — Arriver prêt en Septembre</h2>
+    </div>
+
+    <div class="alert">
+      Tu commences en <strong>mars 2026</strong> avec 6 mois devant toi. C'est parfait : assez de temps pour construire des bases solides sans te précipiter. Profil de départ : forme 3/5, dos fragile, hanches raides, biceps guéri, historique Aïkido + Vo Vietnam. Pas zéro — loin de là.
+    </div>
+
+    <div class="cards">
+      <div class="card" style="border-color:rgba(0,100,180,0.3);">
+        <div class="card-icon">🦵</div>
+        <h3 style="color:#40a0e0;">Mobilité Articulaire</h3>
+        <p>Hanches, chevilles, colonne. Priorité absolue. Le Kajukenbo exige une amplitude de mouvement importante pour les kicks, les esquives et le travail au sol. <strong>Tes hanches raides sont le premier obstacle.</strong></p>
+        <span class="tag" style="background:rgba(0,100,180,0.1);color:#40a0e0;border-color:rgba(0,100,180,0.25);">Priorité 1</span>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.3);">
+        <div class="card-icon">💪</div>
+        <h3 style="color:#e08040;">Force Fonctionnelle</h3>
+        <p>Pas du bodybuilding — de la force martiale. Gainage, poussée, traction, rotation. Les muscles sollicités en Kajukenbo : épaules, dorsaux, core, fessiers, quadriceps. <strong>Priorité au poids du corps.</strong></p>
+        <span class="tag" style="background:rgba(200,80,0,0.1);color:#e08040;border-color:rgba(200,80,0,0.25);">Priorité 2</span>
+      </div>
+      <div class="card" style="border-color:rgba(20,160,80,0.3);">
+        <div class="card-icon">❤️</div>
+        <h3 style="color:#40c070;">Endurance de Combat</h3>
+        <p>Un cours de Kajukenbo dure 1h30. Les 30 premières minutes sont les plus intenses. L'endurance cardio-vasculaire est ce qui te permet de <strong>rester technique quand tu es essoufflé</strong>. Ça se travaille avant.</p>
+        <span class="tag">Priorité 3</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🩺</div>
+        <h3>Biceps — Consolidation</h3>
+        <p>Le tendon bicipital droit est guéri mais raide. 6 mois de rééducation progressive (sans forcer) suffisent à retrouver une amplitude quasi-complète. <strong>Zéro résistance en hyperflexion</strong> pendant la Phase 1.</p>
+        <span class="tag">⚠️ Vigilance</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🦴</div>
+        <h3>Dos — Renforcement</h3>
+        <p>Le dos fragile nécessite un travail spécifique : gainage profond (transverse, multifides), mobilité lombaire, renforcement des érecteurs. En Kajukenbo : les chutes et les projections sollicitent le dos. <strong>Arriver solide.</strong></p>
+        <span class="tag">⚠️ Vigilance</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧘</div>
+        <h3>Souplesse Active</h3>
+        <p>La souplesse passive (stretching statique) ne suffit pas pour un art martial. Il faut de la <strong>souplesse active</strong> — contrôle de la mobilité sous charge, dans le mouvement. Yoga martial, étirements dynamiques.</p>
+        <span class="tag">Complète la mobilité</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 01 : LES 3 PHASES ══════════════════════════════════════ -->
+  <section id="phases" class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2>📅 Les 3 Phases — Mars à Septembre</h2>
+    </div>
+
+    <div class="phases">
+      <div class="phase p1">
+        <div class="phase-label">Phase 1 — Mars → Avril (8 semaines)</div>
+        <div class="phase-title">🔵 Fondations</div>
+        <div class="phase-dates">Mi-mars → Mi-mai 2026</div>
+        <ul class="phase-focus">
+          <li>Mobilité quotidienne — routine de 20 min</li>
+          <li>Activation musculaire — poids du corps uniquement</li>
+          <li>Biceps : rotation passive + flex légère</li>
+          <li>Cardio doux : marche rapide / vélo 30 min × 3/sem</li>
+          <li>Intro gainage profond (planche, bird-dog, dead bug)</li>
+          <li><strong>Objectif :</strong> Habitude quotidienne installée</li>
+        </ul>
+      </div>
+      <div class="phase p2">
+        <div class="phase-label">Phase 2 — Mai → Juillet (8 semaines)</div>
+        <div class="phase-title">🟠 Construction</div>
+        <div class="phase-dates">Mi-mai → Mi-juillet 2026</div>
+        <ul class="phase-focus">
+          <li>Force : circuits poids du corps + charges légères</li>
+          <li>Mobilité avancée : yoga martial, deep squat</li>
+          <li>Cardio : HIIT léger 2×/sem (15 min)</li>
+          <li>Biceps : résistance légère en amplitude contrôlée</li>
+          <li>Coordination : sacs, shadow boxing léger</li>
+          <li><strong>Objectif :</strong> Corps opérationnel à 70%</li>
+        </ul>
+      </div>
+      <div class="phase p3">
+        <div class="phase-label">Phase 3 — Juillet → Septembre (8 semaines)</div>
+        <div class="phase-title">🟢 Affûtage</div>
+        <div class="phase-dates">Mi-juillet → Septembre 2026</div>
+        <ul class="phase-focus">
+          <li>Simulation de cours : circuits intenses 45 min</li>
+          <li>Shadow boxing complet (frappes + déplacements)</li>
+          <li>Sticks rattan solo : sinawali 15 min/jour</li>
+          <li>Cardio soutenu : fractionné 3×/sem</li>
+          <li>Souplesse : routine optimisée, maintien</li>
+          <li><strong>Objectif :</strong> Prêt à 100% pour le 1er cours</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 02 : SEMAINE TYPE ═══════════════════════════════════════ -->
+  <section id="semaine" class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>📆 Semaine Type — Phase 1 (Mars–Mai)</h2>
+    </div>
+
+    <div class="week-plan">
+      <div class="week-plan-header">
+        <h3>Semaine type — Phase 1 (4 séances actives + routine quotidienne)</h3>
+        <p>Durée totale : ~2h30/sem en club + 20 min/jour mobilité à domicile</p>
+      </div>
+      <div class="week-plan-body">
+        <div class="day-row">
+          <div class="day-name">Lundi</div>
+          <div class="day-content">
+            <strong>Mobilité complète</strong> <span class="day-tag dt-mob">Mobilité</span><br>
+            20 min : routine hanches + colonne + épaules (voir section Mobilité)<br>
+            <small style="color:#6a7868;">+ 5 min gainage : planche × 3, bird-dog × 10</small>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Mardi</div>
+          <div class="day-content">
+            <strong>Force Corps — Haut</strong> <span class="day-tag dt-force">Force</span><br>
+            30 min : pompes variantes + tractions (ou élastique) + gainage<br>
+            <small style="color:#6a7868;">+ 20 min marche rapide en fin de séance</small>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Mercredi</div>
+          <div class="day-content">
+            <strong>Mobilité + Cardio doux</strong> <span class="day-tag dt-mob">Mobilité</span> <span class="day-tag dt-cardio">Cardio</span><br>
+            15 min mobilité hanches/chevilles + 30 min marche/vélo<br>
+            <small style="color:#6a7868;">Récupération active — pas d'intensité</small>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Jeudi</div>
+          <div class="day-content">
+            <strong>Force Corps — Bas + Core</strong> <span class="day-tag dt-force">Force</span><br>
+            30 min : squats + fentes + dead bug + pont fessier<br>
+            <small style="color:#6a7868;">Attention dos : aucun mouvement douloureux</small>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Vendredi</div>
+          <div class="day-content">
+            <strong>Cardio + Coordination</strong> <span class="day-tag dt-cardio">Cardio</span><br>
+            30 min vélo / course légère + 15 min shadow boxing très lent (technique uniquement)<br>
+            <small style="color:#6a7868;">Pas de puissance — jeu de jambes, position de garde, déplacements</small>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Samedi</div>
+          <div class="day-content">
+            <strong>Souplesse active — Yoga martial</strong> <span class="day-tag dt-mob">Mobilité</span><br>
+            40 min : pigeon, lézard, hip 90/90, sphinx, étirements enchaînés<br>
+            <small style="color:#6a7868;">La séance la plus douce — mais la plus importante pour les hanches</small>
+          </div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Dimanche</div>
+          <div class="day-content">
+            <strong>Repos complet</strong> <span class="day-tag dt-repos">Repos</span><br>
+            Messe. Aucune séance physique. Récupération totale.<br>
+            <small style="color:#6a7868;">La récupération fait partie du programme. Elle n'est pas optionnelle.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-plan" style="margin-top:1.5rem;">
+      <div class="week-plan-header" style="background:rgba(200,80,0,0.1);">
+        <h3>Semaine type — Phase 2 (Mai–Juillet)</h3>
+        <p>Intensité augmentée — circuits + HIIT introduit</p>
+      </div>
+      <div class="week-plan-body">
+        <div class="day-row">
+          <div class="day-name">Lundi</div>
+          <div class="day-content"><strong>Circuit Force A</strong> <span class="day-tag dt-force">Force</span> — 40 min : pompes déclinées + tractions + dips + gainage rotatif</div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Mardi</div>
+          <div class="day-content"><strong>Mobilité avancée + Kali Solo</strong> <span class="day-tag dt-mob">Mobilité</span> — 20 min yoga martial + 15 min sinawali solo sticks rattan</div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Mercredi</div>
+          <div class="day-content"><strong>HIIT léger</strong> <span class="day-tag dt-cardio">Cardio</span> — 5 min échauffement + 4 × (30 sec effort / 30 sec repos) × 5 exercices = 20 min total</div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Jeudi</div>
+          <div class="day-content"><strong>Circuit Force B</strong> <span class="day-tag dt-force">Force</span> — 40 min : squats bulgares + nordic curl léger + pont fessier lesté + hollow body</div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Vendredi</div>
+          <div class="day-content"><strong>Shadow boxing + Cardio</strong> <span class="day-tag dt-cardio">Cardio</span> — 3 rounds × 3 min shadow boxing technique + 20 min course continue</div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Samedi</div>
+          <div class="day-content"><strong>Souplesse active longue</strong> <span class="day-tag dt-mob">Mobilité</span> — 50 min : séance complète mobilité + étirements PNF hanches/épaules</div>
+        </div>
+        <div class="day-row">
+          <div class="day-name">Dimanche</div>
+          <div class="day-content"><strong>Repos + Foi</strong> <span class="day-tag dt-repos">Repos</span> — Messe. Récupération.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 03 : MOBILITÉ ══════════════════════════════════════════ -->
+  <section id="mobilite" class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>🦵 Mobilité — La Priorité Absolue</h2>
+    </div>
+
+    <div class="alert">
+      <strong>Tes hanches raides sont ton frein numéro 1</strong> pour le Kajukenbo. Les kicks, le travail bas, les esquives, la position de combat — tout passe par les hanches. 20 minutes par jour suffisent si c'est <em>quotidien et progressif</em>.
+    </div>
+
+    <h3>Routine Mobilité Quotidienne — 20 minutes</h3>
+    <p style="font-size:0.88rem; color:#8a9880;">À faire chaque matin ou avant chaque séance. Dans l'ordre.</p>
+
+    <div class="exo-grid">
+      <div class="exo-card">
+        <div class="exo-name">🔄 Cercles de hanches debout</div>
+        <div class="exo-sets">2 × 10 rotations / sens</div>
+        <div class="exo-note">Mains sur les hanches, rotation lente et ample. Réveille les articulations coxo-fémorales en douceur.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🦎 Lézard (Lizard Pose)</div>
+        <div class="exo-sets">2 × 45 sec / côté</div>
+        <div class="exo-note">Fente profonde, avant-bras au sol (ou mains). Descendre progressivement. L'étirement le plus efficace pour les fléchisseurs de hanche.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🕊️ Pigeon (Pigeon Pose)</div>
+        <div class="exo-sets">2 × 60 sec / côté</div>
+        <div class="exo-note">Au sol, jambe avant pliée à 90° devant. Incline le buste vers l'avant progressivement. Stretch des fessiers et rotateurs externes.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🦷 Hip 90/90</div>
+        <div class="exo-sets">2 × 30 sec / côté (puis rotation)</div>
+        <div class="exo-note">Au sol, les deux genoux à 90°. Travaille les rotations interne ET externe de hanche. Fondamental pour les arts martiaux.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🏋️ Deep Squat hold</div>
+        <div class="exo-sets">3 × 30 sec (s'appuyer si besoin)</div>
+        <div class="exo-note">Squat profond talons au sol, bras allongés devant. Utiliser un poteau ou porte pour s'aider au début. Progression sur 4 semaines.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🐱 Cat-Cow (Colonne)</div>
+        <div class="exo-sets">2 × 10 respirations</div>
+        <div class="exo-note">À 4 pattes, dos rond/dos creux en synchronisation avec la respiration. Essentiel pour le dos fragile — mobilise sans contraindre.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🌀 Thoracic Rotation</div>
+        <div class="exo-sets">2 × 10 / côté</div>
+        <div class="exo-note">En fente basse, rotation thoracique vers l'avant. Débloque la rotation de la cage thoracique — essentielle pour les frappes rotatives.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">👟 Mobilité chevilles</div>
+        <div class="exo-sets">2 × 15 rotations / cheville</div>
+        <div class="exo-note">En appui, cercles lents. + Wall ankle stretch : genou vers le mur, talon au sol. Les chevilles raides limitent le squat profond et la garde.</div>
+      </div>
+    </div>
+
+    <h3 class="mt-2">Étirements Épaules — Biceps inclus</h3>
+    <div class="exo-grid">
+      <div class="exo-card">
+        <div class="exo-name">🙌 Cross-body shoulder stretch</div>
+        <div class="exo-sets">2 × 30 sec / bras</div>
+        <div class="exo-note">Bras droit traversant la poitrine, coude fléchi à 90°. Bras gauche maintient. Épaule arrière.</div>
+        <div class="exo-avoid">⚠️ Pas de traction forcée sur le biceps droit</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🌙 Doorway stretch</div>
+        <div class="exo-sets">2 × 30 sec / position</div>
+        <div class="exo-note">Bras à 90° contre l'encadrement de porte, rotation du corps vers l'extérieur. Pectoraux + avant-épaule.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🔽 Biceps wall stretch (doux)</div>
+        <div class="exo-sets">2 × 20 sec / bras — Phase 2 seulement</div>
+        <div class="exo-note">Bras tendu contre un mur, paume vers le haut. Rotation légère du corps. Étirement du tendon bicipital en douceur.</div>
+        <div class="exo-avoid">⚠️ Phase 1 : exclure. Phase 2 : très progressif.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 04 : FORCE ════════════════════════════════════════════ -->
+  <section id="force" class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2>💪 Force — Poids du Corps d'abord</h2>
+    </div>
+
+    <div class="highlight-strip">
+      <strong>Principe :</strong> Le Kajukenbo ne nécessite pas de soulever 100kg. Il nécessite de contrôler son propre corps, d'encaisser, de répéter des gestes intenses pendant 90 minutes. La force fonctionnelle poids du corps est la base — les charges viennent en Phase 2.
+    </div>
+
+    <div class="alert" style="border-color:rgba(20,160,80,0.4); background:rgba(20,160,80,0.07); margin-bottom:1.5rem;">
+      <strong>✅ Bonne nouvelle — TRX + Curl 5kg opérationnel</strong><br>
+      Tu as des sangles TRX <em>et</em> tu tolères déjà le curl à 5kg sans douleur. Ça signifie que ton biceps est déjà en Phase 2 fonctionnelle. Le TRX est l'outil parfait pour ce programme — il permet de doser la résistance avec précision via l'angle du corps. Les exercices TRX sont intégrés dès la Phase 1.
+    </div>
+
+    <h4>Circuit A — Haut du corps (Lundi Phase 1) — avec TRX</h4>
+    <div class="exo-grid">
+      <div class="exo-card">
+        <div class="exo-name">💥 Pompes standard</div>
+        <div class="exo-sets">3 × max (objectif : 15 en Phase 1)</div>
+        <div class="exo-note">Coudes à 45° du corps. Gainage abdominal actif. Descente en 2 sec, montée explosive.</div>
+        <div class="exo-avoid">⚠️ Jamais d'hyperextension du coude droit en fin de mouvement</div>
+      </div>
+      <div class="exo-card" style="border-color:rgba(20,160,80,0.3);">
+        <div class="exo-name">🎯 TRX Row (Tirage horizontal)</div>
+        <div class="exo-sets">3 × 12–15</div>
+        <div class="exo-note">Dos à l'ancrage TRX, corps incliné. Tire les poignées vers la poitrine. Angle : plus tu es horizontal, plus c'est difficile. Parfait pour les dorsaux + biceps en charge contrôlée. <strong>Commence à 45° d'inclinaison.</strong></div>
+        <div class="exo-avoid" style="color:#40c070;">✅ Dès Phase 1 — résistance dosable au centimètre</div>
+      </div>
+      <div class="exo-card" style="border-color:rgba(20,160,80,0.3);">
+        <div class="exo-name">🎯 TRX Biceps Curl</div>
+        <div class="exo-sets">3 × 10–12</div>
+        <div class="exo-note">Face à l'ancrage, bras tendus devant, corps incliné en arrière. Pliage des coudes pour ramener les poignées vers les tempes. Excellent substitut au curl barre — charge progressive via l'angle. <strong>Si tu tolères 5kg, tu tolères ce mouvement.</strong></div>
+        <div class="exo-avoid" style="color:#40c070;">✅ Dès Phase 1 — amplitude contrôlée</div>
+      </div>
+      <div class="exo-card" style="border-color:rgba(20,160,80,0.3);">
+        <div class="exo-name">🎯 TRX Chest Press</div>
+        <div class="exo-sets">3 × 12</div>
+        <div class="exo-note">Face à l'ancrage, bras tendus devant, corps incliné vers l'avant. Pousse les poignées loin de toi en contrôlant la descente. Pectoraux + triceps + stabilisation. Équivalent pompes mais ajustable.</div>
+        <div class="exo-avoid" style="color:#40c070;">✅ Dès Phase 1</div>
+      </div>
+      <div class="exo-card" style="border-color:rgba(20,160,80,0.3);">
+        <div class="exo-name">🎯 TRX Y-Raise (Épaules)</div>
+        <div class="exo-sets">3 × 10</div>
+        <div class="exo-note">Dos à l'ancrage, bras en Y au-dessus de la tête, corps incliné en arrière. Tire pour revenir vertical en gardant les bras en Y. Travaille les deltoïdes postérieurs et les trapèzes — essentiels pour les gardes et frappes.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🤸 Pike push-up</div>
+        <div class="exo-sets">3 × 10–12</div>
+        <div class="exo-note">En V inversé, flexion des coudes vers le sol. Travaille les épaules (deltoïdes). Prépare aux "shovel hooks" et frappes avec élévation d'épaule.</div>
+      </div>
+    </div>
+
+    <h4 class="mt-2">Circuit B — Bas du corps + Core (Jeudi Phase 1)</h4>
+    <div class="exo-grid">
+      <div class="exo-card">
+        <div class="exo-name">🦵 Squat profond</div>
+        <div class="exo-sets">3 × 15–20</div>
+        <div class="exo-note">Descente sous le parallèle. Dos droit, genoux dans l'axe des pieds. Si mobilité insuffisante : talon surélevé sur une planche (transition).</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🚶 Fentes alternées</div>
+        <div class="exo-sets">3 × 10 / jambe</div>
+        <div class="exo-note">Pas grand en avant, genou avant à 90°. Retour explosif. Imite directement le pas de combat Kajukenbo.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🌉 Pont fessier (Hip thrust)</div>
+        <div class="exo-sets">3 × 15</div>
+        <div class="exo-note">Sur le dos, pieds au sol, poussée des hanches vers le plafond. Contracte les fessiers au sommet. Protège le dos lombaire par renforcement postérieur.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🦟 Dead Bug</div>
+        <div class="exo-sets">3 × 8 / côté</div>
+        <div class="exo-note">Sur le dos, dos plaqué au sol. Extension alternée bras/jambe opposés sans décoller le bas du dos. Core profond — essentiel pour ton dos fragile.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🐦 Bird Dog</div>
+        <div class="exo-sets">3 × 10 / côté</div>
+        <div class="exo-note">À 4 pattes, extension bras+jambe opposés. Maintien 3 sec. Stabilisateurs lombaires profonds. La base du renforcement dos fragile.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🏗️ Planche (Plank)</div>
+        <div class="exo-sets">3 × 30–60 sec</div>
+        <div class="exo-note">Corps aligné, appui sur avant-bras. Pas de cambrure. Progression : 30 sec (semaine 1) → 60 sec (semaine 8). Gainage central fondamental.</div>
+      </div>
+    </div>
+
+    <div class="warn-strip mt-2">
+      <strong>⚠️ Règle d'or pour le dos :</strong> Si une douleur lombaire apparaît pendant un exercice — arrêt immédiat. Jamais de deadlift traditionnel ni de good morning en Phase 1. Le soulevé de terre (si introduit) uniquement en Phase 3 avec technique parfaite et charge légère.
+    </div>
+  </section>
+
+  <!-- ══ 05 : CARDIO ════════════════════════════════════════════ -->
+  <section id="cardio" class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2>❤️ Cardio — L'Endurance de Combat</h2>
+    </div>
+
+    <p>Le Kajukenbo est un art intense. Mais l'endurance martiale ne ressemble pas à un marathon — c'est de l'endurance <strong>intermittente</strong> : intensité haute, récupération courte, intensité haute à nouveau. Le HIIT (High Intensity Interval Training) est l'entraînement cardio le plus spécifique.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Phase 1</th><th>Phase 2</th><th>Phase 3</th></tr></thead>
+        <tbody>
+          <tr><td>Marche rapide</td><td>3 × 30 min / sem</td><td>2 × 30 min / sem</td><td>1 × 30 min / sem (récup)</td></tr>
+          <tr><td>Vélo / natation</td><td>Option (2 × 30 min)</td><td>Option (2 × 30 min)</td><td>Option récup active</td></tr>
+          <tr><td>Course continue</td><td>Non (si dos ok : 20 min léger)</td><td>2 × 20 min</td><td>2 × 25 min</td></tr>
+          <tr><td>HIIT (fractionné)</td><td>Non — Phase 1</td><td>2 × 15–20 min</td><td>3 × 20 min</td></tr>
+          <tr><td>Corde à sauter</td><td>Non</td><td>5 min échauffement</td><td>3 × 3 min (comme rounds)</td></tr>
+          <tr><td>Shadow boxing</td><td>15 min technique (lent)</td><td>3 rounds × 2 min</td><td>5 rounds × 2 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>HIIT Spécial Kajukenbo — Phase 2 (à introduire)</h3>
+    <p style="font-size:0.88rem; color:#8a9880;">Circuit de 4 minutes, 4 tours. Chaque exercice = 40 sec effort / 20 sec repos.</p>
+    <div class="exo-grid">
+      <div class="exo-card">
+        <div class="exo-name">⚡ Burpees (sans saut si dos)</div>
+        <div class="exo-sets">40 sec effort / 20 sec repos</div>
+        <div class="exo-note">Version sans saut si besoin : debout → planche → debout. Endurance totale du corps.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🦵 Mountain climbers</div>
+        <div class="exo-sets">40 sec effort / 20 sec repos</div>
+        <div class="exo-note">En position planche, genoux alternés vers la poitrine. Cardio + core + coordination. Vitesse progressive.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🥊 Jab-Cross shadow</div>
+        <div class="exo-sets">40 sec effort / 20 sec repos</div>
+        <div class="exo-note">Garde boxe, jabs + directs alternés à mi-vitesse. Déplacements latéraux. Technique avant vitesse.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🏃 Jump squat / Squat</div>
+        <div class="exo-sets">40 sec effort / 20 sec repos</div>
+        <div class="exo-note">Phase 2 : squat sauté. Si dos : squat profond rapide sans saut. Cuisses + fessiers + cardio.</div>
+      </div>
+    </div>
+
+    <div class="highlight-strip mt-2">
+      <strong>Objectif Phase 3 :</strong> Enchaîner 5 rounds de 3 minutes de shadow boxing avec 1 minute de repos entre rounds, sans perdre la technique. C'est exactement le rythme d'un cours Kajukenbo. Si tu arrives à faire ça en août, le premier cours sera une promenade.
+    </div>
+  </section>
+
+  <!-- ══ 06 : BICEPS ════════════════════════════════════════════ -->
+  <section id="biceps" class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2>🩺 Protocole Biceps — Rééducation Progressive</h2>
+    </div>
+
+    <div class="alert alert-warn">
+      <strong>⚠️ Ce n'est pas une prescription médicale.</strong> Ce programme est une suggestion basée sur les protocoles de rééducation standards pour les déchirures bicipitales de niveau 2. Consulte ton kiné ou médecin du sport pour validation avant de commencer les phases 2 et 3 du biceps.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Phase</th><th>Période</th><th>Exercices autorisés</th><th>À éviter</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Fondation</td>
+            <td>Mars → Mai</td>
+            <td>Rotations passives poignet, flexion coude sans charge, étirements doux épaule</td>
+            <td>Tout exercice en résistance sur le biceps, hyper-extension du coude</td>
+          </tr>
+          <tr>
+            <td>Construction</td>
+            <td>Mai → Juillet</td>
+            <td>Curl léger élastique (1-2 kg), supination contrôlée, traction prise pronation</td>
+            <td>Curl lourd, kimura, clef de bras, Aïkido</td>
+          </tr>
+          <tr>
+            <td>Affûtage</td>
+            <td>Juillet → Septembre</td>
+            <td>Traction prise supination légère, curl 5-8 kg contrôlé, pompes complètes</td>
+            <td>Poids lourds, mouvements brusques en fin d'amplitude</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Exercices de rééducation biceps — Phase 1</h3>
+    <div class="exo-grid">
+      <div class="exo-card">
+        <div class="exo-name">🌀 Rotation avant-bras passive</div>
+        <div class="exo-sets">2 × 20 rotations / jour</div>
+        <div class="exo-note">Coude fléchi à 90° contre le corps. Rotation supination/pronation lente et sans douleur. Amplitude maximale confortable.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">💧 Flexion coude libre</div>
+        <div class="exo-sets">2 × 15 — sans charge</div>
+        <div class="exo-note">Paume vers le haut, flexion douce du coude jusqu'à amplitude maximale sans douleur. Maintien 2 sec au sommet.</div>
+      </div>
+      <div class="exo-card">
+        <div class="exo-name">🏊 Natation (dos crawl)</div>
+        <div class="exo-sets">20–30 min si accès piscine</div>
+        <div class="exo-note">Le dos crawl et la nage sur le dos sont les plus adaptés. L'eau soutient le bras, l'amplitude est naturellement limitée. Excellent pour le tendon.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 07 : NUTRITION ════════════════════════════════════════ -->
+  <section id="nutrition" class="section">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2>🥗 Nutrition — Les Bases</h2>
+    </div>
+
+    <p>Pas de régime complexe. Juste les principes qui supportent un programme de préparation physique à 45 ans, avec reconstruction tendineuse en cours.</p>
+
+    <div class="cards">
+      <div class="card" style="border-color:rgba(20,160,80,0.3);">
+        <div class="card-icon">🥩</div>
+        <h3>Protéines — Reconstruction</h3>
+        <p>Le tendon bicipital se reconstruit avec des protéines. Objectif : <strong>1.6–2g de protéines / kg de poids</strong> soit ~125–160g/jour pour 79 kg.</p>
+        <ul>
+          <li>Œufs (6–10/jour = parfait)</li>
+          <li>Poulet, poisson, thon</li>
+          <li>Fromage blanc 0%</li>
+          <li>Légumineuses (lentilles, pois chiches)</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:rgba(0,100,180,0.3);">
+        <div class="card-icon">💊</div>
+        <h3>Micronutriments clés</h3>
+        <p>Pour le tendon et les articulations spécifiquement :</p>
+        <ul>
+          <li><strong>Vitamine C</strong> — synthèse du collagène (agrumes, kiwi, poivron)</li>
+          <li><strong>Collagène hydrolysé</strong> — 10g/jour (en poudre) si possible</li>
+          <li><strong>Oméga-3</strong> — anti-inflammatoire naturel (sardines, noix, huile de lin)</li>
+          <li><strong>Magnésium</strong> — crampes et récupération (amandes, chocolat noir, banane)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">💧</div>
+        <h3>Hydratation</h3>
+        <p>1.5 à 2L d'eau/jour minimum. Le tendon est un tissu peu vascularisé — l'hydratation l'aide à récupérer. Avant et après chaque séance : <strong>500 ml d'eau.</strong></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">😴</div>
+        <h3>Sommeil — La récupération oubliée</h3>
+        <p>La progression physique se fait la nuit. 7–8h de sommeil est non-négociable avec un programme d'entraînement. La GH (hormone de croissance) qui reconstruit les tissus est secrétée en phase de sommeil profond.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 08 : PROGRESSION ═══════════════════════════════════════ -->
+  <section id="progression" class="section">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <h2>📈 Suivi de Progression — Tes Benchmarks</h2>
+    </div>
+
+    <p>Ces tests te permettent de mesurer où tu en es toutes les 4 semaines. Pas de compétition — juste une lecture honnête de ta progression.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Test</th><th>Mars (départ)</th><th>Mai (objectif)</th><th>Juillet (objectif)</th><th>Septembre (objectif)</th></tr></thead>
+        <tbody>
+          <tr><td>Pompes consécutives</td><td>Compter</td><td>+5 par rapport départ</td><td>20 min stop</td><td>30+ clean</td></tr>
+          <tr><td>Planche (durée)</td><td>Compter</td><td>45 sec</td><td>75 sec</td><td>90 sec+</td></tr>
+          <tr><td>Deep squat (talons au sol)</td><td>Tester</td><td>20 sec</td><td>45 sec</td><td>60 sec confortable</td></tr>
+          <tr><td>Shadow boxing (rounds 2 min)</td><td>1 round</td><td>3 rounds / 1 min repos</td><td>4 rounds</td><td>5 rounds propres</td></tr>
+          <tr><td>Pigeon hanche (intensité)</td><td>Douleur initiale</td><td>Inconfort léger</td><td>Confort</td><td>Profond + relâché</td></tr>
+          <tr><td>Amplitude biceps (flexion)</td><td>Compter en degrés</td><td>130° sans douleur</td><td>140°+</td><td>Quasi-symétrique</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight-strip mt-2">
+      <strong>Règle des 4 semaines :</strong> Toutes les 4 semaines, refais les tests. Si tu stagues sur 2 tests consécutifs — soit tu manques de régularité (la cause la plus fréquente), soit tu dois ajuster l'intensité. Le programme n'est pas fixe — il est vivant.
+    </div>
+
+    <div class="cards mt-2">
+      <div class="card" style="border-color:rgba(20,160,80,0.3);">
+        <div class="card-icon">✅</div>
+        <h3>Tu es prêt en septembre si...</h3>
+        <ul>
+          <li>20+ pompes consécutives propres</li>
+          <li>5 rounds shadow boxing 2 min / 1 min repos</li>
+          <li>Deep squat 60 sec talons au sol</li>
+          <li>Pigeon pose 60 sec sans douleur vive</li>
+          <li>Biceps : flexion 140°+ sans douleur</li>
+          <li>Habitude : 4 séances/sem depuis 8 semaines</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:rgba(200,80,0,0.3);">
+        <div class="card-icon">💡</div>
+        <h3>La vraie mesure de succès</h3>
+        <p>Ce n'est pas les benchmarks physiques. C'est l'<strong>habitude installée</strong>. Quelqu'un qui s'entraîne 4 fois par semaine depuis 6 mois arrivera en Kajukenbo avec la discipline la plus rare : la régularité. C'est plus précieux que la force brute.</p>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,rgba(20,160,80,0.12),rgba(20,160,80,0.04)); border:1px solid rgba(20,160,80,0.35); border-radius:16px; padding:2.5rem; margin-top:2.5rem; text-align:center;">
+      <div style="font-size:2.5rem; margin-bottom:1rem;">⚔️</div>
+      <h2 style="color:#fff; font-size:1.4rem; margin-bottom:1rem;">Septembre 2026 — Premier Cours Kajukenbo</h2>
+      <p style="max-width:600px; margin:0 auto; color:#b0b8a8;">
+        Tu as 6 mois. Ce programme est conçu pour qu'en septembre tu ne sois plus un inconnu dans ton propre corps. Tu connaîtras ta garde, tes limites, tes forces. Le premier cours ne sera pas une découverte — ce sera une <strong>reconnaissance</strong>.
+      </p>
+      <p style="color:#40c070; font-weight:700; font-size:1.1rem; margin-top:1.5rem; font-style:italic;">
+        « Train Strong to Remain Strong. » — Sijo Adriano Emperado ✝️
+      </p>
+    </div>
+
+    <div style="margin-top:2.5rem;">
+      <h3>Retour aux pages de référence</h3>
+      <div class="link-hub">
+        <a href="Mon_Art_Martial.html" class="link-card">
+          <div class="lc-icon">⚔️</div>
+          <div><div class="lc-title">Mon Art Martial</div><div class="lc-sub">Synthèse personnalisée</div></div>
+        </a>
+        <a href="Kajukenbo.html" class="link-card">
+          <div class="lc-icon">🌺</div>
+          <div><div class="lc-title">Kajukenbo</div><div class="lc-sub">Histoire, méthode Diaz, plan d'action</div></div>
+        </a>
+        <a href="Kali_Arnis_Eskrima.html" class="link-card">
+          <div class="lc-icon">🇵🇭</div>
+          <div><div class="lc-title">Kali / Arnis</div><div class="lc-sub">12 angles, pratique solo, foi</div></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-icon">💪</span>
+  Programme de préparation — Mars → Septembre 2026<br>
+  Conçu pour un profil spécifique : 45 ans, dos fragile, biceps en consolidation, hanches raides.<br>
+  <span style="color:#202820; font-size:0.75rem; margin-top:0.5rem; display:block;">
+    Consulter un médecin du sport ou kiné avant toute reprise intensive. ✝️
+  </span>
+</footer>
+
+</body>
+</html>
