@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🗓️ Séance du Jour — Kajukenbo 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: #06080c;
+      color: #e8e0d5;
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(6,8,12,0.95); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(20,160,80,0.1);
+      padding: 0 2rem;
+    }
+    nav ul {
+      display: flex; gap: 0; list-style: none;
+      overflow-x: auto; max-width: 900px; margin: 0 auto;
+      scrollbar-width: none;
+    }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav ul li a {
+      display: block; padding: 1rem 1rem;
+      color: #5a6858; text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      white-space: nowrap; transition: color 0.2s;
+    }
+    nav ul li a:hover { color: #40c070; }
+
+    /* ── HERO HEADER ── */
+    .page-header {
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(20,160,80,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 50%, rgba(0,100,200,0.08) 0%, transparent 55%),
+        #06080c;
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(20,160,80,0.08);
+    }
+    .page-header .date-badge {
+      display: inline-block;
+      background: rgba(20,160,80,0.08);
+      border: 1px solid rgba(20,160,80,0.25);
+      color: #40c070;
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.35rem 1.2rem; border-radius: 999px;
+      margin-bottom: 1.2rem;
+    }
+    .page-header h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900; color: #fff; letter-spacing: -0.02em;
+      line-height: 1.1; margin-bottom: 0.5rem;
+    }
+    .page-header h1 span { color: #40c070; }
+    .page-header .header-sub {
+      font-size: 0.82rem; color: #3a4a38;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    /* countdown strip */
+    .countdown-strip {
+      display: inline-flex; gap: 0.6rem; align-items: center;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 999px; padding: 0.5rem 1.2rem;
+      font-size: 0.8rem; color: #5a6858;
+    }
+    .countdown-strip strong { color: #40c070; font-size: 1rem; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 720px; margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── PHASE BADGE ── */
+    .phase-chip {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border-radius: 999px; padding: 0.4rem 1.1rem;
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 1.5rem;
+      border: 1px solid;
+    }
+    .phase-chip.ph1 { background: rgba(0,120,210,0.1); border-color: rgba(0,120,210,0.35); color: #40a0e0; }
+    .phase-chip.ph2 { background: rgba(200,80,0,0.1); border-color: rgba(200,80,0,0.35); color: #e08040; }
+    .phase-chip.ph3 { background: rgba(20,160,80,0.1); border-color: rgba(20,160,80,0.35); color: #40c070; }
+    .phase-chip .dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    }
+    .ph1 .dot { background: #40a0e0; box-shadow: 0 0 6px rgba(64,160,224,0.7); }
+    .ph2 .dot { background: #e08040; box-shadow: 0 0 6px rgba(224,128,64,0.7); }
+    .ph3 .dot { background: #40c070; box-shadow: 0 0 6px rgba(64,192,112,0.7); }
+
+    /* ── SÉANCE CARD ── */
+    .seance-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .seance-card-header {
+      padding: 1.6rem 2rem 1.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .seance-card-header.type-mob  { background: rgba(0,120,210,0.08); }
+    .seance-card-header.type-force { background: rgba(200,80,0,0.08); }
+    .seance-card-header.type-cardio { background: rgba(20,160,80,0.08); }
+    .seance-card-header.type-hiit  { background: rgba(220,40,40,0.08); }
+    .seance-card-header.type-kali  { background: rgba(180,60,200,0.08); }
+    .seance-card-header.type-repos { background: rgba(40,40,40,0.08); }
+    .seance-card-header.type-multi { background: rgba(20,160,80,0.06); }
+
+    .seance-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .seance-title-wrap {}
+    .seance-title {
+      font-size: 1.3rem; font-weight: 900; color: #fff;
+      line-height: 1.1; margin-bottom: 0.2rem;
+    }
+    .seance-subtitle { font-size: 0.8rem; color: #5a6858; letter-spacing: 0.08em; }
+    .seance-duration {
+      margin-left: auto; flex-shrink: 0;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 0.4rem 0.9rem;
+      font-size: 0.78rem; color: #a0a890; font-weight: 700; white-space: nowrap;
+    }
+
+    /* ── EXERCISE LIST ── */
+    .exo-list { padding: 1.2rem 2rem; }
+    .exo-item {
+      display: grid; grid-template-columns: 2rem 1fr auto;
+      gap: 0.5rem 0.8rem; align-items: start;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .exo-item:last-child { border-bottom: none; }
+    .exo-emoji { font-size: 1.1rem; padding-top: 0.1rem; }
+    .exo-info {}
+    .exo-name { font-size: 0.95rem; font-weight: 700; color: #f0e8e0; }
+    .exo-detail { font-size: 0.78rem; color: #5a6858; margin-top: 0.1rem; }
+    .exo-sets-badge {
+      background: rgba(20,160,80,0.1); border: 1px solid rgba(20,160,80,0.2);
+      color: #40c070; border-radius: 6px; padding: 0.15rem 0.55rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+      white-space: nowrap; margin-top: 0.15rem; text-align: right;
+    }
+    .exo-sets-badge.warn { background: rgba(200,80,0,0.1); border-color: rgba(200,80,0,0.25); color: #e08040; }
+    .exo-sets-badge.blue { background: rgba(0,120,210,0.1); border-color: rgba(0,120,210,0.25); color: #40a0e0; }
+    .exo-sets-badge.purple { background: rgba(180,60,200,0.1); border-color: rgba(180,60,200,0.25); color: #c070e0; }
+    .exo-sets-badge.grey { background: rgba(60,60,60,0.15); border-color: rgba(80,80,80,0.2); color: #707070; }
+
+    /* ── ALERT ── */
+    .seance-alert {
+      margin: 0 2rem 1.2rem;
+      border-radius: 10px; padding: 0.9rem 1.2rem;
+      font-size: 0.83rem; display: flex; gap: 0.7rem; align-items: flex-start;
+    }
+    .seance-alert.warn { background: rgba(220,100,20,0.08); border: 1px solid rgba(220,100,20,0.25); color: #d0b898; }
+    .seance-alert.info { background: rgba(0,120,200,0.07); border: 1px solid rgba(0,120,200,0.22); color: #b0c8e0; }
+    .seance-alert.ok   { background: rgba(20,160,80,0.07); border: 1px solid rgba(20,160,80,0.22); color: #a8c8a8; }
+    .seance-alert strong { color: #f0e8e0; }
+
+    /* ── CTA VALIDATE ── */
+    .validate-section {
+      padding: 1.5rem 2rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+    .btn-validate {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.7rem;
+      background: linear-gradient(135deg, rgba(20,160,80,0.2), rgba(20,160,80,0.12));
+      border: 2px solid rgba(20,160,80,0.5);
+      border-radius: 14px; padding: 1rem 2.5rem;
+      font-size: 1rem; font-weight: 800; color: #40c070;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.25s; width: 100%; max-width: 400px;
+    }
+    .btn-validate:hover:not(:disabled) {
+      background: linear-gradient(135deg, rgba(20,160,80,0.3), rgba(20,160,80,0.18));
+      border-color: rgba(20,160,80,0.8);
+      transform: translateY(-2px);
+    }
+    .btn-validate.done {
+      background: linear-gradient(135deg, rgba(20,160,80,0.35), rgba(20,160,80,0.2));
+      border-color: #40c070; color: #fff;
+      animation: pulse-done 0.6s ease;
+    }
+    .btn-validate.repos-btn {
+      background: rgba(40,40,40,0.2); border-color: rgba(80,80,80,0.3);
+      color: #606060; cursor: default;
+    }
+    @keyframes pulse-done {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); box-shadow: 0 0 30px rgba(64,192,112,0.4); }
+      100% { transform: scale(1); }
+    }
+
+    /* ── STREAK WIDGET ── */
+    .streak-widget {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      margin-top: 1.2rem; font-size: 0.85rem; color: #5a6858;
+    }
+    .streak-count {
+      font-size: 1.4rem; font-weight: 900; color: #e08040;
+      line-height: 1;
+    }
+    .streak-dots {
+      display: flex; gap: 0.35rem; align-items: center;
+    }
+    .streak-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .streak-dot.filled { background: #40c070; border-color: #40c070; box-shadow: 0 0 5px rgba(64,192,112,0.5); }
+    .streak-dot.today  { background: #e08040; border-color: #e08040; box-shadow: 0 0 5px rgba(224,128,64,0.5); }
+
+    /* ── NEXT PREVIEW ── */
+    .next-preview {
+      background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px; padding: 1.4rem 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .next-label {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #3a4a38; font-weight: 700; margin-bottom: 0.7rem;
+    }
+    .next-content {
+      font-size: 0.9rem; color: #a0a890; display: flex; gap: 1rem; align-items: center;
+    }
+    .next-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .next-title { font-weight: 700; color: #d0c8c0; font-size: 0.92rem; }
+    .next-sub { font-size: 0.76rem; color: #4a5848; margin-top: 0.15rem; }
+
+    /* ── MOTIVATION QUOTE ── */
+    .motivation-block {
+      background: rgba(20,160,80,0.04); border-left: 3px solid rgba(20,160,80,0.3);
+      border-radius: 0 10px 10px 0; padding: 1rem 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .motivation-text {
+      font-style: italic; font-size: 0.9rem; color: #8a9880; line-height: 1.6;
+    }
+    .motivation-source {
+      font-size: 0.72rem; color: #3a4a38; margin-top: 0.4rem; letter-spacing: 0.06em;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: rgba(20,160,80,0.95); color: #fff;
+      border-radius: 12px; padding: 0.9rem 1.8rem;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.04em;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      z-index: 999; white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── CONFETTI burst overlay ── */
+    .confetti-wrap {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 998; overflow: hidden;
+    }
+    .confetti-piece {
+      position: absolute; width: 8px; height: 8px; border-radius: 2px;
+      animation: confetti-fall 1.2s ease-out forwards;
+    }
+    @keyframes confetti-fall {
+      0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ── NAV BACK ── */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: #3a4a38; font-size: 0.78rem; text-decoration: none;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s; margin-bottom: 2rem;
+    }
+    .back-link:hover { color: #40c070; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 3rem 2rem;
+      color: #1e241e; font-size: 0.8rem;
+      border-top: 1px solid rgba(20,160,80,0.06);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .page-header { padding: 2rem 1.2rem 1.5rem; }
+      .exo-list { padding: 1rem 1.2rem; }
+      .validate-section { padding: 1.2rem 1.2rem 1.5rem; }
+      .seance-card-header { padding: 1.2rem 1.2rem 1rem; }
+      .seance-alert { margin: 0 1.2rem 1rem; }
+      .next-preview { padding: 1rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <ul>
+    <li><a href="index.html">← Accueil</a></li>
+    <li><a href="Programme_Preparation.html">Programme complet</a></li>
+    <li><a href="#seance" style="color:#40c070;">Séance du jour</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="date-badge" id="date-badge">Chargement...</div>
+  <h1>Séance du <span id="day-name-title">Jour</span></h1>
+  <p class="header-sub" id="phase-label-header">Programme Kajukenbo 2026</p>
+  <div class="countdown-strip">
+    <span>⏳</span>
+    <span>Objectif dans</span>
+    <strong id="days-left">—</strong>
+    <span>jours · 1er septembre 2026</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="seance">
+
+  <!-- Back link -->
+  <a href="index.html" class="back-link">← Tableau de bord</a>
+
+  <!-- Phase chip -->
+  <div id="phase-chip-wrap"></div>
+
+  <!-- Motivation quote -->
+  <div class="motivation-block" id="motivation-block">
+    <div class="motivation-text" id="motivation-text"></div>
+    <div class="motivation-source" id="motivation-source"></div>
+  </div>
+
+  <!-- Séance card -->
+  <div class="seance-card" id="seance-card">
+    <!-- injecté par JS -->
+  </div>
+
+  <!-- Prochaine séance -->
+  <div class="next-preview" id="next-preview">
+    <div class="next-label">Prochaine séance</div>
+    <div class="next-content" id="next-content">
+      <div class="next-icon" id="next-icon">—</div>
+      <div>
+        <div class="next-title" id="next-title">Chargement...</div>
+        <div class="next-sub" id="next-sub"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">💪 Séance validée — bien joué !</div>
+
+<!-- Confetti wrap -->
+<div class="confetti-wrap" id="confetti-wrap"></div>
+
+<!-- FOOTER -->
+<footer>
+  Programme de préparation — Mars → Septembre 2026<br>
+  <span style="color:#141c14; font-size:0.75rem; margin-top:0.4rem; display:block;">
+    Kajukenbo · Kali · Foi · ✝️
+  </span>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════
+// DONNÉES — PROGRAMME 3 PHASES
+// ═══════════════════════════════════════════
+const PHASES = {
+  p1: { start: new Date('2026-03-16'), end: new Date('2026-05-11'), label: 'Phase 1 — Fondations', cls: 'ph1' },
+  p2: { start: new Date('2026-05-11'), end: new Date('2026-07-06'), label: 'Phase 2 — Construction', cls: 'ph2' },
+  p3: { start: new Date('2026-07-06'), end: new Date('2026-09-01'), label: 'Phase 3 — Affûtage', cls: 'ph3' }
+};
+const OBJECTIF = new Date('2026-09-01T09:00:00');
+
+// SEMAINES TYPE PAR PHASE
+// Indexed 0=Dim, 1=Lun, 2=Mar, 3=Mer, 4=Jeu, 5=Ven, 6=Sam
+const PROGRAMME = {
+  p1: {
+    1: { // Lundi
+      icon: '🦵', type: 'mob', title: 'Mobilité complète', subtitle: 'Hanches · Colonne · Épaules', duration: '25 min',
+      alert: { cls: 'ok', msg: '✅ Séance fondatrice — L\'habitude commence ici. Chaque matin compte.' },
+      exos: [
+        { e:'🔄', name:'Cercles de hanches debout', detail:'Mains sur les hanches, rotation lente et ample', sets:'2×10 / sens', badge:'' },
+        { e:'🦎', name:'Lézard (Lizard Pose)', detail:'Fente profonde, avant-bras au sol — fléchisseurs de hanche', sets:'2×45 sec / côté', badge:'' },
+        { e:'🕊️', name:'Pigeon (Pigeon Pose)', detail:'Jambe avant à 90°, incline le buste progressivement', sets:'2×60 sec / côté', badge:'' },
+        { e:'🦷', name:'Hip 90/90', detail:'Deux genoux à 90°, rotation interne + externe', sets:'2×30 sec / côté', badge:'blue' },
+        { e:'🏋️', name:'Deep Squat hold', detail:'Squat profond talons au sol (poteau si besoin)', sets:'3×30 sec', badge:'' },
+        { e:'🐱', name:'Cat-Cow', detail:'À 4 pattes, dos rond / dos creux avec la respiration', sets:'2×10 resp.', badge:'' },
+        { e:'🏗️', name:'Planche', detail:'Corps aligné, appui avant-bras — gainage profond', sets:'3×30 sec', badge:'' },
+        { e:'🐦', name:'Bird Dog', detail:'Extension bras+jambe opposés, maintien 3 sec', sets:'3×10 / côté', badge:'' }
+      ]
+    },
+    2: { // Mardi
+      icon: '💪', type: 'force', title: 'TRX — Circuit Haut', subtitle: 'Force fonctionnelle · Biceps inclus', duration: '40 min',
+      alert: { cls: 'warn', msg: '⚠️ Biceps gauche : TRX Row et Biceps Curl en amplitude contrôlée. Descente lente 3 sec obligatoire.' },
+      exos: [
+        { e:'🎯', name:'TRX Row — Tirage horizontal', detail:'Dos à l\'ancrage, tire les poignées vers la poitrine. Plus horizontal = plus difficile', sets:'3×12–15', badge:'' },
+        { e:'🎯', name:'TRX Biceps Curl', detail:'Face à l\'ancrage, bras tendus. Pliage coudes vers les tempes. Descente 3 sec.', sets:'3×10–12', badge:'warn' },
+        { e:'🎯', name:'TRX Chest Press', detail:'Face à l\'ancrage, corps incliné avant. Pousse les poignées en contrôlant', sets:'3×12', badge:'' },
+        { e:'🎯', name:'TRX Y-Raise', detail:'Dos à l\'ancrage, bras en Y. Tire pour revenir vertical — deltoïdes postérieurs', sets:'3×10', badge:'' },
+        { e:'💥', name:'Pompes standard', detail:'Coudes à 45°, gainage actif. Descente 2 sec, montée explosive', sets:'3×max', badge:'' },
+        { e:'🤸', name:'Pike push-up', detail:'En V inversé, flexion des coudes vers le sol — deltoïdes ciblés', sets:'3×10–12', badge:'' },
+        { e:'🚶', name:'Marche rapide (récup active)', detail:'20 min après la séance de force', sets:'20 min', badge:'blue' }
+      ]
+    },
+    3: { // Mercredi
+      icon: '🌿', type: 'cardio', title: 'Mobilité + Cardio doux', subtitle: 'Récupération active · Hanches · Chevilles', duration: '45 min',
+      alert: { cls: 'info', msg: '💧 Récupération active — aucune intensité. Pas de douleur lombaire. Le corps se reconstruit aujourd\'hui.' },
+      exos: [
+        { e:'🦎', name:'Lézard (Lizard Pose)', detail:'Fente profonde — fléchisseurs de hanche', sets:'2×45 sec / côté', badge:'blue' },
+        { e:'🦷', name:'Hip 90/90', detail:'Rotation interne + externe de hanche', sets:'2×30 sec / côté', badge:'blue' },
+        { e:'👟', name:'Mobilité chevilles', detail:'Cercles lents + wall stretch genou vers le mur, talon au sol', sets:'2×15 rot.', badge:'blue' },
+        { e:'🌀', name:'Thoracic Rotation', detail:'En fente basse, rotation thoracique — cage thoracique débloquée', sets:'2×10 / côté', badge:'blue' },
+        { e:'🚶', name:'Marche rapide ou vélo', detail:'Cardio doux — 30 min à allure confortable', sets:'30 min', badge:'' }
+      ]
+    },
+    4: { // Jeudi
+      icon: '🦵', type: 'force', title: 'Circuit Bas + Core', subtitle: 'Jambes · Fessiers · Gainage profond', duration: '45 min',
+      alert: { cls: 'warn', msg: '⚠️ Aucun mouvement douloureux — stop immédiat si douleur lombaire. La progression est sur 8 semaines.' },
+      exos: [
+        { e:'🦵', name:'Squat profond', detail:'Sous le parallèle, dos droit. Talon surélevé si mobilité insuffisante', sets:'3×15–20', badge:'' },
+        { e:'🚶', name:'Fentes alternées', detail:'Grand pas avant, genou à 90°. Retour explosif — imite le pas de combat', sets:'3×10 / jambe', badge:'' },
+        { e:'🌉', name:'Pont fessier', detail:'Sur le dos, poussée hanches vers plafond. Contracte au sommet', sets:'3×15', badge:'' },
+        { e:'🦟', name:'Dead Bug', detail:'Sur le dos, extension alternée bras/jambe opposés. Core profond.', sets:'3×8 / côté', badge:'' },
+        { e:'🐦', name:'Bird Dog', detail:'À 4 pattes, extension bras+jambe opposés, maintien 3 sec', sets:'3×10 / côté', badge:'' },
+        { e:'🏗️', name:'Planche', detail:'Corps aligné, appui avant-bras. Pas de cambrure.', sets:'3×30 sec', badge:'' }
+      ]
+    },
+    5: { // Vendredi
+      icon: '🥊', type: 'cardio', title: 'Cardio + Shadow boxing technique', subtitle: 'Endurance · Technique pure · Lent', duration: '40 min',
+      alert: { cls: 'info', msg: '💡 Vendredi = technique pure. Garde, jeu de jambes, déplacements. Vitesse interdite. La forme avant tout.' },
+      exos: [
+        { e:'🚴', name:'Vélo ou course légère', detail:'25 min à allure confortable — endurance de base', sets:'25 min', badge:'blue' },
+        { e:'🥊', name:'Shadow boxing très lent', detail:'Garde boxe, jabs + directs lents + déplacements latéraux. Technique pure.', sets:'15 min', badge:'' },
+        { e:'👁️', name:'Focus : garde et jeu de jambes', detail:'Garde haute, pieds actifs, poids bien réparti. Voir chaque frappe.', sets:'Conscient', badge:'blue' }
+      ]
+    },
+    6: { // Samedi
+      icon: '🧘', type: 'mob', title: 'Yoga martial — Souplesse longue', subtitle: 'Hanches · Pigeon · Deep squat · PNF', duration: '40 min',
+      alert: { cls: 'ok', msg: '🌿 La séance la plus douce — mais la plus importante pour les hanches. Ne pas sauter. Progression imperceptible, semaine après semaine.' },
+      exos: [
+        { e:'🕊️', name:'Pigeon (Pigeon Pose)', detail:'La progression se mesure sur des semaines. Jambe avant à 90°, incline le buste.', sets:'2×60 sec / côté', badge:'' },
+        { e:'🦎', name:'Lézard profond', detail:'Avant-bras au sol si possible. Fléchisseurs de hanche', sets:'2×60 sec / côté', badge:'' },
+        { e:'🦷', name:'Hip 90/90 + rotation', detail:'Rotation interne et externe — fondamental arts martiaux', sets:'2×45 sec / côté', badge:'' },
+        { e:'🏋️', name:'Deep Squat hold', detail:'Objectif : 60 sec autonome en septembre', sets:'3×30 sec', badge:'' },
+        { e:'🙌', name:'Cross-body shoulder stretch', detail:'Bras droit traversant la poitrine, épaule arrière + capsule', sets:'2×30 sec / bras', badge:'' },
+        { e:'🌙', name:'Doorway Stretch — Pectoraux', detail:'Bras à 90° contre l\'encadrement. Rotation corps vers l\'extérieur.', sets:'2×30 sec', badge:'' },
+        { e:'🐱', name:'Cat-Cow + Sphinx', detail:'Mobilité lombaire douce — dos fragile en sécurité', sets:'2×10 resp.', badge:'blue' }
+      ]
+    },
+    0: { // Dimanche
+      icon: '✝️', type: 'repos', title: 'Repos complet', subtitle: 'Messe · Famille · Récupération', duration: 'Toute la journée',
+      alert: { cls: 'ok', msg: '« Ora et labora » — Le repos du dimanche est un acte de foi, pas de la paresse. La récupération fait partie du programme.' },
+      exos: [
+        { e:'⛪', name:'Messe', detail:'La priorité du dimanche', sets:'Obligatoire', badge:'blue' },
+        { e:'👨‍👩‍👧', name:'Famille', detail:'Temps de qualité — le guerrier sait aussi poser les armes', sets:'Toute la journée', badge:'grey' },
+        { e:'📖', name:'Lecture / Méditation', detail:'Nourrir l\'esprit autant que le corps', sets:'Si inspiré', badge:'grey' }
+      ]
+    }
+  },
+  p2: {
+    1: { icon:'💪', type:'force', title:'Circuit Force A — Haut', subtitle:'TRX · Biceps · Pompes · Dips', duration:'50 min',
+      alert:{ cls:'warn', msg:'⚠️ Biceps gauche : amplitude complète sans douleur. Repos 60 sec entre tours.' },
+      exos:[
+        { e:'🎯', name:'TRX Row', detail:'Dos à l\'ancrage, tire vers la poitrine. Amplitude complète.', sets:'3×15', badge:'' },
+        { e:'🎯', name:'TRX Biceps Curl', detail:'Descente 3 sec. Amplitude contrôlée biceps gauche.', sets:'3×12', badge:'warn' },
+        { e:'💥', name:'Pompes déclinées', detail:'Pieds surélevés, gainage actif', sets:'3×12', badge:'' },
+        { e:'🎯', name:'TRX Y-Raise', detail:'Bras en Y, tire pour revenir vertical', sets:'3×10', badge:'' },
+        { e:'🪑', name:'Dips (chaise)', detail:'Mains sur chaise derrière, descente contrôlée', sets:'3×10', badge:'' },
+        { e:'💪', name:'Curl haltère 5 kg (bras gauche)', detail:'Excentrique 4 sec obligatoire — protocole tendineux', sets:'3×10', badge:'warn' }
+      ]
+    },
+    2: { icon:'🥋', type:'multi', title:'Mobilité avancée + Kali solo', subtitle:'PNF Hanches · Sinawali · Sticks rattan', duration:'35 min',
+      alert:{ cls:'info', msg:'🇵🇭 Sinawali double : angles 1-2-3 d\'abord, puis enchaînements. Lent et propre. La technique avant la vitesse.' },
+      exos:[
+        { e:'🕊️', name:'Pigeon PNF', detail:'Pigeon passif 60 sec → contraction isométrique 10 sec → relâche plus profond', sets:'2×côté', badge:'blue' },
+        { e:'🦷', name:'Hip 90/90 avancé', detail:'Passage interne/externe fluide — objectif : sans les mains', sets:'3×30 sec', badge:'blue' },
+        { e:'🙌', name:'Étirement épaules PNF', detail:'Cross-body + doorway stretch avec résistance', sets:'2×30 sec', badge:'blue' },
+        { e:'🪃', name:'Sinawali double — Angles 1-2-3', detail:'Sticks rattan, deux mains. Angles séquentiels lentement.', sets:'15 min', badge:'purple' },
+        { e:'🪃', name:'Enchaînements libres', detail:'Improvisation guidée — regarder les mains, pas les sticks', sets:'5 min', badge:'purple' }
+      ]
+    },
+    3: { icon:'⚡', type:'hiit', title:'HIIT — Cardio combat', subtitle:'4 rounds · 40 sec effort / 20 sec repos', duration:'25 min',
+      alert:{ cls:'warn', msg:'⚠️ Surveiller le dos pendant les burpees — version sans saut si nécessaire. 5 min d\'échauffement avant.' },
+      exos:[
+        { e:'🔥', name:'Burpees (sans saut si dos)', detail:'Debout → planche → debout. Niveau 1 Phase 2.', sets:'4×40 sec', badge:'warn' },
+        { e:'🦵', name:'Mountain Climbers', detail:'En planche, genoux alternés vers la poitrine. Progression de vitesse.', sets:'4×40 sec', badge:'' },
+        { e:'🥊', name:'Jab-Cross shadow', detail:'Garde boxe, jabs + directs + déplacements latéraux', sets:'4×40 sec', badge:'' },
+        { e:'🏃', name:'Squat sauté (ou rapide)', detail:'Phase 2 : sauté si dos stable, sinon squat profond rapide', sets:'4×40 sec', badge:'warn' }
+      ]
+    },
+    4: { icon:'🏋️', type:'force', title:'Circuit Force B — Bas + Core', subtitle:'Bulgares · Nordic · Hollow body', duration:'50 min',
+      alert:{ cls:'warn', msg:'⚠️ Charger progressivement — pas de sauts si dos encore fragile. Qualité > quantité.' },
+      exos:[
+        { e:'🦵', name:'Squats bulgares', detail:'Pied arrière surélevé. Grand pas avant. Descente contrôlée.', sets:'3×10 / jambe', badge:'' },
+        { e:'🦵', name:'Nordic curl doux', detail:'Genoux au sol, partenaire ou sangle. Descente excentriqe 4 sec.', sets:'3×6', badge:'warn' },
+        { e:'🌉', name:'Pont fessier lesté', detail:'Haltère sur les hanches. Poussée et contraction au sommet.', sets:'3×15', badge:'' },
+        { e:'🤸', name:'Hollow body', detail:'Sur le dos, creuser le ventre, bras et jambes étendus bas', sets:'3×20 sec', badge:'' },
+        { e:'🏗️', name:'Planche latérale', detail:'Appui sur avant-bras, corps aligné latéralement', sets:'3×30 sec / côté', badge:'' }
+      ]
+    },
+    5: { icon:'🥊', type:'cardio', title:'Shadow boxing + Course continue', subtitle:'3 rounds × 3 min · Technique + déplacements', duration:'45 min',
+      alert:{ cls:'info', msg:'💡 Phase 2 : jabs, crochets, uppercuts + esquives internes/externes. Technique avant vitesse.' },
+      exos:[
+        { e:'🥊', name:'Shadow boxing Phase 2', detail:'3 rounds × 3 min / 1 min repos. Jabs, crochets, uppercuts, esquives.', sets:'3×3 min', badge:'' },
+        { e:'🏃', name:'Course continue', detail:'20 min à allure confortable — endurance de base Phase 2', sets:'20 min', badge:'blue' },
+        { e:'🌀', name:'Récupération active', detail:'Marche 5 min + étirements légers', sets:'5 min', badge:'blue' }
+      ]
+    },
+    6: { icon:'🧘', type:'mob', title:'Souplesse longue + Sticks Kali', subtitle:'PNF complet · Sinawali · Angles Kali', duration:'70 min',
+      alert:{ cls:'ok', msg:'🌿 Samedi Phase 2 : session longue et douce. Pas d\'intensité. Récupération + technique arme.' },
+      exos:[
+        { e:'🕊️', name:'Pigeon PNF approfondi', detail:'60 sec passif → 10 sec contraction → 10 sec plus profond', sets:'3×côté', badge:'' },
+        { e:'🦎', name:'Lézard — avant-bras au sol', detail:'Progression naturelle depuis Phase 1', sets:'2×60 sec / côté', badge:'' },
+        { e:'🦷', name:'Hip 90/90 fluide', detail:'Passage interne/externe sans les mains si possible', sets:'3×30 sec', badge:'' },
+        { e:'🏋️', name:'Deep Squat 45 sec', detail:'Progression depuis 30 sec Phase 1', sets:'3×45 sec', badge:'' },
+        { e:'🪃', name:'Sinawali + Angles Kali 1–6', detail:'20 min sticks rattan : sinawali double + angles séquentiels', sets:'20 min', badge:'purple' }
+      ]
+    },
+    0: { icon:'✝️', type:'repos', title:'Repos complet', subtitle:'Messe · Famille · Récupération', duration:'Toute la journée',
+      alert:{ cls:'ok', msg:'« Ora et labora » — Le repos du dimanche est un acte de foi, pas de la paresse.' },
+      exos:[
+        { e:'⛪', name:'Messe', detail:'La priorité du dimanche', sets:'Obligatoire', badge:'blue' },
+        { e:'👨‍👩‍👧', name:'Famille', detail:'Temps de qualité — le guerrier sait aussi poser les armes', sets:'Toute la journée', badge:'grey' },
+        { e:'📖', name:'Lecture / Méditation', detail:'Nourrir l\'esprit autant que le corps', sets:'Si inspiré', badge:'grey' }
+      ]
+    }
+  },
+  p3: {
+    1: { icon:'🔥', type:'multi', title:'Circuit Simulation Cours', subtitle:'Complet · 45 min · Rythme Kajukenbo', duration:'55 min',
+      alert:{ cls:'warn', msg:'🎯 Simuler le rythme d\'un cours : enchaîner sans s\'arrêter plus de 30 sec. C\'est l\'intensité Phase 3.' },
+      exos:[
+        { e:'💥', name:'Pompes', detail:'Gainage actif, descente 2 sec, montée explosive', sets:'3×15', badge:'' },
+        { e:'🎯', name:'TRX Row', detail:'Tirage horizontal — amplitude complète', sets:'3×15', badge:'' },
+        { e:'🦵', name:'Squat bulgare', detail:'Pied surélevé, descente profonde', sets:'3×12 / jambe', badge:'' },
+        { e:'🦵', name:'Mountain climbers', detail:'40 sec à vitesse élevée — cardio + core', sets:'3×40 sec', badge:'' },
+        { e:'🥊', name:'Shadow boxing', detail:'2 min à intensité élevée — frappes et esquives', sets:'3×2 min', badge:'' }
+      ]
+    },
+    2: { icon:'🪃', type:'kali', title:'Kali complet — 12 Angles + Sinawali', subtitle:'Sticks rattan · Angles 1–12 · Mains nues', duration:'40 min',
+      alert:{ cls:'info', msg:'🇵🇭 Objectif : les 12 angles fluides, sans réfléchir. Sinawali double + transitions main nue.' },
+      exos:[
+        { e:'🪃', name:'Angles 1–6 séquentiels', detail:'Sticks rattan, cadence lente puis normale', sets:'10 min', badge:'purple' },
+        { e:'🪃', name:'Angles 7–12 séquentiels', detail:'Angles bas et diagonaux — précision', sets:'10 min', badge:'purple' },
+        { e:'🪃', name:'Sinawali double', detail:'Double bâton, enchaînements continus', sets:'5 min', badge:'purple' },
+        { e:'✋', name:'Transitions main nue', detail:'Désarmement → main nue → riposte', sets:'5 min', badge:'' },
+        { e:'🦵', name:'Routine mobilité', detail:'15 min : hanches + épaules + colonne', sets:'15 min', badge:'blue' }
+      ]
+    },
+    3: { icon:'⚡', type:'hiit', title:'HIIT Fractionné — Rythme Combat', subtitle:'Corde · Shadow boxing · Rounds complets', duration:'35 min',
+      alert:{ cls:'warn', msg:'🔥 Phase 3 : corde = rounds. Shadow boxing = intensité complète, frappes et esquives. Rythme combat.' },
+      exos:[
+        { e:'🪢', name:'Corde à sauter', detail:'3 rounds × 3 min / 1 min repos', sets:'3×3 min', badge:'' },
+        { e:'🥊', name:'Shadow boxing complet', detail:'3 rounds × 3 min / 1 min repos — intensité combat', sets:'3×3 min', badge:'' },
+        { e:'🌀', name:'Récupération active', detail:'Marche lente + respirations profondes', sets:'5 min', badge:'blue' }
+      ]
+    },
+    4: { icon:'💥', type:'force', title:'Force — Puissance et Stabilité', subtitle:'Explosif · TRX · Planche 90 sec', duration:'55 min',
+      alert:{ cls:'warn', msg:'⚠️ Phase 3 : si dos stable, introduire deadlift roumain léger (haltère 10 kg) avec technique parfaite.' },
+      exos:[
+        { e:'💥', name:'Pompes explosives', detail:'Descente lente 3 sec, montée explosive — puissance maximale', sets:'4×10', badge:'' },
+        { e:'🎯', name:'TRX Row', detail:'Amplitude et vitesse — tirage puissant', sets:'4×15', badge:'' },
+        { e:'🏃', name:'Fentes sautées', detail:'Ou fentes rapides si dos. Cuisses + cardio.', sets:'4×10', badge:'warn' },
+        { e:'🤸', name:'Hollow body', detail:'Core maximal — 30 sec de gainage profond', sets:'4×30 sec', badge:'' },
+        { e:'🏗️', name:'Planche 90 sec', detail:'Objectif Phase 3 : tenir 90 secondes propres', sets:'3×90 sec', badge:'' },
+        { e:'🏋️', name:'Deadlift roumain léger', detail:'Haltère 10 kg si dos stable — technique parfaite obligatoire', sets:'3×12', badge:'warn' }
+      ]
+    },
+    5: { icon:'🥊', type:'cardio', title:'Shadow boxing complet — 5 rounds', subtitle:'5×3 min · Jabs · Crochets · Esquives · Déplacements', duration:'35 min',
+      alert:{ cls:'ok', msg:'🎯 Ce test est le baromètre final. Si tu gères les 5 rounds propres → tu es prêt pour septembre.' },
+      exos:[
+        { e:'🥊', name:'Round 1 — Jabs + Directs', detail:'Garde, jabs rapides, directs du droit. Déplacements latéraux.', sets:'3 min', badge:'' },
+        { e:'🥊', name:'Round 2 — Crochets + Uppercuts', detail:'Crochets gauche/droit, uppercuts montants. Esquives internes.', sets:'3 min', badge:'' },
+        { e:'🥊', name:'Round 3 — Coudes + Esquives', detail:'Coudes latéraux, esquives externes. Travail de distance.', sets:'3 min', badge:'' },
+        { e:'🥊', name:'Round 4 — Combinaisons libres', detail:'Enchaînements libres. Tout ce qui est acquis.', sets:'3 min', badge:'' },
+        { e:'🥊', name:'Round 5 — Intensité maximale', detail:'Dernier round à fond. Tout donner.', sets:'3 min', badge:'warn' }
+      ]
+    },
+    6: { icon:'🧘', type:'mob', title:'Souplesse + Récupération active', subtitle:'Entretien des acquis · Pas d\'intensité', duration:'60 min',
+      alert:{ cls:'ok', msg:'🌿 Samedi Phase 3 = entretien des acquis. Pas d\'intensité. Le corps récupère pour la semaine suivante.' },
+      exos:[
+        { e:'🚶', name:'Marche légère', detail:'20 min à allure tranquille — récupération circulatoire', sets:'20 min', badge:'blue' },
+        { e:'🕊️', name:'Pigeon profond relâché', detail:'Maintien 90 sec / côté — pleine amplitude acquise', sets:'2×90 sec', badge:'' },
+        { e:'🦷', name:'Hip 90/90 libre', detail:'Sans les mains — mobilité acquise en Phase 3', sets:'3×45 sec', badge:'' },
+        { e:'🏋️', name:'Deep Squat 60 sec', detail:'Objectif septembre : 60 sec talons au sol, libre', sets:'3×60 sec', badge:'' },
+        { e:'🌀', name:'Rotation thoracique profonde', detail:'Mobilité cage thoracique — préparation aux frappes rotatives', sets:'2×15 / côté', badge:'' }
+      ]
+    },
+    0: { icon:'✝️', type:'repos', title:'Repos complet', subtitle:'Messe · Famille · Préparation mentale', duration:'Toute la journée',
+      alert:{ cls:'ok', msg:'« Je peux tout en Celui qui me fortifie. » — Ph 4:13 ✝️  La bataille se gagne d\'abord dans l\'esprit.' },
+      exos:[
+        { e:'⛪', name:'Messe', detail:'La priorité du dimanche', sets:'Obligatoire', badge:'blue' },
+        { e:'👨‍👩‍👧', name:'Famille', detail:'Le guerrier sait aussi poser les armes', sets:'Toute la journée', badge:'grey' },
+        { e:'🧠', name:'Visualisation', detail:'5 min : visualiser le premier cours Kajukenbo. Voir les mouvements.', sets:'5 min', badge:'blue' }
+      ]
+    }
+  }
+};
+// ═══════════════════════════════════════════
+// CITATIONS PAR JOUR
+// ═══════════════════════════════════════════
+const QUOTES = {
+  1: { text: 'La discipline est le pont entre les objectifs et leur réalisation.', src: '— Jim Rohn' },
+  2: { text: 'L\'entraînement d\'aujourd\'hui est la force de demain. Chaque répétition compte.', src: '— Programme Kajukenbo 2026' },
+  3: { text: 'La récupération est aussi un entraînement. Le corps se reconstruit dans le repos.', src: '— Principe de physiologie sportive' },
+  4: { text: 'Le guerrier ne recule pas devant la douleur — il l\'écoute et l\'utilise.', src: '— Mon Manifeste Martial' },
+  5: { text: 'La technique avant la vitesse. La vitesse avant la puissance. Toujours.', src: '— Principe fondamental Kajukenbo' },
+  6: { text: 'La souplesse du corps reflète la souplesse de l\'esprit. Patience et progression.', src: '— Yoga martial' },
+  0: { text: '« Ora et labora » — Prie et travaille. Le repos du dimanche est un acte de foi, pas de la faiblesse.', src: '— Saint Benoît de Nursie ✝️' }
+};
+
+// ═══════════════════════════════════════════
+// LOGIQUE PRINCIPALE
+// ═══════════════════════════════════════════
+
+function getPhaseKey(date) {
+  if (date >= PHASES.p3.start) return 'p3';
+  if (date >= PHASES.p2.start) return 'p2';
+  if (date >= PHASES.p1.start) return 'p1';
+  return 'p1'; // avant le programme → afficher Phase 1
+}
+
+function getDaysLeft(from, to) {
+  const diff = to - from;
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+function formatDate(date) {
+  const jours = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const mois = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  return `${jours[date.getDay()]} ${date.getDate()} ${mois[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+function getDayShort(dow) {
+  return ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'][dow];
+}
+
+function getNextWorkDay(dow) {
+  const next = (dow + 1) % 7;
+  return next;
+}
+
+// ── STREAK MANAGEMENT ──
+const STORAGE_KEY = 'kajukenbo_streak';
+
+function getTodayKey() {
+  const n = new Date();
+  return `${n.getFullYear()}-${n.getMonth()}-${n.getDate()}`;
+}
+
+function getStreakData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : { streak: 0, lastValidated: null, history: [] };
+  } catch(e) { return { streak: 0, lastValidated: null, history: [] }; }
+}
+
+function saveStreakData(data) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function isTodayValidated() {
+  const data = getStreakData();
+  return data.lastValidated === getTodayKey();
+}
+
+function validateToday() {
+  const data = getStreakData();
+  const todayKey = getTodayKey();
+  if (data.lastValidated === todayKey) return data;
+  // Check si hier était validé pour la continuité du streak
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yKey = `${yesterday.getFullYear()}-${yesterday.getMonth()}-${yesterday.getDate()}`;
+  if (data.lastValidated === yKey) {
+    data.streak += 1;
+  } else {
+    data.streak = 1; // streak brisé ou premier jour
+  }
+  data.lastValidated = todayKey;
+  if (!data.history) data.history = [];
+  data.history.push(todayKey);
+  // Garder les 7 derniers
+  if (data.history.length > 7) data.history = data.history.slice(-7);
+  saveStreakData(data);
+  return data;
+}
+
+// ── CONFETTI ──
+function launchConfetti() {
+  const wrap = document.getElementById('confetti-wrap');
+  const colors = ['#40c070','#40a0e0','#e08040','#c070e0','#f0e840'];
+  for (let i = 0; i < 60; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = (Math.random() * 0.8) + 's';
+    piece.style.animationDuration = (0.8 + Math.random() * 0.8) + 's';
+    wrap.appendChild(piece);
+  }
+  setTimeout(() => { wrap.innerHTML = ''; }, 2000);
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── RENDER STREAK DOTS ──
+function renderStreakWidget(streakData) {
+  const streak = streakData.streak || 0;
+  const history = streakData.history || [];
+  const todayValidated = isTodayValidated();
+  let dots = '';
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const k = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const isToday = (i === 0);
+    const done = history.includes(k);
+    if (isToday && todayValidated) dots += '<div class="streak-dot today"></div>';
+    else if (done) dots += '<div class="streak-dot filled"></div>';
+    else dots += '<div class="streak-dot"></div>';
+  }
+  return `
+    <div class="streak-widget">
+      <span>🔥</span>
+      <span class="streak-count">${streak}</span>
+      <span style="font-size:0.75rem;">jour${streak > 1 ? 's' : ''} de suite</span>
+      <div class="streak-dots">${dots}</div>
+    </div>`;
+}
+
+// ── RENDER SEANCE CARD ──
+function renderSeance(seance, isRepos) {
+  const card = document.getElementById('seance-card');
+  const todayDone = isTodayValidated();
+  const streakData = getStreakData();
+
+  // Exercices HTML
+  let exosHtml = '';
+  for (const exo of seance.exos) {
+    const badgeCls = exo.badge ? ` ${exo.badge}` : '';
+    exosHtml += `
+      <div class="exo-item">
+        <div class="exo-emoji">${exo.e}</div>
+        <div class="exo-info">
+          <div class="exo-name">${exo.name}</div>
+          <div class="exo-detail">${exo.detail}</div>
+        </div>
+        <div class="exo-sets-badge${badgeCls}">${exo.sets}</div>
+      </div>`;
+  }
+
+  // Bouton valider
+  let btnHtml = '';
+  if (isRepos) {
+    btnHtml = `<button class="btn-validate repos-btn" disabled>☀️ Jour de repos — bien mérité</button>`;
+  } else if (todayDone) {
+    btnHtml = `<button class="btn-validate done" disabled>✅ Séance validée aujourd'hui !</button>`;
+  } else {
+    btnHtml = `<button class="btn-validate" id="btn-validate-main">✅ Séance faite — Valider</button>`;
+  }
+
+  card.innerHTML = `
+    <div class="seance-card-header type-${seance.type}">
+      <div class="seance-icon">${seance.icon}</div>
+      <div class="seance-title-wrap">
+        <div class="seance-title">${seance.title}</div>
+        <div class="seance-subtitle">${seance.subtitle}</div>
+      </div>
+      <div class="seance-duration">⏱ ${seance.duration}</div>
+    </div>
+    <div class="exo-list">${exosHtml}</div>
+    <div class="seance-alert ${seance.alert.cls}">${seance.alert.msg}</div>
+    <div class="validate-section">
+      ${btnHtml}
+      ${renderStreakWidget(streakData)}
+    </div>`;
+
+  // Bouton valider — event
+  if (!isRepos && !todayDone) {
+    document.getElementById('btn-validate-main').addEventListener('click', function() {
+      const newData = validateToday();
+      launchConfetti();
+      showToast('💪 Séance validée — bien joué, ' + newData.streak + ' jour' + (newData.streak > 1 ? 's' : '') + ' de suite !');
+      // Re-render
+      this.classList.add('done');
+      this.textContent = '✅ Séance validée aujourd\'hui !';
+      this.disabled = true;
+      // Update streak widget
+      const widget = document.querySelector('.streak-widget');
+      if (widget) widget.outerHTML = renderStreakWidget(newData);
+    });
+  }
+}
+
+// ── RENDER NEXT PREVIEW ──
+function renderNextPreview(phaseKey, currentDow) {
+  const nextDow = getNextWorkDay(currentDow);
+  const nextSeance = PROGRAMME[phaseKey][nextDow];
+  if (!nextSeance) return;
+  document.getElementById('next-icon').textContent = nextSeance.icon;
+  document.getElementById('next-title').textContent = nextSeance.title;
+  document.getElementById('next-sub').textContent = getDayShort(nextDow) + ' · ' + nextSeance.subtitle;
+}
+
+  // ── MAIN INIT ──
+(function init() {
+  const now = new Date();
+  const dow = now.getDay();
+  const phaseKey = getPhaseKey(now);
+  const phase = PHASES[phaseKey];
+  const seance = PROGRAMME[phaseKey][dow];
+  const isRepos = (seance.type === 'repos');
+
+  // Titre dynamique de l'onglet
+  document.title = seance.icon + ' ' + getDayShort(dow) + ' — ' + seance.title;
+
+  // Header
+  document.getElementById('date-badge').textContent = formatDate(now);
+  document.getElementById('day-name-title').textContent = getDayShort(dow);
+  document.getElementById('phase-label-header').textContent = phase.label + ' · Programme Kajukenbo 2026';
+  document.getElementById('days-left').textContent = getDaysLeft(now, OBJECTIF);
+
+  // Phase chip
+  document.getElementById('phase-chip-wrap').innerHTML =
+    `<div class="phase-chip ${phase.cls}"><span class="dot"></span>${phase.label}</div>`;
+
+  // Motivation
+  const quote = QUOTES[dow];
+  document.getElementById('motivation-text').textContent = '« ' + quote.text + ' »';
+  document.getElementById('motivation-source').textContent = quote.src;
+
+  // Séance card
+  renderSeance(seance, isRepos);
+
+  // Next preview
+  renderNextPreview(phaseKey, dow);
+})();
+</script>
+</body>
+</html>
