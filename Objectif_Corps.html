@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🏆 Objectif Corps Martial — Vision 18–24 mois</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #06080c; color: #e8e0d5; line-height: 1.75; overflow-x: hidden; }
+    a { color: #a060e0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    p { color: #c0b8b0; margin-bottom: 1rem; }
+    strong { color: #f0e8e0; }
+    em { color: #c0a8e0; }
+    h3 { color: #f0e8e0; font-size: 1.05rem; margin: 1.6rem 0 0.7rem; }
+    h4 { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: #a060e0; margin: 1.4rem 0 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(160,96,224,0.15); }
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 5rem 2rem 4rem; overflow: hidden;
+      background: radial-gradient(ellipse at 20% 30%, rgba(160,60,220,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 30%, rgba(220,60,60,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 85%, rgba(20,160,80,0.08) 0%, transparent 50%), #06080c;
+    }
+    .hero-bg-text { position: absolute; font-size: clamp(14rem, 45vw, 38rem); pointer-events: none; user-select: none; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.03; line-height: 1; font-weight: 900; color: #fff; }
+    .hero-badge { display: inline-block; background: rgba(160,60,220,0.1); border: 1px solid rgba(160,60,220,0.35); color: #b070f0; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 0.35rem 1.2rem; border-radius: 999px; margin-bottom: 2rem; }
+    .hero h1 { font-size: clamp(2.2rem, 7vw, 5.5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: #fff; margin-bottom: 0.6rem; }
+    .hero h1 em { font-style: normal; color: #b070f0; }
+    .hero-sub { font-size: clamp(0.9rem, 2vw, 1.1rem); color: #5a5068; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2.5rem; }
+    .hero-countdown { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1.5rem 0 2rem; }
+    .countdown-pill { background: rgba(160,60,220,0.06); border: 1px solid rgba(160,60,220,0.2); border-radius: 14px; padding: 1rem 1.4rem; text-align: center; min-width: 90px; }
+    .countdown-pill .c-num { font-size: 2rem; font-weight: 900; color: #b070f0; display: block; line-height: 1; }
+    .countdown-pill .c-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #5a4878; margin-top: 0.3rem; display: block; }
+    .hero-quote { font-style: italic; font-size: 1rem; color: #a09890; border-left: 3px solid #b070f0; padding-left: 1.2rem; margin-top: 2rem; max-width: 480px; text-align: left; }
+    .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: #2a2038; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+    .scroll-hint::after { content: ''; width: 1px; height: 44px; background: linear-gradient(to bottom, #2a2038, transparent); }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(6,8,12,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(160,60,220,0.1); padding: 0 2rem; }
+    nav ul { display: flex; gap: 0; list-style: none; overflow-x: auto; max-width: 1100px; margin: 0 auto; scrollbar-width: none; }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav ul li a { display: block; padding: 1rem 1rem; color: #5a5068; text-decoration: none; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; transition: color 0.2s; }
+    nav ul li a:hover, nav ul li a.active { color: #b070f0; }
+    main { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .section { margin-bottom: 5.5rem; }
+    .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(160,60,220,0.1); }
+    .section-number { font-size: 0.65rem; letter-spacing: 0.25em; color: #b070f0; text-transform: uppercase; font-weight: 800; white-space: nowrap; }
+    .section-header h2 { font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 700; color: #fff; }
+    .alert { border: 1px solid rgba(160,60,220,0.3); border-radius: 10px; padding: 1.4rem 1.8rem; margin-bottom: 2rem; color: #c8c0d8; background: rgba(160,60,220,0.05); }
+    .alert strong { color: #b070f0; }
+    .alert-warn { border-color: rgba(220,120,20,0.35); background: rgba(220,120,20,0.05); color: #d8c8b0; }
+    .alert-warn strong { color: #e09040; }
+    .highlight-strip { background: rgba(160,60,220,0.07); border-left: 4px solid #b070f0; border-radius: 0 10px 10px 0; padding: 1rem 1.5rem; margin: 1.2rem 0; color: #c0b8d0; font-size: 0.93rem; }
+    .highlight-strip strong { color: #b070f0; }
+    .mt-2 { margin-top: 2rem; }
+    .mt-3 { margin-top: 3rem; }
+    .zones-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
+    .zone-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.6rem; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .zone-card:hover { transform: translateY(-4px); }
+    .zone-card::after { content: attr(data-delay); position: absolute; right: 1.2rem; top: 1rem; font-size: 3.5rem; font-weight: 900; opacity: 0.04; line-height: 1; pointer-events: none; }
+    .zone-card.z-green { border-color: rgba(20,160,80,0.3); }
+    .zone-card.z-green:hover { border-color: rgba(20,160,80,0.6); background: rgba(20,160,80,0.04); }
+    .zone-card.z-orange { border-color: rgba(220,120,20,0.3); }
+    .zone-card.z-orange:hover { border-color: rgba(220,120,20,0.6); background: rgba(220,120,20,0.04); }
+    .zone-card.z-blue { border-color: rgba(40,120,220,0.3); }
+    .zone-card.z-blue:hover { border-color: rgba(40,120,220,0.6); background: rgba(40,120,220,0.04); }
+    .zone-card.z-purple { border-color: rgba(160,60,220,0.35); }
+    .zone-card.z-purple:hover { border-color: rgba(160,60,220,0.65); background: rgba(160,60,220,0.05); }
+    .zone-icon { font-size: 2rem; margin-bottom: 0.7rem; }
+    .zone-name { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
+    .zone-delay { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.8rem; }
+    .z-green .zone-delay { color: #40c070; }
+    .z-orange .zone-delay { color: #e08040; }
+    .z-blue .zone-delay { color: #40a0e0; }
+    .z-purple .zone-delay { color: #b070f0; }
+    .zone-desc { font-size: 0.85rem; color: #8a8090; line-height: 1.6; margin-bottom: 1rem; }
+    .zone-bar-wrap { height: 4px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+    .zone-bar { height: 100%; border-radius: 999px; width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+    .z-green .zone-bar { background: linear-gradient(to right, #10a050, #40c070); }
+    .z-orange .zone-bar { background: linear-gradient(to right, #c05010, #e08040); }
+    .z-blue .zone-bar { background: linear-gradient(to right, #1060b0, #40a0e0); }
+    .z-purple .zone-bar { background: linear-gradient(to right, #8020c0, #b070f0); }
+    .zone-bar-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: #5a5068; margin-top: 0.4rem; }
+    .gauge-section { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    @media (max-width: 700px) { .gauge-section { grid-template-columns: 1fr; } }
+    .gauge-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 2rem; text-align: center; }
+    .gauge-title { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: #b070f0; font-weight: 700; margin-bottom: 1.5rem; }
+    .gauge-svg-wrap { position: relative; width: 180px; height: 180px; margin: 0 auto 1.5rem; }
+    .gauge-svg-wrap svg { width: 100%; height: 100%; }
+    .gauge-value { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+    .gauge-value .gv-num { font-size: 2.2rem; font-weight: 900; color: #fff; display: block; line-height: 1; }
+    .gauge-value .gv-unit { font-size: 0.75rem; color: #5a5068; letter-spacing: 0.1em; }
+    .gauge-steps { display: flex; flex-direction: column; gap: 0.5rem; }
+    .gauge-step { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; padding: 0.4rem 0.8rem; border-radius: 8px; }
+    .gs-now { background: rgba(255,255,255,0.04); color: #6a6078; }
+    .gs-ph2 { background: rgba(220,120,20,0.08); color: #e08040; }
+    .gs-target { background: rgba(20,160,80,0.1); color: #40c070; font-weight: 700; }
+    .charge-timeline { margin: 2rem 0; position: relative; }
+    .charge-line { display: flex; align-items: center; gap: 0; margin: 2rem 0; position: relative; }
+    .charge-line::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: rgba(255,255,255,0.06); z-index: 0; }
+    .charge-point { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; cursor: pointer; }
+    .cp-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid; margin-bottom: 0.5rem; transition: transform 0.2s; }
+    .charge-point:hover .cp-dot { transform: scale(1.5); }
+    .cp-done .cp-dot { background: #40c070; border-color: #40c070; box-shadow: 0 0 10px rgba(64,192,112,0.5); }
+    .cp-active .cp-dot { background: #b070f0; border-color: #b070f0; box-shadow: 0 0 14px rgba(176,112,240,0.7); animation: pulse-dot 2s infinite; }
+    .cp-future .cp-dot { background: transparent; border-color: rgba(255,255,255,0.15); }
+    @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 8px rgba(176,112,240,0.5); } 50% { box-shadow: 0 0 20px rgba(176,112,240,0.9); } }
+    .cp-charge { font-size: 0.85rem; font-weight: 800; }
+    .cp-done .cp-charge { color: #40c070; }
+    .cp-active .cp-charge { color: #b070f0; }
+    .cp-future .cp-charge { color: #3a3048; }
+    .cp-label { font-size: 0.62rem; color: #4a4058; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.2rem; text-align: center; }
+    .cp-active .cp-label { color: #8060a8; }
+    .vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+    @media (max-width: 700px) { .vision-grid { grid-template-columns: 1fr; } }
+    .vision-col { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.8rem; }
+    .vision-col.now { border-color: rgba(100,80,140,0.2); }
+    .vision-col.target { border-color: rgba(20,160,80,0.3); background: rgba(20,160,80,0.03); }
+    .vision-col-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 800; margin-bottom: 1.2rem; }
+    .vision-col.now .vision-col-label { color: #6a6078; }
+    .vision-col.target .vision-col-label { color: #40c070; }
+    .vision-item { margin-bottom: 1rem; }
+    .vision-item:last-child { margin-bottom: 0; }
+    .vision-item-label { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.3rem; }
+    .vision-item-label span:first-child { color: #d0c8d8; }
+    .vision-item-label span:last-child { font-size: 0.75rem; font-weight: 700; }
+    .vision-col.now .vision-item-label span:last-child { color: #6a5880; }
+    .vision-col.target .vision-item-label span:last-child { color: #40c070; }
+    .vision-bar { height: 5px; background: rgba(255,255,255,0.05); border-radius: 999px; overflow: hidden; }
+    .vision-fill { height: 100%; border-radius: 999px; width: 0; transition: width 1.4s cubic-bezier(0.4,0,0.2,1); }
+    .vision-col.now .vision-fill { background: linear-gradient(to right, #5a4080, #9060c0); }
+    .vision-col.target .vision-fill { background: linear-gradient(to right, #10a050, #40c070); }
+    .final-cta { background: linear-gradient(135deg, rgba(160,60,220,0.12), rgba(20,160,80,0.06)); border: 1px solid rgba(160,60,220,0.4); border-radius: 18px; padding: 3rem 2rem; text-align: center; margin-top: 3rem; }
+    .final-cta-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .final-cta h2 { color: #fff; font-size: 1.5rem; margin-bottom: 1rem; }
+    .final-cta p { max-width: 600px; margin: 0 auto 1.5rem; color: #a09890; font-size: 0.95rem; }
+    .final-cta .quote { color: #b070f0; font-weight: 700; font-size: 1.05rem; font-style: italic; margin-top: 1.5rem; }
+    .link-hub { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .link-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit; transition: border-color 0.2s, transform 0.2s; }
+    .link-card:hover { border-color: rgba(160,60,220,0.4); transform: translateY(-2px); text-decoration: none; }
+    .lc-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .lc-title { font-size: 0.9rem; font-weight: 700; color: #fff; }
+    .lc-sub { font-size: 0.75rem; color: #5a5068; }
+    footer { text-align: center; padding: 3rem 2rem; color: #1e1a28; font-size: 0.8rem; border-top: 1px solid rgba(160,60,220,0.06); letter-spacing: 0.05em; }
+    footer .footer-icon { display: block; font-size: 2.5rem; margin-bottom: 0.5rem; opacity: 0.1; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) { .countdown-pill .c-num { font-size: 1.5rem; } .zones-grid { grid-template-columns: 1fr; } }
+
+    /* === BODY MAP === */
+    .body-map-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 0 0 2rem; align-items: start; }
+    @media (max-width: 800px) { .body-map-wrap { grid-template-columns: 1fr; } }
+    .body-map-left { position: relative; }
+    .body-map-img-wrap { position: relative; border-radius: 16px; overflow: hidden; background: #0a0c10; border: 1px solid rgba(160,60,220,0.15); }
+    .body-map-img { width: 100%; display: block; object-fit: cover; max-height: 600px; filter: brightness(0.85) contrast(1.05); }
+    .ann-point { position: absolute; display: flex; align-items: center; cursor: pointer; z-index: 10; }
+    .ann-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; box-shadow: 0 0 10px currentColor; transition: transform 0.2s, box-shadow 0.2s; }
+    .ann-point:hover .ann-dot { transform: scale(1.6); box-shadow: 0 0 20px currentColor; }
+    .ann-line { display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
+    .ann-label { font-size: 0.72rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; line-height: 1.2; background: rgba(6,8,12,0.75); backdrop-filter: blur(6px); padding: 0.25rem 0.5rem; border-radius: 5px; }
+    .ann-label small { display: block; font-size: 0.6rem; font-weight: 400; color: rgba(255,255,255,0.5); letter-spacing: 0; text-transform: none; margin-top: 0.1rem; }
+    .ann-point.ann-left-side { flex-direction: row-reverse; }
+    .body-map-caption { background: linear-gradient(to top, rgba(6,8,12,0.95), transparent); padding: 2rem 1.5rem 1.2rem; text-align: center; }
+    .body-map-caption strong { display: block; font-size: 0.85rem; letter-spacing: 0.18em; color: #fff; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .body-map-caption span { font-size: 0.72rem; color: #b070f0; letter-spacing: 0.1em; }
+    .body-map-right { display: flex; flex-direction: column; gap: 0; padding: 0.5rem 0; }
+    .bm-section-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #b070f0; font-weight: 800; padding: 0 0 0.5rem; border-bottom: 1px solid rgba(160,60,220,0.15); margin-bottom: 0.8rem; }
+    .bm-intro { font-size: 0.9rem; color: #a09890; line-height: 1.7; margin-bottom: 0; }
+    .bm-intro strong { color: #fff; }
+    .bm-zones-list { display: flex; flex-direction: column; gap: 0.3rem; }
+    .bml-row { display: flex; align-items: center; gap: 0.8rem; padding: 0.6rem 0.9rem; border-radius: 8px; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.04); transition: background 0.2s, border-color 0.2s; cursor: default; }
+    .bml-row:hover, .bml-row.active { background: rgba(160,60,220,0.07); border-color: rgba(160,60,220,0.2); }
+    .bml-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .bml-info { flex: 1; }
+    .bml-name { display: block; font-size: 0.8rem; font-weight: 800; color: #fff; letter-spacing: 0.06em; }
+    .bml-sub { display: block; font-size: 0.72rem; color: #6a6070; }
+    .bml-delay { font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+  </style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-bg-text">💪</div>
+  <span class="hero-badge">Mars 2026 · Kajukenbo + Kali + Muscu maison · Vision personnelle</span>
+  <h1>Corps<br><em>Martial</em></h1>
+  <p class="hero-sub">Morphologie visée · 18 à 24 mois · Corps de pratiquant</p>
+  <div class="hero-countdown">
+    <div class="countdown-pill"><span class="c-num" id="cd-j">—</span><span class="c-label">Jours</span></div>
+    <div class="countdown-pill"><span class="c-num" id="cd-h">—</span><span class="c-label">Heures</span></div>
+    <div class="countdown-pill"><span class="c-num" id="cd-m">—</span><span class="c-label">Min</span></div>
+    <div class="countdown-pill"><span class="c-num" id="cd-s">—</span><span class="c-label">Sec</span></div>
+  </div>
+  <p style="font-size:0.72rem;color:#2a2038;letter-spacing:0.12em;text-transform:uppercase;margin-top:-1rem;margin-bottom:1.5rem;">Jusqu'au 1er cours Kajukenbo — 1er Septembre 2026</p>
+  <blockquote class="hero-quote">« Corps sec, défini, bras développés sans volume excessif — résultat naturel des arts martiaux + muscu de renforcement. Corps de pratiquant, pas de culturiste. »</blockquote>
+  <div class="scroll-hint">Objectifs</div>
+</section>
+
+<nav>
+  <ul>
+    <li><a href="#zones">6 Zones</a></li>
+    <li><a href="#facteurs">2 Facteurs Clés</a></li>
+    <li><a href="#masse-grasse">Masse Grasse</a></li>
+    <li><a href="#progression-charge">Progression Charge</a></li>
+    <li><a href="#bras-gauche">Bras Gauche ⚠️</a></li>
+    <li><a href="#vision">Vision Septembre</a></li>
+    <li><a href="Programme_Preparation.html">💪 Programme</a></li>
+    <li><a href="index.html">🏠 Accueil</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="zones" class="section reveal">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2>🏋️ 6 Zones Corporelles — Délais Réalistes</h2>
+  </div>
+  <!-- === BODY MAP INTERACTIF === -->
+  <div class="body-map-wrap">
+    <div class="body-map-left">
+      <div class="body-map-img-wrap">
+        <img src="corps_ref_1_1.jpeg" alt="Corps martial de référence" class="body-map-img" />
+        <!-- Points annotés — positions en % de l'image -->
+        <div class="ann-point" style="top:18%;left:22%;" data-zone="Épaules" data-color="#40a0e0"><span class="ann-dot" style="background:#40a0e0;"></span><span class="ann-line ann-left"></span><span class="ann-label ann-left">ÉPAULES<small>Deltoïdes larges · 4–6 mois</small></span></div>
+        <div class="ann-point" style="top:30%;left:18%;" data-zone="Pectoraux" data-color="#e06040"><span class="ann-dot" style="background:#e06040;"></span><span class="ann-line ann-left"></span><span class="ann-label ann-left">PECTORAUX<small>Définis, fonctionnels · 4–6 mois</small></span></div>
+        <div class="ann-point" style="top:50%;left:22%;" data-zone="Abdos / Core" data-color="#40c070"><span class="ann-dot" style="background:#40c070;"></span><span class="ann-line ann-left"></span><span class="ann-label ann-left">ABDOS / CORE<small>Visibles à ~12% MG · 2–4 mois</small></span></div>
+        <div class="ann-point" style="top:18%;left:72%;" data-zone="Bras" data-color="#b070f0"><span class="ann-dot" style="background:#b070f0;"></span><span class="ann-line ann-right"></span><span class="ann-label ann-right">BRAS<small>Définis, pas gonflés · 4–6 mois</small></span></div>
+        <div class="ann-point" style="top:33%;left:68%;" data-zone="Dos en V" data-color="#4090e0"><span class="ann-dot" style="background:#4090e0;"></span><span class="ann-line ann-right"></span><span class="ann-label ann-right">DOS en V<small>Largeur visible · 3–5 mois</small></span></div>
+        <div class="ann-point" style="top:68%;left:66%;" data-zone="Jambes" data-color="#e08040"><span class="ann-dot" style="background:#e08040;"></span><span class="ann-line ann-right"></span><span class="ann-label ann-right">JAMBES<small>Athlétiques, mobiles · 3–4 mois</small></span></div>
+        <div class="body-map-caption">
+          <strong>OBJECTIF RÉALISTE : 18 À 24 MOIS</strong>
+          <span>Kajukenbo + Kali + Altères + TRX + Élastiques</span>
+        </div>
+      </div>
+    </div>
+    <div class="body-map-right">
+      <div class="bm-section-label">01 · Ce corps est atteignable ?</div>
+      <p class="bm-intro">Oui. Corps sec, défini, bras développés sans volume excessif = résultat naturel des arts martiaux + muscu de renforcement. <strong>Corps de pratiquant, pas de culturiste.</strong></p>
+      <div class="bm-section-label" style="margin-top:1.5rem;">02 · Délais réalistes par zone</div>
+      <div class="bm-zones-list">
+        <div class="bml-row" data-zone="Abdos / Core"><div class="bml-dot" style="background:#40c070;"></div><div class="bml-info"><span class="bml-name">ABDOS</span><span class="bml-sub">Descendre ~12% MG · Alimentation</span></div><span class="bml-delay" style="color:#40c070;">2–4 mois</span></div>
+        <div class="bml-row" data-zone="Épaules"><div class="bml-dot" style="background:#40a0e0;"></div><div class="bml-info"><span class="bml-name">ÉPAULES</span><span class="bml-sub">Élévations lat + Face pull TRX</span></div><span class="bml-delay" style="color:#40a0e0;">4–6 mois</span></div>
+        <div class="bml-row" data-zone="Dos en V"><div class="bml-dot" style="background:#4090e0;"></div><div class="bml-info"><span class="bml-name">DOS en V</span><span class="bml-sub">TRX Row + Rowing haltère</span></div><span class="bml-delay" style="color:#4090e0;">3–5 mois</span></div>
+        <div class="bml-row" data-zone="Bras"><div class="bml-dot" style="background:#b070f0;"></div><div class="bml-info"><span class="bml-name">BRAS</span><span class="bml-sub">Curl progressif + TRX curl</span></div><span class="bml-delay" style="color:#b070f0;">4–6 mois</span></div>
+        <div class="bml-row" data-zone="Abdos / Core"><div class="bml-dot" style="background:#40c070; opacity:0.7;"></div><div class="bml-info"><span class="bml-name">CORE</span><span class="bml-sub">Planche + Dead bug + Kali solo</span></div><span class="bml-delay" style="color:#40c070;">2–3 mois</span></div>
+        <div class="bml-row" data-zone="Jambes"><div class="bml-dot" style="background:#e08040;"></div><div class="bml-info"><span class="bml-name">JAMBES</span><span class="bml-sub">Goblet squat + Fentes + Kaju</span></div><span class="bml-delay" style="color:#e08040;">3–4 mois</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert" style="margin-top:2rem;">
+    <strong>Objectif réaliste : 18 à 24 mois.</strong> Ce corps est atteignable avec Kajukenbo + Kali + altères + TRX + élastiques. Chaque zone a son propre délai selon la difficulté et tes priorités actuelles. Les barres montrent la progression estimée à Septembre 2026 (6 mois).
+  </div>
+  <div class="zones-grid">
+    <div class="zone-card z-green reveal" data-delay="2–4">
+      <div class="zone-icon">🔥</div>
+      <div class="zone-name">Abdos / Core</div>
+      <div class="zone-delay">🟢 2–4 mois · Priorité alimentation</div>
+      <div class="zone-desc">Visibles à ~12% MG. Les abdos existent déjà — cachés sous la graisse. Descendre le taux de masse grasse les révèle. Alimentation + cardio martial.</div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-width="85"></div></div>
+      <div class="zone-bar-label"><span>Départ Mars 2026</span><span>→ Sept. 2026</span></div>
+    </div>
+    <div class="zone-card z-green reveal" data-delay="2–3">
+      <div class="zone-icon">🧱</div>
+      <div class="zone-name">Core Profond</div>
+      <div class="zone-delay">🟢 2–3 mois · Planche + Dead bug + Kali solo</div>
+      <div class="zone-desc">Gainage profond, stabilisation lombaire. Fondation de tout le reste. En Kajukenbo, un core fort = chutes absorbées, frappes plus puissantes.</div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-width="90"></div></div>
+      <div class="zone-bar-label"><span>Départ Mars 2026</span><span>→ Sept. 2026</span></div>
+    </div>
+    <div class="zone-card z-orange reveal" data-delay="3–5">
+      <div class="zone-icon">🔺</div>
+      <div class="zone-name">Dos en V</div>
+      <div class="zone-delay">🟠 3–5 mois · TRX Row + Rowing haltère</div>
+      <div class="zone-desc">Largeur visible — dorsaux larges. TRX Row + Rowing haltère. La largeur du dos est le signe le plus visible d'un athlète martial.</div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-width="65"></div></div>
+      <div class="zone-bar-label"><span>Départ Mars 2026</span><span>→ Sept. 2026</span></div>
+    </div>
+    <div class="zone-card z-orange reveal" data-delay="3–4">
+      <div class="zone-icon">🦵</div>
+      <div class="zone-name">Jambes</div>
+      <div class="zone-delay">🟠 3–4 mois · Goblet squat + Fentes + Kaju</div>
+      <div class="zone-desc">Athlétiques, mobiles. Le Kajukenbo exige des jambes solides pour les kicks, les chutes et les déplacements. Pas de volume — de la puissance fonctionnelle.</div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-width="70"></div></div>
+      <div class="zone-bar-label"><span>Départ Mars 2026</span><span>→ Sept. 2026</span></div>
+    </div>
+    <div class="zone-card z-blue reveal" data-delay="4–6">
+      <div class="zone-icon">🔵</div>
+      <div class="zone-name">Épaules</div>
+      <div class="zone-delay">🔵 4–6 mois · Élévations lat + Face pull TRX</div>
+      <div class="zone-desc">Deltoïdes larges. Donnent la silhouette en V. Élévations latérales + Face pull TRX. Essentiels pour la garde haute et les frappes circulaires.</div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-width="55"></div></div>
+      <div class="zone-bar-label"><span>Départ Mars 2026</span><span>→ Sept. 2026</span></div>
+    </div>
+    <div class="zone-card z-blue reveal" data-delay="4–6">
+      <div class="zone-icon">💪</div>
+      <div class="zone-name">Pectoraux</div>
+      <div class="zone-delay">🔵 4–6 mois · Pompes + TRX Chest Press</div>
+      <div class="zone-desc">Définis, fonctionnels. Pompes déclinées, TRX Chest Press. Pas de musculation excessive — de la puissance de frappe et de la stabilité d'épaule.</div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-width="55"></div></div>
+      <div class="zone-bar-label"><span>Départ Mars 2026</span><span>→ Sept. 2026</span></div>
+    </div>
+    <div class="zone-card z-purple reveal" data-delay="4–6">
+      <div class="zone-icon">💜</div>
+      <div class="zone-name">Bras</div>
+      <div class="zone-delay">🟣 4–6 mois · Curl progressif + TRX curl</div>
+      <div class="zone-desc">Définis, pas gonflés. Curl progressif + TRX curl. Le bras gauche (dominant) suit un protocole spécifique de recharge tendineuse — délai 6–12 mois pour symétrie complète.</div>
+      <div class="zone-bar-wrap"><div class="zone-bar" data-width="45"></div></div>
+      <div class="zone-bar-label"><span>Départ Mars 2026</span><span>→ Sept. 2026</span></div>
+    </div>
+  </div>
+</section>
+<section id="facteurs" class="section reveal">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2>⚡ Les 2 Facteurs Clés</h2>
+  </div>
+  <div class="gauge-section">
+    <div class="gauge-card reveal">
+      <div class="gauge-title">Facteur 1 — Taux de masse grasse</div>
+      <div class="gauge-svg-wrap">
+        <svg viewBox="0 0 180 180">
+          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14"/>
+          <circle id="mg-ring-bg" cx="90" cy="90" r="70" fill="none" stroke="rgba(220,80,80,0.3)" stroke-width="14" stroke-dasharray="439.8" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+          <circle id="mg-ring" cx="90" cy="90" r="70" fill="none" stroke="url(#mgGrad)" stroke-width="14" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" transform="rotate(-90 90 90)" style="transition:stroke-dashoffset 1.8s cubic-bezier(0.4,0,0.2,1)"/>
+          <defs>
+            <linearGradient id="mgGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#40c070"/>
+              <stop offset="100%" stop-color="#80e0a0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="gauge-value">
+          <span class="gv-num" id="mg-num">~20</span>
+          <span class="gv-unit">% MG</span>
+        </div>
+      </div>
+      <div class="gauge-steps">
+        <div class="gauge-step gs-now"><span>📍 Maintenant</span><span>~20% MG</span></div>
+        <div class="gauge-step gs-ph2"><span>🟠 Phase 2 — Juillet</span><span>~16% MG</span></div>
+        <div class="gauge-step gs-target"><span>🎯 Objectif Septembre</span><span>12–14% MG</span></div>
+      </div>
+      <p style="font-size:0.82rem;color:#6a5880;margin-top:1rem;text-align:left;">Les abdos existent déjà — cachés sous la graisse. Descendre à 12–14% MG les révèle. <strong style="color:#b070f0;">Alimentation + cardio martial.</strong></p>
+    </div>
+    <div class="gauge-card reveal">
+      <div class="gauge-title">Facteur 2 — Progression de charge</div>
+      <div class="gauge-svg-wrap">
+        <svg viewBox="0 0 180 180">
+          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14"/>
+          <circle id="charge-ring" cx="90" cy="90" r="70" fill="none" stroke="url(#chargeGrad)" stroke-width="14" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" transform="rotate(-90 90 90)" style="transition:stroke-dashoffset 1.8s cubic-bezier(0.4,0,0.2,1)"/>
+          <defs>
+            <linearGradient id="chargeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#8020c0"/>
+              <stop offset="100%" stop-color="#b070f0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="gauge-value">
+          <span class="gv-num">+1–2</span>
+          <span class="gv-unit">kg / 2–3 sem.</span>
+        </div>
+      </div>
+      <div class="gauge-steps">
+        <div class="gauge-step gs-now"><span>📓 Carnet de progression</span><span>Obligatoire</span></div>
+        <div class="gauge-step gs-ph2"><span>🟠 +1 kg toutes 2–3 sem.</span><span>Phase 2</span></div>
+        <div class="gauge-step gs-target"><span>🎯 Surcharge progressive</span><span>Clé du résultat</span></div>
+      </div>
+      <p style="font-size:0.82rem;color:#6a5880;margin-top:1rem;text-align:left;">Le muscle se dessine en se renforçant. <strong style="color:#b070f0;">Tenir un carnet = clé de la progression.</strong> +1–2 kg toutes les 2–3 semaines sur chaque exercice.</p>
+    </div>
+  </div>
+</section>
+
+<section id="masse-grasse" class="section reveal">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2>📉 Masse Grasse — La Révélation des Abdos</h2>
+  </div>
+  <div class="alert">
+    <strong>Vérité n°1 :</strong> Les abdos existent déjà sur ton corps. Ils sont simplement couverts par une couche de graisse. Descendre à <strong>12–14% de masse grasse</strong> les révèle automatiquement — sans un seul crunch supplémentaire.
+  </div>
+  <div class="highlight-strip">
+    <strong>Formule simple :</strong> Alimentation propre (déficit calorique modéré 300–400 kcal/j) + cardio intermittent (HIIT 3×/sem.) + arts martiaux = descente vers 12% MG en 4–6 mois.
+  </div>
+  <div class="charge-timeline">
+    <h4>Chemin vers 12% MG — Mars → Septembre 2026</h4>
+    <div class="charge-line" id="mg-timeline">
+      <div class="charge-point cp-active">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">~20%</div>
+        <div class="cp-label">Mars 2026<br>Départ</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">~18%</div>
+        <div class="cp-label">Avril<br>Phase 1</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">~17%</div>
+        <div class="cp-label">Mai<br>Phase 1→2</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">~16%</div>
+        <div class="cp-label">Juin<br>Phase 2</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">~14%</div>
+        <div class="cp-label">Juillet<br>HIIT</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">~13%</div>
+        <div class="cp-label">Août<br>Phase 3</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">12%</div>
+        <div class="cp-label">Sept. 2026<br>🎯 Objectif</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="progression-charge" class="section reveal">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2>📈 Progression de Charge — Le Carnet Vivant</h2>
+  </div>
+  <p>Le muscle se dessine en se renforçant. La surcharge progressive est la loi fondamentale de la musculation. <strong>+1–2 kg toutes les 2–3 séances</strong> sur chaque exercice. Le carnet rend cette progression visible et incontestable.</p>
+  <div class="charge-timeline">
+    <h4>Curl Biceps — Progression Bras Gauche (6 mois)</h4>
+    <div class="charge-line">
+      <div class="charge-point cp-active">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">Élastique</div>
+        <div class="cp-label">Mars<br>Phase 1</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">3 kg</div>
+        <div class="cp-label">Avril<br>Excentrique</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">4 kg</div>
+        <div class="cp-label">Mai<br>Phase 1→2</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">5 kg</div>
+        <div class="cp-label">Juin<br>Phase 2</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">7 kg</div>
+        <div class="cp-label">Juillet<br>Construction</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">8 kg</div>
+        <div class="cp-label">Août<br>Phase 3</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">10 kg</div>
+        <div class="cp-label">Sept. 2026<br>🎯 Plein puissance</div>
+      </div>
+    </div>
+  </div>
+  <div class="alert-warn alert mt-2">
+    <strong>⚠️ Règle des 3 séances propres :</strong> Ne change de charge qu'après <strong>3 séances consécutives</strong> réalisées sans douleur > 3/10 pendant ET le lendemain. Le tendon se reconstruit 3× plus lentement que le muscle — la patience est une compétence martiale.
+  </div>
+</section>
+<section id="bras-gauche" class="section reveal">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2>⚠️ Bras Gauche — Cas Particulier</h2>
+  </div>
+  <div class="alert-warn alert">
+    <strong>⚠️ Note spéciale bras gauche (dominant) :</strong> Sinawali Kali + TRX curl reconstruisent le biceps gauche sur <strong>6–12 mois</strong>. Symétrie visuelle récupérable. Démarrer le curl biceps gauche à <strong>4 kg max</strong> — excentrique prioritaire.
+  </div>
+  <div class="highlight-strip">
+    <strong>Avantage Kali :</strong> Le Sinawali (maniement de bâtons en double) reconstruit le biceps gauche de manière fonctionnelle — en puissance de rotation, en coordination, en endurance. Bien plus efficace que la rééducation classique pour un pratiquant d'arts martiaux.
+  </div>
+  <div class="charge-timeline">
+    <h4>Reconstruction Biceps Gauche — Timeline 12 mois</h4>
+    <div class="charge-line">
+      <div class="charge-point cp-active">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">4 kg</div>
+        <div class="cp-label">Mars<br>Départ max</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">5 kg</div>
+        <div class="cp-label">Mai<br>Phase 2</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">7 kg</div>
+        <div class="cp-label">Juillet<br>+Kali</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">10 kg</div>
+        <div class="cp-label">Sept. 2026<br>🎯</div>
+      </div>
+      <div class="charge-point cp-future">
+        <div class="cp-dot"></div>
+        <div class="cp-charge">Symétrie</div>
+        <div class="cp-label">Mars 2027<br>Complet</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vision" class="section reveal">
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <h2>🪞 Vision Septembre — Le Miroir du Guerrier</h2>
+  </div>
+  <p>Ce n'est pas de la vanité — c'est une <strong>lecture objective de ta progression</strong>. Chaque critère mesurable, chaque barre remplie, chaque kilo ajouté est une preuve concrète de discipline. En septembre, ce miroir dira : <em>tu as fait le travail</em>.</p>
+  <div class="vision-grid">
+    <div class="vision-col now reveal">
+      <div class="vision-col-label">📍 Mars 2026 — Point de départ</div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Masse grasse</span><span>~20%</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="30"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Pompes consécutives</span><span>Base à tester</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="25"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Planche</span><span>~30 sec</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="20"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Deep Squat</span><span>Difficile</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="15"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Shadow boxing</span><span>1 round 2 min</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="20"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Biceps gauche</span><span>4 kg max</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="35"></div></div>
+      </div>
+    </div>
+    <div class="vision-col target reveal">
+      <div class="vision-col-label">🎯 Septembre 2026 — Corps martial</div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Masse grasse</span><span>12–14%</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="88"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Pompes consécutives</span><span>30+ propres</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="85"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Planche</span><span>90 sec+</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="90"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Deep Squat</span><span>60 sec libre</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="80"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Shadow boxing</span><span>5 rounds × 3 min</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="95"></div></div>
+      </div>
+      <div class="vision-item">
+        <div class="vision-item-label"><span>Biceps gauche</span><span>8–10 kg pleine puissance</span></div>
+        <div class="vision-bar"><div class="vision-fill" data-width="82"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="final-cta mt-3">
+    <div class="final-cta-icon">⚔️</div>
+    <h2>Septembre 2026 — Premier Cours Kajukenbo</h2>
+    <p>6 mois de travail silencieux. Corps transformé, tendon reconstruit, hanches libres, cardio de combat. Le premier cours ne sera pas une découverte — ce sera une <strong>reconnaissance</strong>. Tu connaîtras déjà ton corps.</p>
+    <div class="link-hub mt-2">
+      <a href="Programme_Preparation.html" class="link-card"><div class="lc-icon">💪</div><div><div class="lc-title">Programme Complet</div><div class="lc-sub">3 phases · Mars → Septembre 2026</div></div></a>
+      <a href="Kajukenbo.html" class="link-card"><div class="lc-icon">🌺</div><div><div class="lc-title">Kajukenbo</div><div class="lc-sub">Histoire, Méthode Diaz, Plan</div></div></a>
+      <a href="Kali_Arnis_Eskrima.html" class="link-card"><div class="lc-icon">🇵🇭</div><div><div class="lc-title">Kali · 12 Angles</div><div class="lc-sub">Sinawali solo · Reconstruction bras G</div></div></a>
+      <a href="Seance_du_Jour.html" class="link-card"><div class="lc-icon">🗓️</div><div><div class="lc-title">Séance du Jour</div><div class="lc-sub">Ma séance aujourd'hui</div></div></a>
+    </div>
+    <p class="quote">« Train Strong to Remain Strong. » — Sijo Adriano Emperado ✝️</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span class="footer-icon">💜</span>
+  Objectif Corps Martial · Vision personnelle · Mars 2026<br>
+  <span style="color:#16121e;">Corps de pratiquant · Kajukenbo + Kali + Muscu maison · 18–24 mois ✝️</span>
+</footer>
+
+<script>
+  // Countdown
+  function updateCd() {
+    const t = new Date('2026-09-01T09:00:00'), n = new Date(), d = t - n;
+    if (d <= 0) return;
+    document.getElementById('cd-j').textContent = Math.floor(d/86400000);
+    document.getElementById('cd-h').textContent = String(Math.floor((d%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(Math.floor((d%3600000)/60000)).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(Math.floor((d%60000)/1000)).padStart(2,'0');
+  }
+  updateCd(); setInterval(updateCd, 1000);
+
+  // Intersection Observer pour reveal + animations
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      // Barres zones
+      e.target.querySelectorAll('.zone-bar[data-width]').forEach(b => { b.style.width = b.dataset.width + '%'; });
+      // Barres vision
+      e.target.querySelectorAll('.vision-fill[data-width]').forEach(b => { setTimeout(() => { b.style.width = b.dataset.width + '%'; }, 200); });
+      // Gauge MG
+      if (e.target.id === 'facteurs' || e.target.closest('#facteurs')) {
+        const ring = document.getElementById('mg-ring');
+        if (ring) { ring.style.strokeDashoffset = (439.8 * (1 - 12/20)).toFixed(1); }
+        const cring = document.getElementById('charge-ring');
+        if (cring) { cring.style.strokeDashoffset = (439.8 * 0.15).toFixed(1); }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  document.querySelectorAll('section[id]').forEach(el => obs.observe(el));
+
+  // Body map — interactivité points ↔ liste
+  document.querySelectorAll('.ann-point').forEach(pt => {
+    const zone = pt.dataset.zone;
+    pt.addEventListener('mouseenter', () => {
+      document.querySelectorAll(`.bml-row[data-zone="${zone}"]`).forEach(r => r.classList.add('active'));
+    });
+    pt.addEventListener('mouseleave', () => {
+      document.querySelectorAll('.bml-row').forEach(r => r.classList.remove('active'));
+    });
+  });
+  document.querySelectorAll('.bml-row').forEach(row => {
+    const zone = row.dataset.zone;
+    row.addEventListener('mouseenter', () => {
+      document.querySelectorAll(`.ann-point[data-zone="${zone}"] .ann-dot`).forEach(d => {
+        d.style.transform = 'scale(1.6)';
+        d.style.boxShadow = '0 0 20px currentColor';
+      });
+    });
+    row.addEventListener('mouseleave', () => {
+      document.querySelectorAll('.ann-point .ann-dot').forEach(d => {
+        d.style.transform = '';
+        d.style.boxShadow = '';
+      });
+    });
+  });
+
+  // Nav active scroll
+  const secs = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (s.getBoundingClientRect().top <= 80) cur = s.id; });
+    navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+  }, { passive: true });
+</script>
+</body>
+</html>
