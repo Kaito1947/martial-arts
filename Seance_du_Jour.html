@@ -122,7 +122,6 @@
     .seance-card-header.type-multi { background: rgba(20,160,80,0.06); }
 
     .seance-icon { font-size: 2.2rem; flex-shrink: 0; }
-    .seance-title-wrap {}
     .seance-title {
       font-size: 1.3rem; font-weight: 900; color: #fff;
       line-height: 1.1; margin-bottom: 0.2rem;
@@ -145,7 +144,6 @@
     }
     .exo-item:last-child { border-bottom: none; }
     .exo-emoji { font-size: 1.1rem; padding-top: 0.1rem; }
-    .exo-info {}
     .exo-name { font-size: 0.95rem; font-weight: 700; color: #f0e8e0; }
     .exo-detail { font-size: 0.78rem; color: #5a6858; margin-top: 0.1rem; }
     .exo-sets-badge {
@@ -158,6 +156,48 @@
     .exo-sets-badge.blue { background: rgba(0,120,210,0.1); border-color: rgba(0,120,210,0.25); color: #40a0e0; }
     .exo-sets-badge.purple { background: rgba(180,60,200,0.1); border-color: rgba(180,60,200,0.25); color: #c070e0; }
     .exo-sets-badge.grey { background: rgba(60,60,60,0.15); border-color: rgba(80,80,80,0.2); color: #707070; }
+
+    /* ── EXERCISE GUIDE (accordion) ── */
+    .exo-guide-toggle {
+      grid-column: 1 / -1;
+      background: none; border: none;
+      color: #3a4a38; font-size: 0.72rem; letter-spacing: 0.1em;
+      text-align: left; cursor: pointer; padding: 0.2rem 0 0.5rem 2.6rem;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s; text-transform: uppercase;
+    }
+    .exo-guide-toggle:hover { color: #40c070; }
+    .exo-guide-toggle .arrow {
+      display: inline-block; transition: transform 0.25s;
+      font-size: 0.65rem;
+    }
+    .exo-guide-toggle.open .arrow { transform: rotate(90deg); }
+
+    .exo-guide-body {
+      grid-column: 1 / -1;
+      display: none;
+      margin: 0 0 0.5rem 2.6rem;
+      border-left: 2px solid rgba(20,160,80,0.2);
+      padding: 0.7rem 1rem;
+      border-radius: 0 8px 8px 0;
+      background: rgba(20,160,80,0.04);
+    }
+    .exo-guide-body.open { display: block; }
+
+    .guide-block {
+      margin-bottom: 0.55rem;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #9aaa98;
+    }
+    .guide-block:last-child { margin-bottom: 0; }
+    .guide-label {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #40c070; display: block;
+      margin-bottom: 0.15rem;
+    }
+    .guide-label.warn-lbl { color: #e08040; }
+    .guide-label.blue-lbl { color: #40a0e0; }
 
     /* ── ALERT ── */
     .seance-alert {
