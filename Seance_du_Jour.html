@@ -438,12 +438,56 @@ const PROGRAMME = {
       icon: '🦵', type: 'mob', title: 'Mobilité complète', subtitle: 'Hanches · Colonne · Épaules', duration: '25 min',
       alert: { cls: 'ok', msg: '✅ Séance fondatrice — L\'habitude commence ici. Chaque matin compte.' },
       exos: [
-        { e:'🔄', name:'Cercles de hanches debout', detail:'Mains sur les hanches, rotation lente et ample', sets:'2×10 / sens', badge:'' },
-        { e:'🦎', name:'Lézard (Lizard Pose)', detail:'Fente profonde, avant-bras au sol — fléchisseurs de hanche', sets:'2×45 sec / côté', badge:'' },
-        { e:'🕊️', name:'Pigeon (Pigeon Pose)', detail:'Jambe avant à 90°, incline le buste progressivement', sets:'2×60 sec / côté', badge:'' },
-        { e:'🦷', name:'Hip 90/90', detail:'Deux genoux à 90°, rotation interne + externe', sets:'2×30 sec / côté', badge:'blue' },
-        { e:'🏋️', name:'Deep Squat hold', detail:'Squat profond talons au sol (poteau si besoin)', sets:'3×30 sec', badge:'' },
-        { e:'🐱', name:'Cat-Cow', detail:'À 4 pattes, dos rond / dos creux avec la respiration', sets:'2×10 resp.', badge:'' },
+        { e:'🔄', name:'Cercles de hanches debout', detail:'Mains sur les hanches, rotation lente et ample', sets:'2×10 / sens', badge:'',
+          guide:[
+            { lbl:'Pourquoi commencer par ça', txt:'Les cercles de hanches réveillent l\'articulation coxo-fémorale et lubrifient le cartilage avec du liquide synovial. C\'est l\'échauffement articulaire avant tout étirement.' },
+            { lbl:'Technique PNF adaptée', txt:'Après les cercles libres : maintiens la hanche en fin de rotation externe (maximum) pendant 5 sec, contracte légèrement les fessiers, puis relâche et va un peu plus loin. Répète 3 fois par sens.' },
+            { lbl:'Amplitude à chercher', txt:'Le cercle doit être le plus grand possible sans que le bassin bascule. Si le bassin bouge → réduire le cercle. L\'objectif sur 6 mois : cercle complet fluide sans compensation.' }
+          ]
+        },
+        { e:'🦎', name:'Lézard (Lizard Pose)', detail:'Fente profonde, avant-bras au sol — fléchisseurs de hanche', sets:'2×45 sec / côté', badge:'',
+          guide:[
+            { lbl:'Position de base', txt:'Depuis debout, grand pas en avant, genou avant à 90° (cheville sous le genou). Genou arrière au sol. Descends les avant-bras au sol si possible, ou mains si mobilité insuffisante. Hanche de devant pousse vers le sol.' },
+            { lbl:'Méthode PNF — 3 cycles', txt:'① Étirement passif 30 sec : relâche la hanche vers le bas, respire. ② Contraction isométrique 8 sec : pousse le genou avant contre le sol (comme si tu voulais faire glisser le pied vers l\'arrière) sans bouger. ③ Relâche 2 sec puis descends plus profond 10 sec. Répète 2–3 fois par côté.' },
+            { lbl:'Ce que ça cible', txt:'Psoas, iliaque, couture fléchisseurs de hanche — exactement les muscles qui bloquent les kicks et la garde basse en Kajukenbo.' },
+            { lbl:'Erreurs fréquentes', txt:'① Genou avant passe devant la cheville → reculer le pied arrière. ② Le dos se creuse excessivement → rentrer le ventre légèrement.', lbl_cls:'warn-lbl' }
+          ]
+        },
+        { e:'🕊️', name:'Pigeon (Pigeon Pose)', detail:'Jambe avant à 90°, incline le buste progressivement', sets:'2×60 sec / côté', badge:'',
+          guide:[
+            { lbl:'Position de base', txt:'Depuis la planche, ramène le genou gauche vers la main gauche. La cheville gauche se positionne vers la main droite. Genou droit étendu derrière. Idéalement : tibia avant perpendiculaire au tapis. Les hanches restent au carré (parallèles au tapis).' },
+            { lbl:'Méthode PNF — 3 cycles', txt:'① Étirement passif 30 sec : mains au sol, hanche vers le bas. Expire lentement. ② Contraction isométrique 8 sec : appuie le genou avant contre le sol comme si tu voulais le faire glisser en avant (ne bouge pas). ③ Relâche 2 sec puis incline le buste plus loin vers l\'avant 15 sec. Répète 2–3 fois.' },
+            { lbl:'Progression vers pigeon avancé', txt:'Phase 1 : mains au sol, hanche haute. Phase 2 : avant-bras au sol, hanche plus basse. Phase 3 : front au sol ou bras étendus devant.', lbl_cls:'blue-lbl' },
+            { lbl:'Ce que ça cible', txt:'Piriforme, obturateurs, fessier profond — les rotateurs externes de hanche. Essentiels pour les kicks circulaires et le travail bas.' },
+            { lbl:'Erreurs fréquentes', txt:'① Une hanche se soulève → placer un coussin sous la fesse avant. ② Douleur dans le genou → orienter davantage le pied vers le corps.', lbl_cls:'warn-lbl' }
+          ]
+        },
+        { e:'🦷', name:'Hip 90/90', detail:'Deux genoux à 90°, rotation interne + externe', sets:'2×30 sec / côté', badge:'blue',
+          guide:[
+            { lbl:'Position de départ', txt:'Assis au sol. Jambe avant : genou plié à 90° devant toi, tibia perpendiculaire à ta ligne de hanche. Jambe arrière : genou à 90° sur le côté, tibia parallèle à ta ligne de hanche. Les deux fessiers doivent toucher le sol.' },
+            { lbl:'Phase statique (30 sec)', txt:'Reste immobile dans cette position. Ressens l\'étirement dans la hanche avant (rotation externe) et la hanche arrière (rotation interne). Expiration profonde — à chaque souffle, cherche à relâcher un peu plus.' },
+            { lbl:'+ Rotation (comment faire)', txt:'En gardant les DEUX genoux ancrés au sol : bascule lentement le buste vers la jambe avant, mains en appui devant toi. Maintiens 3 sec. Puis bascule vers la jambe arrière, mains derrière toi. Maintiens 3 sec. Répète 3–4 fois par côté. C\'est un basculement latéral des hanches — le dos ne tourne pas, les hanches basculent.' },
+            { lbl:'Erreurs fréquentes', txt:'① Un fessier se soulève → réduire l\'amplitude. ② Le dos s\'arrondit → garder la colonne neutre. ③ Les genoux bougent → les ancrer au sol avant de bouger.', lbl_cls:'warn-lbl' },
+            { lbl:'Progression Phase 1→3', txt:'Phase 1 : mains au sol, petite amplitude. Phase 2 : mains moins utilisées, amplitude plus grande. Phase 3 (Samedi) : sans les mains, passage avant/arrière fluide et contrôlé.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🏋️', name:'Deep Squat hold', detail:'Squat profond talons au sol (poteau si besoin)', sets:'3×30 sec', badge:'',
+          guide:[
+            { lbl:'Position', txt:'Pieds à largeur d\'épaules ou légèrement écartés, pointes vers l\'extérieur (30–45°). Descends le plus bas possible en gardant les talons au sol. Tiens un poteau ou une porte au début.' },
+            { lbl:'Méthode PNF pour progresser', txt:'① Descends au maximum (position basse) et tiens 15 sec. ② Contracte légèrement les fessiers et les cuisses 6 sec (comme si tu voulais pousser les genoux vers l\'extérieur) sans remonter. ③ Relâche et descends encore un peu plus 10 sec. Répète 3 cycles.' },
+            { lbl:'Ce que ça déverrouille', txt:'Chevilles, hanches, bas du dos simultanément. La garde basse du Kajukenbo et les ramassés de jambe exigent exactement cette amplitude.' },
+            { lbl:'Progression', txt:'Semaine 1–2 : mains sur poteau, talons peut-être légèrement surélevés. Semaine 4 : talons à plat, poteau pour l\'équilibre. Semaine 8 : 30 sec libre autonome. Septembre : 60 sec.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🐱', name:'Cat-Cow', detail:'À 4 pattes, dos rond / dos creux avec la respiration', sets:'2×10 resp.', badge:'',
+          guide:[
+            { lbl:'Position de base', txt:'À 4 pattes : poignets sous les épaules, genoux sous les hanches. Dos en position neutre pour commencer.' },
+            { lbl:'Cat (dos rond)', txt:'Expire : pousse le sol avec les mains, arrondis le dos vers le plafond, rentre le menton vers la poitrine, contracte le ventre. Maintiens 3 sec au maximum de la flexion. Visualise chaque vertèbre qui s\'ouvre.' },
+            { lbl:'Cow (dos creux)', txt:'Inspire : laisse le ventre descendre, soulève la tête et le coccyx vers le plafond. Ouverture douce — pas d\'hyperlordose forcée. Maintiens 3 sec. Pour le dos fragile : amplitude réduite.' },
+            { lbl:'Version PNF', txt:'En position Cat (dos rond maximum) : contracte isométriquement les abdominaux 5 sec comme si tu voulais rapprocher le sternum des genoux. Relâche puis arrondis encore plus. Idéal pour déverrouiller les vertèbres lombaires.', lbl_cls:'blue-lbl' },
+            { lbl:'Dos fragile', txt:'Ne jamais forcer en Cow. Si douleur lombaire en extension → rester à plat (position neutre) sans descendre. Cat est toujours safe.', lbl_cls:'warn-lbl' }
+          ]
+        },
         { e:'🏗️', name:'Planche', detail:'Corps aligné, appui avant-bras — gainage profond', sets:'3×30 sec', badge:'' },
         { e:'🐦', name:'Bird Dog', detail:'Extension bras+jambe opposés, maintien 3 sec', sets:'3×10 / côté', badge:'' }
       ]
@@ -465,10 +509,33 @@ const PROGRAMME = {
       icon: '🌿', type: 'cardio', title: 'Mobilité + Cardio doux', subtitle: 'Récupération active · Hanches · Chevilles', duration: '45 min',
       alert: { cls: 'info', msg: '💧 Récupération active — aucune intensité. Pas de douleur lombaire. Le corps se reconstruit aujourd\'hui.' },
       exos: [
-        { e:'🦎', name:'Lézard (Lizard Pose)', detail:'Fente profonde — fléchisseurs de hanche', sets:'2×45 sec / côté', badge:'blue' },
-        { e:'🦷', name:'Hip 90/90', detail:'Rotation interne + externe de hanche', sets:'2×30 sec / côté', badge:'blue' },
-        { e:'👟', name:'Mobilité chevilles', detail:'Cercles lents + wall stretch genou vers le mur, talon au sol', sets:'2×15 rot.', badge:'blue' },
-        { e:'🌀', name:'Thoracic Rotation', detail:'En fente basse, rotation thoracique — cage thoracique débloquée', sets:'2×10 / côté', badge:'blue' },
+        { e:'🦎', name:'Lézard (Lizard Pose)', detail:'Fente profonde — fléchisseurs de hanche', sets:'2×45 sec / côté', badge:'blue',
+          guide:[
+            { lbl:'PNF Mercredi (récup active)', txt:'Mercredi = douceur. Utilise le PNF léger : ① 30 sec étirement passif. ② Contraction très légère 5 sec (30% d\'intensité max). ③ Relâche et approfondis 10 sec. Pas de forçage — le corps est encore fatigué du mardi.' },
+            { lbl:'Ce que tu travailles', txt:'Psoas, iliaque, quadriceps antérieur. Les fléchisseurs de hanche raccourcissent avec la position assise au bureau — ce Lézard les remet en longueur.' }
+          ]
+        },
+        { e:'🦷', name:'Hip 90/90', detail:'Rotation interne + externe de hanche', sets:'2×30 sec / côté', badge:'blue',
+          guide:[
+            { lbl:'Version récupération (Mercredi)', txt:'Position identique au Lundi mais sans les rotations dynamiques. Juste l\'étirement statique avec respiration profonde. Expire complètement à chaque cycle — le diaphragme relâché libère la hanche par voie fasciale.' },
+            { lbl:'PNF doux', txt:'En fin de maintien : contracte le fessier de la jambe avant 5 sec (comme pour appuyer le genou au sol), relâche et laisse la hanche s\'ouvrir naturellement 10 sec.' }
+          ]
+        },
+        { e:'👟', name:'Mobilité chevilles', detail:'Cercles lents + wall stretch genou vers le mur, talon au sol', sets:'2×15 rot.', badge:'blue',
+          guide:[
+            { lbl:'Cercles d\'abord', txt:'Assis ou debout, pied décollé du sol. 10 rotations lentes dans le sens des aiguilles, 10 dans l\'autre sens. Chercher l\'amplitude maximale dans chaque direction. Bruits de craquement normaux au début.' },
+            { lbl:'Wall stretch — méthode PNF', txt:'Debout face au mur, pied avant à 5 cm du mur. Genou pousse vers le mur (talon au sol). ① Étire 20 sec. ② Contracte : pousse le sol avec le talon comme si tu voulais reculer le pied (isométrique 6 sec). ③ Relâche et avance le genou encore plus près du mur 10 sec. Reculer le pied de 1 cm si l\'amplitude augmente.' },
+            { lbl:'Pourquoi c\'est critique', txt:'La cheville raide limite le Deep Squat, la garde basse, et l\'absorption des impacts lors des chutes. C\'est souvent le vrai verrou qui bloque le squat profond — pas les hanches.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🌀', name:'Thoracic Rotation', detail:'En fente basse, rotation thoracique — cage thoracique débloquée', sets:'2×10 / côté', badge:'blue',
+          guide:[
+            { lbl:'Position', txt:'Fente basse : genou arrière au sol, genou avant à 90°. Main du côté avant sur le genou avant pour stabiliser. L\'autre main derrière la tête (coude pointé vers le ciel).' },
+            { lbl:'Mouvement', txt:'Ouvre le coude vers le plafond en faisant pivoter uniquement la cage thoracique. Les hanches restent fixes, face à l\'avant. Va jusqu\'au maximum sans forcer. Maintiens 2 sec, reviens lentement.' },
+            { lbl:'PNF version avancée', txt:'Au maximum de la rotation : contracte légèrement les muscles du dos (comme si tu voulais résister à la rotation) 5 sec, relâche puis tourne encore 2–3° supplémentaires. Répète sur chaque répétition.', lbl_cls:'blue-lbl' },
+            { lbl:'Impact martial', txt:'Les frappes rotatives (crochets, revers de coude, fauchages) dépendent de cette rotation thoracique. La mobilité thoracique protège aussi le bas du dos des compensations.', lbl_cls:'blue-lbl' }
+          ]
+        },
         { e:'🚶', name:'Marche rapide ou vélo', detail:'Cardio doux — 30 min à allure confortable', sets:'30 min', badge:'' }
       ]
     },
@@ -497,13 +564,55 @@ const PROGRAMME = {
       icon: '🧘', type: 'mob', title: 'Yoga martial — Souplesse longue', subtitle: 'Hanches · Pigeon · Deep squat · PNF', duration: '40 min',
       alert: { cls: 'ok', msg: '🌿 La séance la plus douce — mais la plus importante pour les hanches. Ne pas sauter. Progression imperceptible, semaine après semaine.' },
       exos: [
-        { e:'🕊️', name:'Pigeon (Pigeon Pose)', detail:'La progression se mesure sur des semaines. Jambe avant à 90°, incline le buste.', sets:'2×60 sec / côté', badge:'' },
-        { e:'🦎', name:'Lézard profond', detail:'Avant-bras au sol si possible. Fléchisseurs de hanche', sets:'2×60 sec / côté', badge:'' },
-        { e:'🦷', name:'Hip 90/90 + rotation', detail:'Rotation interne et externe — fondamental arts martiaux', sets:'2×45 sec / côté', badge:'' },
-        { e:'🏋️', name:'Deep Squat hold', detail:'Objectif : 60 sec autonome en septembre', sets:'3×30 sec', badge:'' },
-        { e:'🙌', name:'Cross-body shoulder stretch', detail:'Bras droit traversant la poitrine, épaule arrière + capsule', sets:'2×30 sec / bras', badge:'' },
-        { e:'🌙', name:'Doorway Stretch — Pectoraux', detail:'Bras à 90° contre l\'encadrement. Rotation corps vers l\'extérieur.', sets:'2×30 sec', badge:'' },
-        { e:'🐱', name:'Cat-Cow + Sphinx', detail:'Mobilité lombaire douce — dos fragile en sécurité', sets:'2×10 resp.', badge:'blue' }
+        { e:'🕊️', name:'Pigeon (Pigeon Pose)', detail:'La progression se mesure sur des semaines. Jambe avant à 90°, incline le buste.', sets:'2×60 sec / côté', badge:'',
+          guide:[
+            { lbl:'PNF Samedi — version longue', txt:'① 45 sec étirement passif. ② Contraction isométrique 10 sec : appuie le genou avant vers le sol (résistance sans mouvement). ③ Relâche 3 sec. ④ Avance les mains et descends 15 sec plus profond. Répète 3 cycles — c\'est la version complète du samedi, plus longue que le lundi.' },
+            { lbl:'Signal de progression', txt:'Chaque semaine, la profondeur gagnée après le cycle PNF doit être légèrement plus grande. Si non → normal, le tendon du piriforme met 6–8 semaines pour s\'allonger vraiment.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🦎', name:'Lézard profond', detail:'Avant-bras au sol si possible. Fléchisseurs de hanche', sets:'2×60 sec / côté', badge:'',
+          guide:[
+            { lbl:'Version profonde Samedi', txt:'Avant-bras au sol si possible (Phase 1 fin) ou mains. Lézard + rotation : depuis la position de base, ouvre le bras du même côté que la jambe avant vers le plafond — rotation thoracique intégrée. Maintiens 5 sec, reviens.' },
+            { lbl:'PNF', txt:'① 40 sec passif. ② Pousse le pied avant contre le sol (contraction isométrique psoas 8 sec). ③ Relâche et laisse la hanche tomber 15 sec. 3 cycles.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🦷', name:'Hip 90/90 + rotation', detail:'Rotation interne et externe — fondamental arts martiaux', sets:'2×45 sec / côté', badge:'',
+          guide:[
+            { lbl:'Position de départ', txt:'Assis au sol. Jambe avant : genou à 90° devant, tibia perpendiculaire à la hanche. Jambe arrière : genou à 90° sur le côté. Les deux fessiers au sol.' },
+            { lbl:'Phase statique + PNF', txt:'① 20 sec statique. ② Contracte le fessier de la jambe avant 8 sec (appuie le genou vers le sol). ③ Relâche 3 sec.' },
+            { lbl:'Rotation (le + important)', txt:'Garde les DEUX genoux ancrés. Bascule le buste vers la jambe avant : mains au sol devant, maintiens 5 sec. Bascule vers la jambe arrière : mains derrière, maintiens 5 sec. Répète 4 fois. Les hanches basculent, pas le dos.', lbl_cls:'blue-lbl' },
+            { lbl:'Objectif Samedi P1', txt:'Fessiers au sol tout le long. Passage avant/arrière fluide avec mains au sol. Phase 3 : sans les mains.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🏋️', name:'Deep Squat hold', detail:'Objectif : 60 sec autonome en septembre', sets:'3×30 sec', badge:'',
+          guide:[
+            { lbl:'PNF Deep Squat Samedi', txt:'① Descends au max, tiens 20 sec. ② Contracte fessiers + cuisses 8 sec (genoux poussent vers l\'extérieur). ③ Relâche et descends encore 10 sec. Objectif Samedi : tenir sans poteau au moins 1 cycle complet.' },
+            { lbl:'Progression', txt:'Phase 1 : poteau ou porte. Phase 2 : doigts de pied seulement. Phase 3 : mains libres 60 sec.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🙌', name:'Cross-body shoulder stretch', detail:'Bras droit traversant la poitrine, épaule arrière + capsule', sets:'2×30 sec / bras', badge:'',
+          guide:[
+            { lbl:'Position', txt:'Debout ou assis. Bras gauche tendu traverse la poitrine, coude légèrement fléchi. Le bras droit (ou la main) maintient au-dessus du coude gauche vers la poitrine. Ne pas tirer le poignet.' },
+            { lbl:'PNF épaule', txt:'① 20 sec étirement passif. ② Contracte : pousse le bras gauche vers l\'extérieur contre la résistance de la main droite (isométrique 8 sec). ③ Relâche et tire davantage vers la poitrine 10 sec. 2–3 cycles par bras.' },
+            { lbl:'Bras gauche (dominant)', txt:'Douceur absolue. Pas de traction forcée sur le tendon bicipital. Si sensation dans l\'avant du coude → arrêter immédiatement.', lbl_cls:'warn-lbl' }
+          ]
+        },
+        { e:'🌙', name:'Doorway Stretch — Pectoraux', detail:'Bras à 90° contre l\'encadrement. Rotation corps vers l\'extérieur.', sets:'2×30 sec', badge:'',
+          guide:[
+            { lbl:'Position', txt:'Dans un encadrement de porte. Bras à 90° (coude à hauteur d\'épaule, avant-bras sur le montant). Pied en avant, fais pivoter le corps vers l\'extérieur jusqu\'à sentir l\'étirement dans le pectoral et l\'avant de l\'épaule.' },
+            { lbl:'Variantes d\'angle', txt:'Bras à 90° = pectoral moyen. Bras à 60° (plus bas) = pectoral bas. Bras à 120° (plus haut) = pectoral haut + avant-épaule. Fais les 3 angles si tu as le temps.' },
+            { lbl:'PNF', txt:'① 20 sec passif. ② Contracte : pousse l\'avant-bras contre le montant vers l\'avant (isométrique 8 sec). ③ Relâche et avance le corps davantage 10 sec. 2 cycles.' },
+            { lbl:'Impact martial', txt:'Les gardes hautes et les saisies en Kajukenbo raccourcissent les pectoraux. Ce stretch maintient l\'amplitude nécessaire pour les techniques de contrôle.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🐱', name:'Cat-Cow + Sphinx', detail:'Mobilité lombaire douce — dos fragile en sécurité', sets:'2×10 resp.', badge:'blue',
+          guide:[
+            { lbl:'Cat-Cow (rappel)', txt:'À 4 pattes. Expire = dos rond (Cat). Inspire = dos creux léger (Cow). 10 cycles lents, synchronisés avec la respiration. Amplitude réduite si douleur lombaire.' },
+            { lbl:'Sphinx (extension douce)', txt:'Sur le ventre, appui sur les avant-bras (coudes sous les épaules). Soulève le buste doucement. Pubis reste au sol. Maintiens 20–30 sec. C\'est une décompression des disques — opposé du Cat.' },
+            { lbl:'PNF Sphinx', txt:'Au maximum du Sphinx : contracte les fessiers et le bas du dos 5 sec (comme pour te redresser encore plus). Relâche et laisse la gravité ouvrir un peu plus la colonne 10 sec. Très doux pour le dos fragile.', lbl_cls:'blue-lbl' },
+            { lbl:'Dos fragile', txt:'Si douleur pendant le Sphinx → revenir au Cat seulement. Le Sphinx est introduit progressivement sur 4–6 semaines.', lbl_cls:'warn-lbl' }
+          ]
+        }
       ]
     },
     0: { // Dimanche
@@ -531,9 +640,24 @@ const PROGRAMME = {
     2: { icon:'🥋', type:'multi', title:'Mobilité avancée + Kali solo', subtitle:'PNF Hanches · Sinawali · Sticks rattan', duration:'35 min',
       alert:{ cls:'info', msg:'🇵🇭 Sinawali double : angles 1-2-3 d\'abord, puis enchaînements. Lent et propre. La technique avant la vitesse.' },
       exos:[
-        { e:'🕊️', name:'Pigeon PNF', detail:'Pigeon passif 60 sec → contraction isométrique 10 sec → relâche plus profond', sets:'2×côté', badge:'blue' },
-        { e:'🦷', name:'Hip 90/90 avancé', detail:'Passage interne/externe fluide — objectif : sans les mains', sets:'3×30 sec', badge:'blue' },
-        { e:'🙌', name:'Étirement épaules PNF', detail:'Cross-body + doorway stretch avec résistance', sets:'2×30 sec', badge:'blue' },
+        { e:'🕊️', name:'Pigeon PNF', detail:'Pigeon passif 60 sec → contraction isométrique 10 sec → relâche plus profond', sets:'2×côté', badge:'blue',
+          guide:[
+            { lbl:'Protocole PNF Phase 2', txt:'① 60 sec passif — mains au sol, hanche vers le bas, expire. ② Contracte isométrique 10 sec fort (70% max) : appuie le genou avant vers le sol. ③ Relâche 3 sec. ④ Descends plus profond 15 sec — avant-bras au sol si possible. 3 cycles complets par côté.' },
+            { lbl:'Progression depuis Phase 1', txt:'Phase 1 : mains au sol. Phase 2 : avant-bras au sol (objectif). La contraction isométrique est plus forte qu\'en Phase 1 — le tissu peut supporter davantage maintenant.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🦷', name:'Hip 90/90 avancé', detail:'Passage interne/externe fluide — objectif : sans les mains', sets:'3×30 sec', badge:'blue',
+          guide:[
+            { lbl:'Phase 2 — sans les mains (objectif)', txt:'Commence avec les mains pour stabiliser. Objectif en fin de Phase 2 : passage avant/arrière fluide sans appui des mains. Les hanches basculent librement, la colonne reste neutre.' },
+            { lbl:'PNF Phase 2', txt:'En position 90/90 : contracte les deux fessiers simultanément 8 sec (comme pour comprimer le sol), relâche et laisse les hanches s\'asseoir plus bas. Le bassin doit descendre légèrement à chaque cycle.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🙌', name:'Étirement épaules PNF', detail:'Cross-body + doorway stretch avec résistance', sets:'2×30 sec', badge:'blue',
+          guide:[
+            { lbl:'Cross-body PNF Phase 2', txt:'① Bras gauche traverse la poitrine, maintenu par le droit. 20 sec passif. ② Pousse le bras gauche vers l\'extérieur contre la résistance (8 sec isométrique). ③ Relâche et tire davantage 10 sec. Attention bras gauche (dominant) : pas de douleur au tendon bicipital.' },
+            { lbl:'Doorway PNF', txt:'① Avant-bras contre le montant, rotation corps vers l\'extérieur 20 sec. ② Pousse l\'avant-bras vers l\'avant contre le mur (8 sec). ③ Avance le corps davantage 10 sec. Faire les 3 angles (60°/90°/120°).', lbl_cls:'blue-lbl' }
+          ]
+        },
         { e:'🪃', name:'Sinawali double — Angles 1-2-3', detail:'Sticks rattan, deux mains. Angles séquentiels lentement.', sets:'15 min', badge:'purple' },
         { e:'🪃', name:'Enchaînements libres', detail:'Improvisation guidée — regarder les mains, pas les sticks', sets:'5 min', badge:'purple' }
       ]
@@ -568,11 +692,30 @@ const PROGRAMME = {
     6: { icon:'🧘', type:'mob', title:'Souplesse longue + Sticks Kali', subtitle:'PNF complet · Sinawali · Angles Kali', duration:'70 min',
       alert:{ cls:'ok', msg:'🌿 Samedi Phase 2 : session longue et douce. Pas d\'intensité. Récupération + technique arme.' },
       exos:[
-        { e:'🕊️', name:'Pigeon PNF approfondi', detail:'60 sec passif → 10 sec contraction → 10 sec plus profond', sets:'3×côté', badge:'' },
-        { e:'🦎', name:'Lézard — avant-bras au sol', detail:'Progression naturelle depuis Phase 1', sets:'2×60 sec / côté', badge:'' },
-        { e:'🦷', name:'Hip 90/90 fluide', detail:'Passage interne/externe sans les mains si possible', sets:'3×30 sec', badge:'' },
-        { e:'🏋️', name:'Deep Squat 45 sec', detail:'Progression depuis 30 sec Phase 1', sets:'3×45 sec', badge:'' },
-        { e:'🪃', name:'Sinawali + Angles Kali 1–6', detail:'20 min sticks rattan : sinawali double + angles séquentiels', sets:'20 min', badge:'purple' }
+        { e:'🕊️', name:'Pigeon PNF approfondi', detail:'60 sec passif → 10 sec contraction → 10 sec plus profond', sets:'3×côté', badge:'',
+          guide:[
+            { lbl:'Samedi P2 — version maxi', txt:'① 60 sec passif profond (avant-bras au sol, hanche vers le tapis). ② Contraction forte 10 sec (70–80% max) : genou avant appuie le sol. ③ Expire complètement en relâchant. ④ Descends encore 10 sec. 3 cycles = ~4 min par côté. C\'est la version la plus intense du pigeon — réservée au samedi.' },
+            { lbl:'Où tu dois en être P2', txt:'Avant-bras au sol confortablement, hanche à 5–10 cm du sol. Si encore hanche haute → coussin. Objectif fin Phase 2 : hanche qui touche le sol.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🦎', name:'Lézard — avant-bras au sol', detail:'Progression naturelle depuis Phase 1', sets:'2×60 sec / côté', badge:'',
+          guide:[
+            { lbl:'PNF Lézard profond P2', txt:'① 45 sec avant-bras au sol. ② Contracte : pousse le pied avant dans le sol (psoas isométrique) 8 sec. ③ Relâche et laisse la hanche s\'enfoncer 15 sec. Variante : depuis le lézard, ouvre le bras avant vers le plafond (thoracic rotation intégrée) — 5 sec maintien, reviens.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🦷', name:'Hip 90/90 fluide', detail:'Passage interne/externe sans les mains si possible', sets:'3×30 sec', badge:'',
+          guide:[
+            { lbl:'Objectif Phase 2 Samedi', txt:'Passage avant→arrière sans poser les mains au sol. Si pas encore possible : bout des doigts en appui léger seulement. Le transfert de poids entre les deux positions doit être fluide et contrôlé.' },
+            { lbl:'PNF avant le passage', txt:'En 90/90 statique : contracte simultanément les deux fessiers 8 sec (ancrage du bassin). Relâche — le bassin s\'assoit plus bas. Fais 2 cycles AVANT de commencer les passages dynamiques.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'🏋️', name:'Deep Squat 45 sec', detail:'Progression depuis 30 sec Phase 1', sets:'3×45 sec', badge:'',
+          guide:[
+            { lbl:'PNF Deep Squat 45 sec', txt:'① Descends et tiens 20 sec. ② Contracte les cuisses + fessiers 8 sec (genoux vers l\'extérieur, comme pour écarter le sol). ③ Relâche — descends encore, hanches plus basses. Tenir 15 sec finaux sans appui si possible. Objectif : 45 sec libre, talons au sol.' },
+            { lbl:'Indicateur Phase 2', txt:'Si tu arrives à 45 sec sans poteau avec les talons au sol → tu es dans les temps pour les 60 sec de septembre.', lbl_cls:'blue-lbl' }
+          ]
+        },
+        { e:'�', name:'Sinawali + Angles Kali 1–6', detail:'20 min sticks rattan : sinawali double + angles séquentiels', sets:'20 min', badge:'purple' }
       ]
     },
     0: { icon:'✝️', type:'repos', title:'Repos complet', subtitle:'Messe · Famille · Récupération', duration:'Toute la journée',
@@ -591,7 +734,7 @@ const PROGRAMME = {
         { e:'💥', name:'Pompes', detail:'Gainage actif, descente 2 sec, montée explosive', sets:'3×15', badge:'' },
         { e:'🎯', name:'TRX Row', detail:'Tirage horizontal — amplitude complète', sets:'3×15', badge:'' },
         { e:'🦵', name:'Squat bulgare', detail:'Pied surélevé, descente profonde', sets:'3×12 / jambe', badge:'' },
-        { e:'🦵', name:'Mountain climbers', detail:'40 sec à vitesse élevée — cardio + core', sets:'3×40 sec', badge:'' },
+        { e:'�🦵', name:'Mountain climbers', detail:'40 sec à vitesse élevée — cardio + core', sets:'3×40 sec', badge:'' },
         { e:'🥊', name:'Shadow boxing', detail:'2 min à intensité élevée — frappes et esquives', sets:'3×2 min', badge:'' }
       ]
     },
@@ -801,8 +944,25 @@ function renderSeance(seance, isRepos) {
 
   // Exercices HTML
   let exosHtml = '';
-  for (const exo of seance.exos) {
+  for (let i = 0; i < seance.exos.length; i++) {
+    const exo = seance.exos[i];
     const badgeCls = exo.badge ? ` ${exo.badge}` : '';
+
+    // Guide accordéon si disponible
+    let guideHtml = '';
+    if (exo.guide && exo.guide.length) {
+      const guideId = `guide-${i}`;
+      let blocksHtml = exo.guide.map(g => {
+        const lblCls = g.lbl_cls ? ` ${g.lbl_cls}` : '';
+        return `<div class="guide-block"><span class="guide-label${lblCls}">${g.lbl}</span>${g.txt}</div>`;
+      }).join('');
+      guideHtml = `
+        <button class="exo-guide-toggle" data-target="${guideId}" onclick="toggleGuide(this,'${guideId}')">
+          <span class="arrow">▶</span> Comment faire
+        </button>
+        <div class="exo-guide-body" id="${guideId}">${blocksHtml}</div>`;
+    }
+
     exosHtml += `
       <div class="exo-item">
         <div class="exo-emoji">${exo.e}</div>
@@ -811,6 +971,7 @@ function renderSeance(seance, isRepos) {
           <div class="exo-detail">${exo.detail}</div>
         </div>
         <div class="exo-sets-badge${badgeCls}">${exo.sets}</div>
+        ${guideHtml}
       </div>`;
   }
 
@@ -855,6 +1016,14 @@ function renderSeance(seance, isRepos) {
       if (widget) widget.outerHTML = renderStreakWidget(newData);
     });
   }
+}
+
+// ── ACCORDION GUIDE TOGGLE ──
+function toggleGuide(btn, id) {
+  const body = document.getElementById(id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
 }
 
 // ── RENDER NEXT PREVIEW ──
